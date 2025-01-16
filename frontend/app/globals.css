@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #eeedd7;
+  --foreground: #53534b;
+  --primary-light: #F0FEFE;
+  --primary-light-hover: #E8FDFE;
+  --primary-light-active: #D0FCFD;
+  --primary-normal: #67f4f9;
+  --primary-normal-hover: #5ddce0;
+  --primary-normal-active: #52c3c7;
+  --primary-dark: #4DB7BB;
+  --primary-dark-hover: #3E9295;
+  --primary-dark-active: #2E6E70;
+  --primary-darker: #245557; 
+  --secondary-light: #FFE8F8;
+  --secondary-light-hover: #FEDDF4;
+  --secondary-light-active: #FDB8E9;
+  --secondary-normal: #FA19B7;
+  --secondary-normal-hover: #E117A5;
+  --secondary-normal-active: #C81492;
+  --secondary-dark:#BC1389;
+  --secondary-dark-hover: #960F6E;
+  --secondary-dark-active: #700B52;
+  --secondary-darker: #580940;
+  --tertiary-light: #FEFCEC;
+  --tertiary-light-hover: #FEFBE3;
+  --tertiary-light-active: #FDF6C5;
+  --tertiary-normal: #F7E245;
+  --tertiary-normal-hover: #DECB3E;
+  --tertiary-normal-active: #C6B537;
+  --tertiary-dark: #B9AA34;
+  --tertiary-dark-hover: #948829;
+  --tertiary-dark-active: #6F661F;
+  --tertiary-darker: #564F18;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #53534b;
+    --foreground: #fdfdfb;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: "Josefin Sans", Arial, Helvetica, sans-serif;
+}
