@@ -46,11 +46,31 @@
   --tertiary-dark-active: #6F661F;
   --tertiary-darker: #564F18;
 }
+.hamburgerIcons {
+  fill: var(--neutral-darker);
+}
+
+path#hamburgerLineOne, path#hamburgerLineTwo, path#hamburgerLineThree{
+  @apply transition-all ease-in-out duration-300;
+}
+.clicked path#hamburgerLineOne {
+  @apply rotate-45 translate-x-[8px];
+}
+.clicked path#hamburgerLineThree {
+  @apply opacity-0;
+}
+.clicked path#hamburgerLineTwo {
+  @apply -rotate-45 -translate-x-[9px] translate-y-[9px];
+}
+
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #53534b;
     --foreground: #fdfdfb;
+  }
+  .hamburgerIcons {
+    fill: var(--neutral-light);
   }
 }
 
@@ -66,5 +86,5 @@ body {
   @apply bg-primary-300 hover:bg-primary-400 border-black after:border-black after:bg-secondary-300 after:hover:bg-secondary-400;
 }
 .buttonWrapperSecondary {
-  @apply bg-neutral-300 hover:bg-neutral-400 border-black after:border-black after:bg-neutral-600 after:hover:bg-neutral-700;
+  @apply bg-neutral-50 hover:bg-neutral-300 border-black after:border-black after:bg-neutral-600 after:hover:bg-neutral-700;
 }
