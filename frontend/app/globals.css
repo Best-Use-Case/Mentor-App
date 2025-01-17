@@ -5,6 +5,16 @@
 :root {
   --background: #eeedd7;
   --foreground: #53534b;
+  --neutral-light: #FDFDFB;
+  --neutral-light-hover: #FCFCF9;
+  --neutral-light-active: #FAF9F3;
+  --neutral-normal: #EEEDD7;
+  --neutral-normal-hover: #D6D5C2;
+  --neutral-normal-active: #BEBEAC;
+  --neutral-dark: #B3B2A1;
+  --neutral-dark-hover: #8F8E81;
+  --neutral-dark-active: #6B6B61;
+  --neutral-darker: #53534B;
   --primary-light: #F0FEFE;
   --primary-light-hover: #E8FDFE;
   --primary-light-active: #D0FCFD;
@@ -48,4 +58,13 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: "Josefin Sans", Arial, Helvetica, sans-serif;
+}
+.buttonWrapper {
+  @apply flex relative rounded-lg border-solid  border-2 after:content-[''] after:absolute after:left-2 after:top-2 after:w-full after:h-full after:block after:rounded-lg after:border-solid after:border-2 after:-z-10;
+}
+.buttonWrapperDefault {
+  @apply bg-primary-300 hover:bg-primary-400 border-black after:border-black after:bg-secondary-300 after:hover:bg-secondary-400;
+}
+.buttonWrapperSecondary {
+  @apply bg-neutral-300 hover:bg-neutral-400 border-black after:border-black after:bg-neutral-600 after:hover:bg-neutral-700;
 }
