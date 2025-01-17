@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #eeedd7;
+  --foreground: #53534b;
+  --neutral-light: #FDFDFB;
+  --neutral-light-hover: #FCFCF9;
+  --neutral-light-active: #FAF9F3;
+  --neutral-normal: #EEEDD7;
+  --neutral-normal-hover: #D6D5C2;
+  --neutral-normal-active: #BEBEAC;
+  --neutral-dark: #B3B2A1;
+  --neutral-dark-hover: #8F8E81;
+  --neutral-dark-active: #6B6B61;
+  --neutral-darker: #53534B;
+  --primary-light: #F0FEFE;
+  --primary-light-hover: #E8FDFE;
+  --primary-light-active: #D0FCFD;
+  --primary-normal: #67f4f9;
+  --primary-normal-hover: #5ddce0;
+  --primary-normal-active: #52c3c7;
+  --primary-dark: #4DB7BB;
+  --primary-dark-hover: #3E9295;
+  --primary-dark-active: #2E6E70;
+  --primary-darker: #245557; 
+  --secondary-light: #FFE8F8;
+  --secondary-light-hover: #FEDDF4;
+  --secondary-light-active: #FDB8E9;
+  --secondary-normal: #FA19B7;
+  --secondary-normal-hover: #E117A5;
+  --secondary-normal-active: #C81492;
+  --secondary-dark:#BC1389;
+  --secondary-dark-hover: #960F6E;
+  --secondary-dark-active: #700B52;
+  --secondary-darker: #580940;
+  --tertiary-light: #FEFCEC;
+  --tertiary-light-hover: #FEFBE3;
+  --tertiary-light-active: #FDF6C5;
+  --tertiary-normal: #F7E245;
+  --tertiary-normal-hover: #DECB3E;
+  --tertiary-normal-active: #C6B537;
+  --tertiary-dark: #B9AA34;
+  --tertiary-dark-hover: #948829;
+  --tertiary-dark-active: #6F661F;
+  --tertiary-darker: #564F18;
+}
+.hamburgerIcons {
+  fill: var(--neutral-darker);
+}
+
+path#hamburgerLineOne, path#hamburgerLineTwo, path#hamburgerLineThree{
+  @apply transition-all ease-in-out duration-300;
+}
+.clicked path#hamburgerLineOne {
+  @apply rotate-45 translate-x-[8px];
+}
+.clicked path#hamburgerLineThree {
+  @apply opacity-0;
+}
+.clicked path#hamburgerLineTwo {
+  @apply -rotate-45 -translate-x-[9px] translate-y-[9px];
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #53534b;
+    --foreground: #fdfdfb;
+  }
+  .hamburgerIcons {
+    fill: var(--neutral-light);
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: "Josefin Sans", Arial, Helvetica, sans-serif;
+}
+.buttonWrapper {
+  @apply flex relative rounded-lg border-solid  border-2 after:content-[''] after:absolute after:left-2 after:top-2 after:w-full after:h-full after:block after:rounded-lg after:border-solid after:border-2 after:-z-10;
+}
+.buttonWrapperDefault {
+  @apply bg-primary-300 hover:bg-primary-400 border-black after:border-black after:bg-secondary-300 after:hover:bg-secondary-400;
+}
+.buttonWrapperSecondary {
+  @apply bg-neutral-50 hover:bg-neutral-300 border-black after:border-black after:bg-neutral-600 after:hover:bg-neutral-700;
+}
