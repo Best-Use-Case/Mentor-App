@@ -35,6 +35,18 @@ export default {
           800: 'var(--secondary-dark-active)',
           900: 'var(--secondary-darker)',
         },
+        'tertiary': {
+          50: 'var(--tertiary-light)',
+          100: 'var(--tertiary-light-hover)',
+          200: 'var(--tertiary-light-active)',
+          300: 'var(--tertiary-normal) ',
+          400: 'var(--tertiary-normal-hover)',
+          500: 'var( --tertiary-normal-active)',
+          600: 'var(--tertiary-dark)',
+          700: 'var(--tertiary-dark-hover)',
+          800: 'var(--tertiary-dark-active)',
+          900: 'var(--tertiary-darker)',  
+        },
         'neutral': {
           50: 'var(--neutral-light)',
           100: 'var(--neutral-light-hover)',
