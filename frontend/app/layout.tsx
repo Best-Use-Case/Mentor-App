@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Josefin_Sans } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/app/ui/header";
+
 
 const josefinSans = Josefin_Sans({
   variable: "--font-geist-sans",
@@ -22,6 +24,7 @@ export default function RootLayout({
       <body
         className={`${josefinSans.variable} antialiased`}
       >
+        <Header />
         {children}
       </body>
     </html>
