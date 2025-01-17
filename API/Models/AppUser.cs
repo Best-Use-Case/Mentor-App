@@ -14,7 +14,7 @@ public class AppUser
     public required string Gender { get; set; }
     public string FullName
     {
-        get => FirstName + " " + LastName +" "+ UserName;
+        get => FirstName + " " + LastName + " "+ UserName;
     }
 
 
