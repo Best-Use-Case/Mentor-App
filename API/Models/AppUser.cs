@@ -6,12 +6,19 @@ public class AppUser
 {
     [Key]
     public int UserId { get; set; }
-    public required string UserName { get; set; }
-    public required byte[] PasswordHash { get; set; }
-    public required byte[] PasswordSalt { get; set; }
-    public string? FirstName { get; set; }
-    public string? LastName { get; set; }
-    public string? Gender { get; set; }
+    public string UserName { get; set; } = string.Empty; // Email
+    public byte[] PasswordHash { get; set; } = [];
+    public byte[] PasswordSalt { get; set; } = [];
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public string Gender { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public string PhotoUrl { get; set; } = string.Empty;
+    public List<UserRole> Roles { get; set; } = [];
+    public List<UserInterest> UserInterests { get; set; } = [];
+    public List<Education> Educations { get; set; } = [];
+    public List<Answer> Answers { get; set; } = [];
+
     public string FullName
     {
         get => FirstName + " " + LastName + " " + UserName;
