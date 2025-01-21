@@ -7,10 +7,11 @@ public class WorkExperience
 {
   [Key]
   public int WorkExpId { get; set; }
-  public required string CompanyName { get; set; }
-  public required string Jobtitle { get; set; }
-  public required Industry Indudtry { get; set; }
+  public string CompanyName { get; set; } = string.Empty;
+  public string Jobtitle { get; set; } = string.Empty;
+  public int IndustryId { get; set; }
+  public Industry Indudtry { get; set; } = null!;
   public int UserId { get; set; }
-  public Mentor Mentor { get; set; } = null!;
+  public AppUser AppUser { get; set; } = null!;
 
 }

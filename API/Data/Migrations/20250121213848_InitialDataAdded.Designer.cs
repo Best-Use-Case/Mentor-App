@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250118235019_InitialDataSeeding")]
-    partial class InitialDataSeeding
+    [Migration("20250121213848_InitialDataAdded")]
+    partial class InitialDataAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,9 +30,6 @@ namespace API.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("AppUserUserId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("QuestionId")
                         .HasColumnType("INTEGER");
 
@@ -41,11 +38,41 @@ namespace API.Data.Migrations
 
                     b.HasKey("AnswerId");
 
-                    b.HasIndex("AppUserUserId");
-
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Answer");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Answers");
+
+                    b.HasData(
+                        new
+                        {
+                            AnswerId = 1,
+                            AnswerText = "Gode kollega",
+                            QuestionId = 1,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            AnswerId = 2,
+                            AnswerText = "matematikk :) ",
+                            QuestionId = 3,
+                            UserId = 3
+                        },
+                        new
+                        {
+                            AnswerId = 3,
+                            AnswerText = "for lite ferie :) ",
+                            QuestionId = 2,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            AnswerId = 4,
+                            AnswerText = "for mye teori :) ",
+                            QuestionId = 4,
+                            UserId = 5
+                        });
                 });
 
             modelBuilder.Entity("API.Models.AppRole", b =>
@@ -90,11 +117,6 @@ namespace API.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -127,70 +149,66 @@ namespace API.Data.Migrations
 
                     b.ToTable("Users");
 
-                    b.HasDiscriminator().HasValue("AppUser");
-
-                    b.UseTphMappingStrategy();
-
                     b.HasData(
                         new
                         {
                             UserId = 1,
-                            Description = "",
-                            FirstName = "",
-                            Gender = "",
-                            LastName = "",
-                            PasswordHash = new byte[0],
+                            Description = "I'm admin",
+                            FirstName = "Admin",
+                            Gender = "Female",
+                            LastName = "Admin",
+                            PasswordHash = new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 74, 53, 86, 72, 48, 101, 87, 82, 104, 80, 77, 99, 66, 121, 103, 114, 74, 50, 75, 73, 113, 100, 43, 53, 55, 48, 110, 85, 84, 85, 72, 77, 86, 53, 118, 53, 66, 114, 56, 86, 82, 85, 100, 107, 110, 102, 97, 117, 109, 104, 66, 97, 70, 83, 109, 105, 49, 48, 102, 88, 69, 108, 115, 79, 81, 61, 61 },
                             PasswordSalt = new byte[0],
                             PhotoUrl = "",
-                            UserName = "test1@gmail.com"
+                            UserName = "Admin@gmail.com"
                         },
                         new
                         {
                             UserId = 2,
-                            Description = "",
-                            FirstName = "",
-                            Gender = "",
-                            LastName = "",
-                            PasswordHash = new byte[0],
+                            Description = "mentor description...",
+                            FirstName = "Mentor1",
+                            Gender = "Male",
+                            LastName = "ment1",
+                            PasswordHash = new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 76, 57, 72, 52, 67, 53, 104, 70, 85, 110, 69, 111, 113, 43, 101, 107, 65, 50, 72, 49, 113, 116, 70, 82, 118, 85, 52, 107, 53, 99, 56, 70, 89, 114, 120, 89, 52, 57, 104, 111, 50, 79, 115, 116, 99, 86, 100, 105, 107, 67, 99, 74, 52, 121, 83, 52, 70, 76, 86, 89, 109, 74, 86, 86, 65, 61, 61 },
                             PasswordSalt = new byte[0],
-                            PhotoUrl = "",
-                            UserName = "test2@gmail.com"
+                            PhotoUrl = "https://picsum.photos/200",
+                            UserName = "mentor1@gmail.com"
                         },
                         new
                         {
                             UserId = 3,
-                            Description = "",
-                            FirstName = "",
-                            Gender = "",
-                            LastName = "",
-                            PasswordHash = new byte[0],
+                            Description = "stud description,",
+                            FirstName = "Student1",
+                            Gender = "Male",
+                            LastName = "stud1VGS",
+                            PasswordHash = new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 73, 110, 116, 52, 110, 70, 68, 107, 65, 120, 57, 57, 117, 97, 84, 73, 100, 87, 52, 50, 54, 81, 100, 98, 115, 99, 118, 85, 88, 118, 65, 89, 66, 97, 74, 103, 54, 118, 122, 87, 88, 90, 84, 109, 57, 78, 75, 111, 51, 99, 119, 114, 97, 113, 81, 65, 114, 110, 67, 118, 122, 48, 100, 120, 65, 61, 61 },
                             PasswordSalt = new byte[0],
-                            PhotoUrl = "",
-                            UserName = "test3@gmail.com"
+                            PhotoUrl = "https://picsum.photos/200",
+                            UserName = "student1@gmail.com"
                         },
                         new
                         {
                             UserId = 4,
-                            Description = "",
-                            FirstName = "",
-                            Gender = "",
-                            LastName = "",
-                            PasswordHash = new byte[0],
+                            Description = "mentor description...",
+                            FirstName = "Mentor2",
+                            Gender = "Female",
+                            LastName = "ment2",
+                            PasswordHash = new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 71, 86, 57, 118, 116, 43, 88, 77, 83, 120, 97, 109, 83, 104, 52, 117, 66, 82, 56, 97, 99, 49, 103, 122, 52, 78, 90, 47, 49, 121, 68, 116, 113, 108, 89, 103, 120, 103, 83, 79, 76, 74, 73, 84, 76, 77, 49, 51, 72, 89, 101, 98, 68, 119, 52, 117, 74, 112, 106, 83, 98, 104, 111, 102, 81, 61, 61 },
                             PasswordSalt = new byte[0],
-                            PhotoUrl = "",
-                            UserName = "test4@gmail.com"
+                            PhotoUrl = "https://picsum.photos/200",
+                            UserName = "mentor2@gmail.com"
                         },
                         new
                         {
                             UserId = 5,
-                            Description = "",
-                            FirstName = "",
-                            Gender = "",
-                            LastName = "",
-                            PasswordHash = new byte[0],
+                            Description = "stud description",
+                            FirstName = "Student2",
+                            Gender = "Male",
+                            LastName = "studVGS2",
+                            PasswordHash = new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 67, 114, 114, 88, 89, 102, 117, 53, 114, 90, 53, 73, 119, 121, 100, 51, 54, 120, 71, 87, 69, 113, 76, 112, 69, 113, 110, 66, 116, 77, 90, 90, 102, 66, 121, 84, 53, 74, 99, 43, 101, 66, 48, 98, 55, 87, 56, 85, 97, 118, 122, 97, 87, 70, 112, 112, 73, 122, 57, 116, 108, 69, 119, 101, 65, 61, 61 },
                             PasswordSalt = new byte[0],
-                            PhotoUrl = "",
-                            UserName = "test5@gmail.com"
+                            PhotoUrl = "https://picsum.photos/200",
+                            UserName = "student2@gmail.com"
                         });
                 });
 
@@ -206,7 +224,29 @@ namespace API.Data.Migrations
 
                     b.HasKey("DegreeId");
 
-                    b.ToTable("Degree");
+                    b.ToTable("Degrees");
+
+                    b.HasData(
+                        new
+                        {
+                            DegreeId = 1,
+                            DegreeName = "VGS"
+                        },
+                        new
+                        {
+                            DegreeId = 2,
+                            DegreeName = "Bachelor degree"
+                        },
+                        new
+                        {
+                            DegreeId = 3,
+                            DegreeName = "Masters degree"
+                        },
+                        new
+                        {
+                            DegreeId = 4,
+                            DegreeName = "Phd"
+                        });
                 });
 
             modelBuilder.Entity("API.Models.Education", b =>
@@ -221,9 +261,6 @@ namespace API.Data.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("MentorUserId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("SchoolName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -231,22 +268,52 @@ namespace API.Data.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("StudentId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("StudyCity")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("EducationId");
 
                     b.HasIndex("DegreeId");
 
-                    b.HasIndex("MentorUserId");
-
-                    b.HasIndex("StudentId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Educations");
+
+                    b.HasData(
+                        new
+                        {
+                            EducationId = 1,
+                            DegreeId = 1,
+                            EndDate = new DateTime(2025, 1, 21, 22, 38, 47, 495, DateTimeKind.Local).AddTicks(8045),
+                            SchoolName = "school-name",
+                            StartDate = new DateTime(2025, 1, 21, 22, 38, 47, 492, DateTimeKind.Local).AddTicks(445),
+                            StudyCity = "Oslo",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            EducationId = 2,
+                            DegreeId = 2,
+                            EndDate = new DateTime(2025, 1, 21, 22, 38, 47, 495, DateTimeKind.Local).AddTicks(9747),
+                            SchoolName = "school-name",
+                            StartDate = new DateTime(2025, 1, 21, 22, 38, 47, 495, DateTimeKind.Local).AddTicks(9729),
+                            StudyCity = "Bergen",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            EducationId = 3,
+                            DegreeId = 3,
+                            EndDate = new DateTime(2025, 1, 21, 22, 38, 47, 495, DateTimeKind.Local).AddTicks(9756),
+                            SchoolName = "school-name",
+                            StartDate = new DateTime(2025, 1, 21, 22, 38, 47, 495, DateTimeKind.Local).AddTicks(9754),
+                            StudyCity = "Stavanger",
+                            UserId = 4
+                        });
                 });
 
             modelBuilder.Entity("API.Models.FieldOfInterest", b =>
@@ -303,7 +370,59 @@ namespace API.Data.Migrations
 
                     b.HasKey("IndustryId");
 
-                    b.ToTable("Industry");
+                    b.ToTable("Industries");
+
+                    b.HasData(
+                        new
+                        {
+                            IndustryId = 1,
+                            IndustryName = "Barn, skole og undervisning"
+                        },
+                        new
+                        {
+                            IndustryId = 2,
+                            IndustryName = "Bygg og anlegg"
+                        },
+                        new
+                        {
+                            IndustryId = 4,
+                            IndustryName = "Helse og omsorg"
+                        },
+                        new
+                        {
+                            IndustryId = 5,
+                            IndustryName = "Industri og produksjon"
+                        },
+                        new
+                        {
+                            IndustryId = 6,
+                            IndustryName = "Konsulent og rådgiving"
+                        },
+                        new
+                        {
+                            IndustryId = 7,
+                            IndustryName = "IT"
+                        },
+                        new
+                        {
+                            IndustryId = 8,
+                            IndustryName = "Kraft og energi"
+                        },
+                        new
+                        {
+                            IndustryId = 9,
+                            IndustryName = "Maritim og offshoe"
+                        },
+                        new
+                        {
+                            IndustryId = 10,
+                            IndustryName = "Offentelig administrasjon"
+                        },
+                        new
+                        {
+                            IndustryId = 11,
+                            IndustryName = "Transport og logistikk"
+                        });
                 });
 
             modelBuilder.Entity("API.Models.Interest", b =>
@@ -370,7 +489,29 @@ namespace API.Data.Migrations
 
                     b.HasKey("QuestionId");
 
-                    b.ToTable("Question");
+                    b.ToTable("Questions");
+
+                    b.HasData(
+                        new
+                        {
+                            QuestionId = 1,
+                            QuestionText = "Hva er den beste med jobben din?"
+                        },
+                        new
+                        {
+                            QuestionId = 2,
+                            QuestionText = "Hva er den verste med jobben din, og Hvorfor?"
+                        },
+                        new
+                        {
+                            QuestionId = 3,
+                            QuestionText = "Hvilket fag er du mest glad i?"
+                        },
+                        new
+                        {
+                            QuestionId = 4,
+                            QuestionText = "Hvilket fag er du mest IKKE glad i, og Hvorfor?"
+                        });
                 });
 
             modelBuilder.Entity("API.Models.UserInterest", b =>
@@ -462,53 +603,54 @@ namespace API.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("IndudtryIndustryId")
+                    b.Property<int>("IndustryId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Jobtitle")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("MentorUserId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("WorkExpId");
 
-                    b.HasIndex("IndudtryIndustryId");
+                    b.HasIndex("IndustryId");
 
-                    b.HasIndex("MentorUserId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("WorkExperience");
-                });
+                    b.ToTable("WorkExperiences");
 
-            modelBuilder.Entity("API.Models.Mentor", b =>
-                {
-                    b.HasBaseType("API.Models.AppUser");
-
-                    b.HasDiscriminator().HasValue("Mentor");
-                });
-
-            modelBuilder.Entity("API.Models.Student", b =>
-                {
-                    b.HasBaseType("API.Models.AppUser");
-
-                    b.HasDiscriminator().HasValue("Student");
+                    b.HasData(
+                        new
+                        {
+                            WorkExpId = 1,
+                            CompanyName = "Avonova Norge",
+                            IndustryId = 1,
+                            Jobtitle = "job-title",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            WorkExpId = 2,
+                            CompanyName = "Innovation Norge",
+                            IndustryId = 2,
+                            Jobtitle = "job-title",
+                            UserId = 5
+                        });
                 });
 
             modelBuilder.Entity("API.Models.Answer", b =>
                 {
-                    b.HasOne("API.Models.AppUser", "AppUser")
-                        .WithMany("Answers")
-                        .HasForeignKey("AppUserUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("API.Models.Question", "Question")
                         .WithMany()
                         .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Models.AppUser", "AppUser")
+                        .WithMany("Answers")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -525,19 +667,15 @@ namespace API.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("API.Models.Mentor", null)
+                    b.HasOne("API.Models.AppUser", "AppUser")
                         .WithMany("Educations")
-                        .HasForeignKey("MentorUserId");
-
-                    b.HasOne("API.Models.Student", "Student")
-                        .WithMany("Educations")
-                        .HasForeignKey("StudentId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Degree");
+                    b.Navigation("AppUser");
 
-                    b.Navigation("Student");
+                    b.Navigation("Degree");
                 });
 
             modelBuilder.Entity("API.Models.Interest", b =>
@@ -593,19 +731,19 @@ namespace API.Data.Migrations
                 {
                     b.HasOne("API.Models.Industry", "Indudtry")
                         .WithMany()
-                        .HasForeignKey("IndudtryIndustryId")
+                        .HasForeignKey("IndustryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("API.Models.Mentor", "Mentor")
+                    b.HasOne("API.Models.AppUser", "AppUser")
                         .WithMany("WorkExperiences")
-                        .HasForeignKey("MentorUserId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("AppUser");
 
                     b.Navigation("Indudtry");
-
-                    b.Navigation("Mentor");
                 });
 
             modelBuilder.Entity("API.Models.AppRole", b =>
@@ -617,9 +755,13 @@ namespace API.Data.Migrations
                 {
                     b.Navigation("Answers");
 
+                    b.Navigation("Educations");
+
                     b.Navigation("Roles");
 
                     b.Navigation("UserInterests");
+
+                    b.Navigation("WorkExperiences");
                 });
 
             modelBuilder.Entity("API.Models.FieldOfInterest", b =>
@@ -630,18 +772,6 @@ namespace API.Data.Migrations
             modelBuilder.Entity("API.Models.Interest", b =>
                 {
                     b.Navigation("UserInterests");
-                });
-
-            modelBuilder.Entity("API.Models.Mentor", b =>
-                {
-                    b.Navigation("Educations");
-
-                    b.Navigation("WorkExperiences");
-                });
-
-            modelBuilder.Entity("API.Models.Student", b =>
-                {
-                    b.Navigation("Educations");
                 });
 #pragma warning restore 612, 618
         }
