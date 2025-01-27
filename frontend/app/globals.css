@@ -111,6 +111,9 @@
   --tertiary-dark-active: #6F661F;
   --tertiary-darker: #564F18;
 }
+h1 {
+  @apply text-7xl self-center text-center m-6;
+}
 .hamburgerIcons {
   fill: var(--neutral-darker);
 }
@@ -143,6 +146,9 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: "Josefin Sans", Arial, Helvetica, sans-serif;
+}
+.buttonClass {
+  @apply text-black p-6 pt-3.5 pb-3.5
 }
 .buttonWrapper {
   @apply flex relative rounded-lg border-solid  border-2 after:content-[''] after:absolute after:left-2 after:top-2 after:w-full after:h-full after:block after:rounded-lg after:border-solid after:border-2 after:-z-10;

@@ -10,7 +10,7 @@ export default function Home() {
         
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <ButtonLink type="primary" text="Click me" target="/" />
+          <ButtonLink type="primary" text="Click me" target="/loggedin" />
           <ButtonLink type="secondary" text="Secondary button" target="/" />
         </div>
       </main>
