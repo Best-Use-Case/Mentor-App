@@ -3,6 +3,13 @@ import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 export const options: NextAuthOptions = {
+    // pages: {
+    //     signIn: "/auth/signin",
+    //     signOut: "/auth/signout",
+    //     error: "/auth/error",
+    //     verifyRequest: "/auth/verify-request",
+    //     newUser: "/auth/new-user",
+    // },
     providers: [
         GitHubProvider({
             clientId: process.env.GITHUB_ID as string,
@@ -27,9 +34,16 @@ export const options: NextAuthOptions = {
                 // This is where you need to retrieve user data
                 // to verify with credentials
                 // Docs: https://next-auth.js.org/configuration/providers/credentials
-                const user = { id: "42", email: "henrik.falla@gmail.com", password: "nextauth" } // !!!this is only for testing until api is available from backend.
+                const user = await fetch("http://localhost:8000/users", { // need to check the free codecamp video for method to use here!
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
 
-                if (credentials?.username === user.email && credentials?.password === user.password) {
+                
+
+                if (credentials?.username === user?.email && credentials?.password === user?.password) {
                     return user
                 } else {
                     return null

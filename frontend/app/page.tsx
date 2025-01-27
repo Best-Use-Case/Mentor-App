@@ -10,8 +10,8 @@ export default function Home() {
         
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <ButtonLink type="primary" text="Click me" target="/loggedin" />
-          <ButtonLink type="secondary" text="Secondary button" target="/" />
+          <ButtonLink type="primary" text="Sign in" target="/loggedin" />
+          <ButtonLink type="secondary" text="Register user" target="/register" />
         </div>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
