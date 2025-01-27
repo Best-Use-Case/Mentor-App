@@ -39,18 +39,36 @@ I order to deploy first make sure any dependencies are installed with the comman
 
 ```bash
 npm install
+# or
+yarn
+# or
+pnpm
+# or
+bun install
 ```
 
 then build using the command:
 
 ```bash
 npm run build
+# or
+yarn build
+# or
+pnpm build
+# or
+bun build
 ```
 
 Once the application is built you can run the optimised application with the command:
 
 ```bash
 npm run deploy
+# or
+yarn deploy
+# or
+pnpm deploy
+# or
+bun deploy
 ```
 
 ## Learn More
