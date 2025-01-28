@@ -10,7 +10,7 @@ export function Header() {
 		<div className='relative flex grow row-auto items-center justify-between p-6'>
 			<div className='flex justify-center items-center mr-auto z-20'>
 				<button
-					className={`menu-btn ${clicked ? "clicked" : ""}`}
+					className={`menu-btn cursor-pointer ${clicked ? "clicked" : ""}`}
 					onClick={() => setClicked(!clicked)}
 				>
 					<MenuHamburger1 />
