@@ -27,13 +27,22 @@ export default function Form() {
 
 	};
 	return (
-		<form
-			onSubmit={handleSubmit}
-			className='flex flex-col gap-4 [&>input]:bg-white [&>input]:text-black w-md p-4 mx-auto'
-		>
-			<input name='email' type='email'></input>
-			<input name='password' type='password'></input>
-			<button type='submit'>Register</button>
-		</form>
+		<>
+			<h1>Create new account</h1>
+			<form
+				onSubmit={handleSubmit}
+				className='flex flex-col gap-2 [&>input]:bg-white [&>input]:text-black [&>input]:rounded [&>input]:p-2 w-md p-4 mx-auto'
+			>
+				<label>Email</label>
+				<input name='email' type='email' className="borderDefault mb-4" />
+				<label>Password</label>
+				<input name='password' type='password' className="borderDefault mb-0" />
+				<label>Confirm Password</label>
+				<input name='confirmPassword' type='password' className="borderDefault mb-4" />
+				<div className="buttonWrapper buttonWrapperDefault mt-4 self-center">
+					<button type='submit' className="buttonClass">Register</button>
+				</div>
+			</form>
+		</>
 	);
 }
