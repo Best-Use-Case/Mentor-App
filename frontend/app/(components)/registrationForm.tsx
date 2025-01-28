@@ -2,6 +2,7 @@
 // For further updating reference this: https://github.com/ClarityCoders/NextAuthTutorial-Video/blob/master/app/(components)/UserForm.jsx
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
+import { POST } from "@/app/api/auth/register/route"
 
 
 export default function Form() {
@@ -12,17 +13,18 @@ export default function Form() {
 		const formData = new FormData(e.currentTarget);
 		const response = await fetch(`/api/auth/register`, {
 			method: "POST",
-			body: JSON.stringify({ formData }),
+			body: JSON.stringify( formData ),
 		});
 		if (!response.ok) {
 			const errorRes = await response.json();
-			throw new Error(errorRes.message);
+			throw new Error( errorRes.message );
 		} else {
+			console.log(`Response: ${ response.statusText } `);
 			router.refresh();
 			router.push("/");
-			console.log("Registration success");
+			console.log("Registration success 123");
 		}
-		console.log({ response });
+
 	};
 	return (
 		<form
