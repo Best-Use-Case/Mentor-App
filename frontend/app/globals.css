@@ -154,7 +154,7 @@ body {
   @apply text-black p-6 pt-3.5 pb-3.5
 }
 .buttonWrapper {
-  @apply cursor-pointer flex relative rounded-lg border-solid  border-2 after:content-[''] after:absolute after:left-2 after:top-2 after:w-full after:h-full after:block after:rounded-lg after:border-solid after:border-2 after:-z-10;
+  @apply cursor-pointer self-center flex relative rounded-lg border-solid  border-2 after:content-[''] after:absolute after:left-2 after:top-2 after:w-full after:h-full after:block after:rounded-lg after:border-solid after:border-2 after:-z-10;
 }
 .buttonWrapperDefault {
   @apply bg-primary-300 hover:bg-primary-400 border-black after:border-black after:bg-secondary-300 hover:after:bg-secondary-400;

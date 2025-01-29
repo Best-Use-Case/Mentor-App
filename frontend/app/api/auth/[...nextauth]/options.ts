@@ -1,6 +1,9 @@
 import type { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { POST } from "@/app/api/auth/register/route";
+import bcrypt from "bcrypt";
+
 
 export const options: NextAuthOptions = {
 	// pages: {
@@ -30,13 +33,46 @@ export const options: NextAuthOptions = {
 					placeholder: "Your password",
 				},
 			},
-			async authorize(credentials) {
+			async authorize(credentials, req) {
 				try {
+					const url = "http://localhost:8000/users";
+					const response = await fetch(url, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+					}});
+					if (!response.ok) {
+						throw new Error(`Failed to get user: ${response.status}`);
+					}
+					const data = await response.json();
+					
+					let users = data;
+					const user = {
+						id: "",
+						email: "",
+						role: {
+							student: false,
+							mentor: false,
+							admin: false,
+						},
+					};
+					users.map(function (mapUser: any) {
+						if (mapUser.UserName === credentials?.username) {
+							const match = bcrypt.compareSync(credentials?.password as string, mapUser.Password);
+							if (match) {
+								user.id = mapUser.id;
+								user.email = mapUser.UserName;
+								user.role = mapUser.role;
+							}
+						}
+					});
+					return user;
+				} catch(e) {
+						console.log({e});
+						return null;
+				}
 
-				} catch (error) {
-                    console.log(error); // for testing                    
-                }
-                return null;
+						
 			},
 			// async authorize(credentials) {
 			//     // This is where you need to retrieve user data
