@@ -2,7 +2,19 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+First, install any dependencies that may be missing:
+
+```bash
+npm install
+# or
+yarn
+# or
+pnpm
+# or
+bun install
+```
+
+then run the development server:
 
 ```bash
 npm run dev
@@ -19,6 +31,45 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+
+## Deploy
+
+I order to deploy first make sure any dependencies are installed with the command: 
+
+```bash
+npm install
+# or
+yarn
+# or
+pnpm
+# or
+bun install
+```
+
+then build using the command:
+
+```bash
+npm run build
+# or
+yarn build
+# or
+pnpm build
+# or
+bun build
+```
+
+Once the application is built you can run the optimised application with the command:
+
+```bash
+npm run deploy
+# or
+yarn deploy
+# or
+pnpm deploy
+# or
+bun deploy
+```
 
 ## Learn More
 
