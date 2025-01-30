@@ -3,7 +3,8 @@ using API.Repository.AccountRepository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
-
+[ApiController]
+[Route("[controller]")]
 public class AccountController
               (IAccountRepository accountRepo,
                ILogger<AccountController> log) : ControllerBase
