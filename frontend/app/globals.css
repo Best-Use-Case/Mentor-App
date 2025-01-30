@@ -47,6 +47,26 @@
   --color-neutral-700: var(--neutral-dark-hover);
   --color-neutral-800: var(--neutral-dark-active);
   --color-neutral-900: var(--neutral-darker);
+  /* Animations */
+  --animate-logo-spin-back: logo-spin-back 0.5s;
+  @keyframes logo-spin-back {
+    0% {
+      transform: translate(0, 0);
+      z-index: -10;
+    }
+    33% {
+      transform: translate(20px, 0);
+      z-index: 10;
+    }
+    66% {
+      transform: translate(-40px, 0);
+      z-index: 10;
+    }
+    100% {
+      transform: translate(0, 0);
+      z-index: -10;
+    }
+  }
 }
 
 /*
@@ -147,6 +167,79 @@ body {
   background: var(--background);
   font-family: "Josefin Sans", Arial, Helvetica, sans-serif;
 }
+.logo {
+  @apply relative 
+  text-5xl 
+  text-secondary-300 
+  font-bold before:content-['M'] 
+  before:-left-1 
+  before:-top-1 
+  before:absolute 
+  before:text-primary-300 
+  before:z-10 
+  before:transition-all 
+  before:duration-300 
+  before:ease-in-out 
+  after:content-['M'] 
+  after:left-1 
+  after:top-1 
+  after:absolute 
+  after:text-tertiary-300 
+  after:-z-10 
+  after:transition-all 
+  after:duration-300 
+  after:ease-in-out
+  /* hover:before:translate-x-[-40px]
+  hover:after:translate-x-[40px] */
+}
+.logo.origin:after {
+  @apply 
+  translate-x-0
+  z-[-10]
+}
+.logo.slide-one:after {
+  @apply 
+  translate-x-[40px]
+  z-[10]
+}
+.logo.slide-two:after {
+  @apply 
+  translate-x-[-40px]
+  z-[10]
+}
+.logo.origin:before {
+  @apply 
+  translate-x-0
+  z-[10]
+}
+.logo.slide-one:before {
+  @apply 
+  translate-x-[-40px]
+  z-[-10]
+}
+.logo.slide-two:before {
+  @apply 
+  translate-x-[40px]
+  z-[-10]
+}
+/* .logo:after:hover {
+  animation-name: logo-slide-back;
+  animation-duration: 1s;
+}
+@keyframes logo-slide-back {
+  0%, 100% {
+    transform: translate(0, 0);
+    z-index: -10;
+  }
+  33% {
+    transform: translate(20px, 0);
+    z-index: 10;
+  }
+  66% {
+    transform: translate(-40px, 0);
+    z-index: 10;
+  }
+} */
 .borderDefault {
   @apply border-2 border-neutral-950
 }

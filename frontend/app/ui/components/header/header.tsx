@@ -1,29 +1,27 @@
-"use client";
+'use client';
 import clsx from "clsx";
 import Link from "next/link";
 import { MenuHamburger1 } from "./icons";
 import { useState } from "react";
+import { ProfileMenu } from "./profileMenu";
+import Logo from "./logo";
 
 export function Header() {
 	const [clicked, setClicked] = useState(false);
 	return (
-		<div className='relative flex grow row-auto items-center justify-between p-6'>
-			<div className='flex justify-center items-center mr-auto z-20'>
+		<header className='grid grid-cols-12 p-8'>
+			<div className='col-span-5 flex justify-start align-middle'>
 				<button
 					className={`menu-btn cursor-pointer ${clicked ? "clicked" : ""}`}
-					onClick={() => setClicked(!clicked)}
+					onClick={() => setClicked((prevState) => !prevState)}
 				>
 					<MenuHamburger1 />
 				</button>
 			</div>
-			<div className=' absolute inset-0 flex items-center justify-center'>
-				<Link href='/'>
-					<p className="relative text-5xl text-secondary-300 font-bold before:content-['M'] before:-left-1 before:-top-1 before:absolute before:text-primary-300 before:z-10 after:content-['M'] after:left-1 after:top-1 after:absolute after:text-tertiary-300 after:-z-10 hover:before:-left-5 hover:after:left-5 before:transition-all before:duration-300 before:ease-in-out after:transition-all after:duration-300 after:ease-in-out">
-						M
-					</p>
-				</Link>
+			<div className='col-span-2 flex justify-center align-middle'>
+				<Logo />
 			</div>
-			<div className="ml-auto"></div>
-		</div>
+			<div className="col-span-5 flex justify-end align-middle"><ProfileMenu /></div>
+		</header>
 	);
 }
