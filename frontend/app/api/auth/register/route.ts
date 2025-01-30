@@ -18,8 +18,9 @@ export async function POST(request: Request) {
 }
 export async function postUser(email: string, password: string, confirmPassword: string) {
     try { 
-        const url = "http://localhost:8000/users"; // Local json.db address
-        // const url = "http://localhost:5000/register" // server address
+        // const url = "http://localhost:8000/users"; // Local json.db address
+        const url = "http://localhost:5000/account/register"; // server address
+        // const url = "http://172.22.83.83:5000/register" // Majid machine
         const hashPassword = await bcrypt.hash(password, 10); // encrypting password
         const hashComparePassword = await bcrypt.hash(confirmPassword, 10); // encrypting password
         console.log(`Sending data to server: 
@@ -32,14 +33,15 @@ Hash Confirm Password: ${hashComparePassword}`)
         
         const response = await fetch(url, {
             method: 'POST',
+            mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
             },
             body: JSON.stringify({
                 UserName: email,
-                Password: hashPassword,
-                ConfirmPassword: hashComparePassword,
+                Password: password,
+                ConfirmPassword: confirmPassword,
                 // role: {
                 //     student: false,
                 //     mentor: false,
@@ -55,5 +57,6 @@ Hash Confirm Password: ${hashComparePassword}`)
         return await response.json();
     } catch (e) {
         console.log({e});
+        return e;
     }
 }

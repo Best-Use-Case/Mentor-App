@@ -4,7 +4,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { POST } from "@/app/api/auth/register/route";
 import bcrypt from "bcrypt";
 
-
 export const options: NextAuthOptions = {
 	// pages: {
 	//     signIn: "/auth/signin",
@@ -35,44 +34,52 @@ export const options: NextAuthOptions = {
 			},
 			async authorize(credentials, req) {
 				try {
-					const url = "http://localhost:8000/users";
+					const url = "http://localhost:5000/account/login";
 					const response = await fetch(url, {
-						method: "GET",
+						method: "POST",
+						mode: "cors",
 						headers: {
 							"Content-Type": "application/json",
-					}});
+						},
+						body: JSON.stringify({
+							UserName: credentials?.username,
+							Password: credentials?.password,
+						}),
+					});
 					if (!response.ok) {
 						throw new Error(`Failed to get user: ${response.status}`);
 					}
 					const data = await response.json();
-					
+
 					let users = data;
 					const user = {
-						id: "",
-						email: "",
+						id: data.id,
+						email: data.UserName,
 						role: {
 							student: false,
 							mentor: false,
 							admin: false,
 						},
 					};
-					users.map(function (mapUser: any) {
-						if (mapUser.UserName === credentials?.username) {
-							const match = bcrypt.compareSync(credentials?.password as string, mapUser.Password);
-							if (match) {
-								user.id = mapUser.id;
-								user.email = mapUser.UserName;
-								user.role = mapUser.role;
-							}
-						}
-					});
+					// Keeping this in case we need to use encryption from the frontend.
+					// users.map(function (mapUser: any) {
+					// 	if (mapUser.UserName === credentials?.username) {
+					// 		const match = bcrypt.compareSync(
+					// 			credentials?.password as string,
+					// 			mapUser.Password
+					// 		);
+					// 		if (match) {
+					// 			user.id = mapUser.id;
+					// 			user.email = mapUser.UserName;
+					// 			user.role = mapUser.role;
+					// 		}
+					// 	}
+					// });
 					return user;
-				} catch(e) {
-						console.log({e});
-						return null;
+				} catch (e) {
+					console.log({ e });
+					return null;
 				}
-
-						
 			},
 			// async authorize(credentials) {
 			//     // This is where you need to retrieve user data
