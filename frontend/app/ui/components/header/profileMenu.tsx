@@ -1,15 +1,14 @@
-'use client';
-import * as React from "react";
+"use client";
+import React from "react";
 
-const App = () => {
-    const [open, setOpen] = React.useState(false);
-
-    const handleOpen = () => {
-        setOpen((prevState) => !prevState);
-    }
-    return;
-    <div>
-        <button onClick={handleOpen}>Dropdown</button>
-    </div>
+export function ProfileMenu() {
+	const [open, setOpen] = React.useState(false);
+	return (
+		<div className="relative block flex align-middle justify-end">
+			<button onClick={() => setOpen((prevState) => !prevState)} className="cursor-pointer">
+				Dropdown
+			</button>
+			{open ? <div>Dropdown content</div> : <div></div>}
+		</div>
+	);
 }
-export default App;
