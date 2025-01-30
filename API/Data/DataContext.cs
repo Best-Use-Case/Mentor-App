@@ -33,7 +33,6 @@ public class DataContext(DbContextOptions options) : DbContext(options)
               builder.Entity<AppRole>().HasData(appRoles);
 
 
-              // Create users 
               var users = new List<AppUser>
               {
                      new() {UserId = 1, UserName = "Admin@gmail.com",
@@ -60,7 +59,6 @@ public class DataContext(DbContextOptions options) : DbContext(options)
               };
               builder.Entity<AppUser>().HasData(users);
 
-              // Seeding UserRole
               var userRole = new List<UserRole>
               {
                      new() {UserId = users[0].UserId, RoleId= appRoles[0].RoleId},
@@ -71,7 +69,6 @@ public class DataContext(DbContextOptions options) : DbContext(options)
               };
               builder.Entity<UserRole>().HasData(userRole);
 
-              // Seeding interests
               var interests = new List<Interest>
               {
                      new() {InterestId = 1, InterestName = "IT", FieldOfInterestId = 1},
@@ -181,28 +178,16 @@ public class DataContext(DbContextOptions options) : DbContext(options)
 
 
 
-
-
               builder.Entity<UserRole>()
                      .HasKey(k => new { k.RoleId, k.UserId });
               builder.Entity<UserInterest>()
                      .HasKey(k => new { k.UserId, k.InterestId });
-
-              // builder.Entity<AppUser>()
-              //        .HasMany(s => s.Educations)
-              //        .WithOne(ed => ed.AppUser)
-              //        .OnDelete(DeleteBehavior.Cascade);
 
               builder.Entity<Education>()
                      .HasOne(e => e.AppUser)
                      .WithMany(au => au.Educations)
                      .HasForeignKey(ed => ed.UserId)
                      .OnDelete(DeleteBehavior.Cascade);
-
-              // builder.Entity<AppUser>()
-              //  .HasMany(m => m.WorkExperiences)
-              //  .WithOne(w => w.AppUser)
-              //  .OnDelete(DeleteBehavior.Cascade);
 
               builder.Entity<WorkExperience>()
                     .HasOne(e => e.AppUser)
@@ -214,12 +199,6 @@ public class DataContext(DbContextOptions options) : DbContext(options)
                      .HasMany(au => au.Answers)
                      .WithOne(a => a.AppUser)
                      .OnDelete(DeleteBehavior.Cascade);
-
-              // builder.Entity<Answer>()
-              //        .HasOne(a => a.AppUser)
-              //        .WithMany(au => au.Answers)
-              //        .HasForeignKey(a => a.UserId)
-              //        .OnDelete(DeleteBehavior.Cascade);
 
               builder.Entity<UserInterest>()
                      .HasOne(ui => ui.AppUser)
@@ -245,10 +224,6 @@ public class DataContext(DbContextOptions options) : DbContext(options)
                      .HasForeignKey(ar => ar.RoleId)
                      .OnDelete(DeleteBehavior.Cascade);
 
-              // builder.Entity<FieldOfInterest>()
-              //       .HasMany(f => f.Interests)
-              //       .WithOne(i => i.FieldOfInterest)
-              //       .OnDelete(DeleteBehavior.Cascade);
 
               builder.Entity<Interest>()
                      .HasOne(i => i.FieldOfInterest)

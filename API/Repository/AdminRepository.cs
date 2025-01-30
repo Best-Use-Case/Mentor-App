@@ -98,25 +98,5 @@ public class AdminRepository(DataContext context) : IAdminRepository
         }
     }
 
-    public Task<bool> RemoveDegree(int degreeId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> RemoveInterest(int interestId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> RemoveRole(int roleId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> UpdateRole(RoleDTO role)
-    {
-        throw new NotImplementedException();
-    }
-
 }
 
