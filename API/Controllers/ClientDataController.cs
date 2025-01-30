@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
+[ApiController]
+[Route("[controller]")]
 public class ClientDataController(IClientDataRepository clientData, IMapper mapper) : ControllerBase
 {
   [HttpGet("get-degrees")]
