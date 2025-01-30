@@ -19,6 +19,7 @@ public static class ApplicationServiceExtensions
     services.AddScoped<IAccountRepository, AccountRepository>();
     services.AddScoped<IUserRepo, UserRepo>();
     services.AddScoped<ITokenService, TokenService>();
+    services.AddScoped<IAdminRepository, AdminRepository>();
     services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     services.AddDbContext<DataContext>(options =>
            options.UseSqlite(config.GetConnectionString("DbConnection")));

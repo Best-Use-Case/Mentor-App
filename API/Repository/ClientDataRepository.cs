@@ -1,13 +1,12 @@
 using API.Data;
 using API.Interfaces;
 using API.Models;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Repository;
 
 
-public class ClientDataRepository(DataContext context, IMapper mapper) : IClientDataRepository
+public class ClientDataRepository(DataContext context) : IClientDataRepository
 {
   public async Task<List<Degree>> GetDegreesAsync()
   {
