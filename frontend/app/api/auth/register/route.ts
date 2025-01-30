@@ -18,7 +18,8 @@ export async function POST(request: Request) {
 }
 export async function postUser(email: string, password: string, confirmPassword: string) {
     try { 
-        const url = "http://localhost:8000/users";
+        const url = "http://localhost:8000/users"; // Local json.db address
+        // const url = "http://localhost:5000/register" // server address
         const hashPassword = await bcrypt.hash(password, 10); // encrypting password
         const hashComparePassword = await bcrypt.hash(confirmPassword, 10); // encrypting password
         console.log(`Sending data to server: 
@@ -39,11 +40,11 @@ Hash Confirm Password: ${hashComparePassword}`)
                 UserName: email,
                 Password: hashPassword,
                 ConfirmPassword: hashComparePassword,
-                role: {
-                    student: false,
-                    mentor: false,
-                    admin: false,
-                }
+                // role: {
+                //     student: false,
+                //     mentor: false,
+                //     admin: false,
+                // }
             }),
         }); 
         console.log(`postUser Response: ${response.status} Body: ${response.body} Status text: ${response.statusText} URL: ${response.url}`);
