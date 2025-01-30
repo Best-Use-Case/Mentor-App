@@ -9,7 +9,7 @@ import Logo from "./logo";
 export function Header() {
 	const [clicked, setClicked] = useState(false);
 	return (
-		<header className='grid grid-cols-12 p-8'>
+		<header className='grid grid-cols-12 p-8 overflow-x-clip'>
 			<div className='col-span-5 flex justify-start align-middle'>
 				<button
 					className={`menu-btn cursor-pointer ${clicked ? "clicked" : ""}`}
