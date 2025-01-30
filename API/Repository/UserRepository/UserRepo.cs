@@ -25,7 +25,8 @@ public class UserRepo : IUserRepo
   {
     try
     {
-      var user = await _context.Users.FirstOrDefaultAsync(user => user.UserName == userDto.UserName);
+      var user = await _context.Users.FirstOrDefaultAsync(user =>
+          user.UserName == userDto.UserName);
       if (user is null)
       {
         return new ResponseManager
@@ -40,22 +41,24 @@ public class UserRepo : IUserRepo
       user.Description = userDto.Description;
       user.Gender = userDto.Gender;
 
-      userDto.Educations.ForEach(async edu =>
+      if (userDto.Educations.Count != 0)
       {
-        //var degree = await _context.Degrees.FindAsync(edu.DegreeId);
-        var education = new Education()
+        userDto.Educations.ForEach(async edu =>
         {
-          DegreeId = edu.DegreeId,
-          SchoolName = edu.SchoolName,
-          StudyCity = edu.StudyCity,
-          StartDate = edu.StartDate,
-          EndDate = edu.EndDate,
-        };
+          var education = new Education()
+          {
+            DegreeId = edu.DegreeId,
+            SchoolName = edu.SchoolName,
+            StudyCity = edu.StudyCity,
+            StartDate = edu.StartDate,
+            EndDate = edu.EndDate,
+          };
 
-        user.Educations!.Add(education);
+          user.Educations!.Add(education);
 
-        await _context.Educations.AddAsync(education);
-      });
+          await _context.Educations.AddAsync(education);
+        });
+      }
 
       if (userDto.WorkExperiences.Count != 0)
       {
@@ -72,18 +75,19 @@ public class UserRepo : IUserRepo
         });
       }
 
-      // add Answers to the user 
-      userDto.Answers.ForEach(async ans =>
+      if (userDto.Answers.Count != 0)
       {
-        var answers = new Answer()
+        userDto.Answers.ForEach(async ans =>
         {
-          AnswerText = ans.AnswerText,
-          QuestionId = ans.QuestionId,
-        };
-        user.Answers.Add(answers);
-        await _context.AddAsync(answers);
-
-      });
+          var answers = new Answer()
+          {
+            AnswerText = ans.AnswerText,
+            QuestionId = ans.QuestionId,
+          };
+          user.Answers.Add(answers);
+          await _context.AddAsync(answers);
+        });
+      }
 
       var UserRoleId = userDto.RoleId;
       var userRole = new UserRole()
@@ -106,9 +110,7 @@ public class UserRepo : IUserRepo
           user.UserInterests.Add(userInterest);
           await _context.UserInterests.AddAsync(userInterest);
 
-
           await _context.SaveChangesAsync();
-
         });
       }
 
@@ -119,18 +121,15 @@ public class UserRepo : IUserRepo
         {
           return new ResponseManager { Message = imageResult.Error.Message };
         }
-
         user.PhotoUrl = imageResult.SecureUrl.AbsoluteUri;
         user.PublicId = imageResult.PublicId;
-
       }
 
       await _context.SaveChangesAsync();
 
-
       return new ResponseManager
       {
-        Message = "User successfuly registered",
+        Message = "User successfully registered",
         IsSuccess = true,
         FirstName = userDto.FirstName,
         LastName = userDto.LastName,
@@ -143,7 +142,6 @@ public class UserRepo : IUserRepo
     {
       return new ResponseManager { Message = $" Rgistration failed:\n{ex.Message}" };
     }
-
   }
 
   public async Task<MatchResponseManager> MatchUsers(string UserName)
