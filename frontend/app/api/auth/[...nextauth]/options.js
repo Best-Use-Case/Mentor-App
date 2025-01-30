@@ -1,10 +1,9 @@
-import type { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { POST } from "@/app/api/auth/register/route";
 import bcrypt from "bcrypt";
 
-export const options: NextAuthOptions = {
+export const options = {
 	// pages: {
 	//     signIn: "/auth/signin",
 	//     signOut: "/auth/signout",
@@ -14,8 +13,8 @@ export const options: NextAuthOptions = {
 	// },
 	providers: [
 		GitHubProvider({
-			clientId: process.env.GITHUB_ID as string,
-			clientSecret: process.env.GITHUB_SECRET as string,
+			clientId: process.env.GITHUB_ID,
+			clientSecret: process.env.GITHUB_SECRET,
 		}),
 		CredentialsProvider({
 			// Read more on credentials provider here: https://next-auth.js.org/providers/credentials
@@ -49,17 +48,17 @@ export const options: NextAuthOptions = {
 					if (!response.ok) {
 						throw new Error(`Failed to get user: ${response.status}`);
 					}
-					const data = await response.json();
-
-					let users = data;
+					const data = await response.json();					
 					const user = {
-						id: data.id,
-						email: data.UserName,
-						role: {
-							student: false,
-							mentor: false,
-							admin: false,
-						},
+						email: data?.userName,
+						name: "",
+						image: "",
+						id: data?.userId,
+						firstName: data?.firstName,
+						lastName: data?.lastName,
+						description: data?.description,
+						role: data?.role,
+
 					};
 					// Keeping this in case we need to use encryption from the frontend.
 					// users.map(function (mapUser: any) {
@@ -81,25 +80,42 @@ export const options: NextAuthOptions = {
 					return null;
 				}
 			},
-			// async authorize(credentials) {
-			//     // This is where you need to retrieve user data
-			//     // to verify with credentials
-			//     // Docs: https://next-auth.js.org/configuration/providers/credentials
-			//     const user = await fetch("http://localhost:8000/users", { // need to check the free codecamp video for method to use here!
-			//         method: 'GET',
-			//         headers: {
-			//             'Content-Type': 'application/json'
-			//         },
-			//     });
-
-			//     if (credentials?.username === user?.email && credentials?.password === user?.password) {
-			//         return user
-			//     } else {
-			//         return null
-			//     }
-
-			// }
 		}),
 	],
-	// pages: [], next auth will create a signin page for us.
+	callbacks: {
+		async jwt({ token, user, session }) {
+			console.log("jwt callback", { token, user, session });
+			if (user) {
+				return {
+					...token, 
+					id: user?.id,
+					firstName: user?.firstName,
+					lastName: user?.lastName,
+					description: user?.description,
+					role: user?.role,
+				}
+
+			} else {
+				return token;
+			}
+		},
+		async session({ session, token, user}) {
+			console.log("session callback", { token, user, session });
+			return {
+				...session,
+				user: {
+					...session.user,
+					id: token?.id,
+					firstName: token?.firstName,
+					lastName: token?.lastName,
+					description: token?.description,
+					role: token?.role,
+				}
+			}
+		}
+	},
+	secret: process.env.NEXTAUTH_SECRET,
+	session: {
+		strategy: "jwt",
+	},
 };
