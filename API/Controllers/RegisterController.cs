@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
+[ApiController]
+[Route("[controller]")]
 public class RegisterController : ControllerBase
 {
   private readonly IUserRepo _userRepo;
