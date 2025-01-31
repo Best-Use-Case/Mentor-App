@@ -7,6 +7,7 @@ namespace API.Controllers;
 [Route("[controller]")]
 public class ProfileController(IProfileRepository profile) : ControllerBase
 {
+  [HttpPut("update-user")]
   public async Task<IActionResult> UpdateProfile(ProfileDto profileDto)
   {
     if (profileDto == null) return BadRequest("Obsolete data or Not find username");
