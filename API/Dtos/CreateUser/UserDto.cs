@@ -5,8 +5,8 @@ public class UserDto
   public required string UserName { get; set; }
   public required string FirstName { get; set; }
   public required string LastName { get; set; }
-  public required string Description { get; set; }
-  public required string Gender { get; set; }
+  public string Description { get; set; } = string.Empty;
+  public string Gender { get; set; } = string.Empty;
   public int? RoleId { get; set; }
   public List<int> InterestIds { get; set; } = [];
   public List<EducationDto> Educations { get; set; } = [];

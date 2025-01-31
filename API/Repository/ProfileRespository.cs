@@ -3,10 +3,12 @@ using API.Dtos.CreateUser;
 using API.Dtos.UserProfile;
 using API.Interfaces;
 using API.Models;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repository;
 
-public class ProfileRespository(DataContext context) : IProfileRepository
+public class ProfileRespository(DataContext context, IMapper mapper) : IProfileRepository
 {
   public async Task<bool> UpdateProfileAsync(ProfileDto profileDto)
   {
@@ -29,9 +31,30 @@ public class ProfileRespository(DataContext context) : IProfileRepository
     }
 
   }
-  public Task<List<EduDto>> GetEducationsForUser(string username)
+  public async Task<List<EduDto>> GetEducationsForUser(int userId)
   {
-    throw new NotImplementedException();
+    try
+    {
+      var usersWithEducation = await context.Users.Include(u => u.Educations).ToListAsync();
+      var eduToReturn = new List<EduDto>();
+      if (usersWithEducation is not null)
+      {
+        usersWithEducation.ForEach(userEdu =>
+        {
+          if (userEdu.Educations!.Count > 0)
+          {
+            var edu = userEdu.Educations.Where(u => u.UserId == userId).ToList();
+          }
+          eduToReturn = mapper.Map<List<EduDto>>(userEdu);
+        });
+      }
+      return eduToReturn;
+    }
+    catch (Exception)
+    {
+      return [];
+    }
+
   }
   public Task<bool> DeleteEducationForUser(int EduId)
   {
