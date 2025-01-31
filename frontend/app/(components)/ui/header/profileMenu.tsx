@@ -40,7 +40,7 @@ export function ProfileMenu() {
 				</button>
 				{/* {open ? <div>Dropdown content</div> : <div></div>} */}
 				<nav
-					className={`profileNav absolute top-16 right-0 p-6 bg-neutral-50 text-neutral-950 rounded-md stroke-2 stroke-neutral-950 ${
+					className={`profileNav absolute top-16 right-0 p-6 ${
 						open ? "active" : "inactive"
 					} `}
 				>
