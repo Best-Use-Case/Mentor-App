@@ -89,14 +89,18 @@ public class UserRepo : IUserRepo
         });
       }
 
-      var UserRoleId = userDto.RoleId;
-      var userRole = new UserRole()
+      if (userDto.RoleId != null)
       {
-        UserId = user.UserId,
-        RoleId = UserRoleId
-      };
-      user.Roles.Add(userRole);
-      await _context.UserRoles.AddAsync(userRole);
+        var UserRoleId = userDto.RoleId;
+        var userRole = new UserRole()
+        {
+          UserId = user.UserId,
+          RoleId = (int)UserRoleId
+        };
+        user.Roles.Add(userRole);
+        await _context.UserRoles.AddAsync(userRole);
+      }
+
 
       if (userDto.InterestIds.Count != 0)
       {
@@ -114,16 +118,16 @@ public class UserRepo : IUserRepo
         });
       }
 
-      if (userDto.File != null)
-      {
-        var imageResult = await _imageSerivice.AddImageAsync(userDto.File);
-        if (imageResult.Error != null)
-        {
-          return new ResponseManager { Message = imageResult.Error.Message };
-        }
-        user.PhotoUrl = imageResult.SecureUrl.AbsoluteUri;
-        user.PublicId = imageResult.PublicId;
-      }
+      // if (userDto.File != null)
+      // {
+      //   var imageResult = await _imageSerivice.AddImageAsync(userDto.File);
+      //   if (imageResult.Error != null)
+      //   {
+      //     return new ResponseManager { Message = imageResult.Error.Message };
+      //   }
+      //   user.PhotoUrl = imageResult.SecureUrl.AbsoluteUri;
+      //   user.PublicId = imageResult.PublicId;
+      // }
 
       await _context.SaveChangesAsync();
 

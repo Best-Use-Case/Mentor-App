@@ -7,10 +7,10 @@ public class UserDto
   public required string LastName { get; set; }
   public required string Description { get; set; }
   public required string Gender { get; set; }
-  public required int RoleId { get; set; }
-  public required List<int> InterestIds { get; set; }
-  public required List<EducationDto> Educations { get; set; }
-  public required List<AnswerDto> Answers { get; set; }
-  public required List<WorkExperienceDto> WorkExperiences { get; set; }
-  public IFormFile? File { get; set; }
+  public int? RoleId { get; set; }
+  public List<int> InterestIds { get; set; } = [];
+  public List<EducationDto> Educations { get; set; } = [];
+  public List<AnswerDto> Answers { get; set; } = [];
+  public List<WorkExperienceDto> WorkExperiences { get; set; } = [];
+  //public IFormFile? File { get; set; }
 }
