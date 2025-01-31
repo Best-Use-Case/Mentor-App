@@ -22,7 +22,7 @@ export default function Logo() {
     }
     return (
         <button onClick={handleClick}>
-            <p className={`logo ${logoState == "origin" ? "origin" : ""} ${logoState == "slide-one" ? "slide-one" : ""} ${logoState == "slide-two" ? "slide-two" : ""}`}>
+            <p className={`logo ${logoState == "origin" ? "origin" : ""} ${logoState == "slide-one" ? "slide-one" : ""} ${logoState == "slide-two" ? "slide-two" : ""} cursor-pointer`}>
                 M
             </p>
         </button>
