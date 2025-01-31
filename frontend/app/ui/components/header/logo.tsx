@@ -14,9 +14,6 @@ export default function Logo() {
         setTimeout(() => {
             setLogoState("origin");
         }, 300);
-        // setTimeout(() => {
-        //     router.push("/");
-        // }, 200);
         router.push("/");
         return;
     }
