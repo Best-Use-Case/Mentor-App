@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ButtonLink } from "@/app/ui/components/buttons";
+import { ButtonLink } from "@/app/(components)/ui/buttons";
 
 
 export default function Home() {
