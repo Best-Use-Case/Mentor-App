@@ -1,4 +1,4 @@
-import { ButtonLink } from "@/app/ui/components/buttons";
+import { ButtonLink } from "@/app/(components)/ui/buttons";
 
 export default async function RegisterPage() {
 	return (
