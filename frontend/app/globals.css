@@ -139,6 +139,12 @@
   --tertiary-dark-active: #6F661F;
   --tertiary-darker: #564F18;
 }
+/* Universal Styling */
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: "Josefin Sans", Arial, Helvetica, sans-serif;
+}
 h1 {
   @apply text-5xl self-center text-center m-6
 }
@@ -163,6 +169,7 @@ p {
 button, input[type="submit"] {
   cursor: pointer;
 }
+/* Icons */
 .hamburgerIcons {
   fill: var(--neutral-darker);
 }
@@ -194,28 +201,7 @@ path#hamburgerLineOne, path#hamburgerLineTwo, path#hamburgerLineThree{
   @apply -rotate-45 -translate-x-[9px] translate-y-[9px];
 }
 
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #53534b;
-    --foreground: #fdfdfb;
-  }
-  .hamburgerIcons {
-    fill: var(--neutral-light);
-  }
-  .cogIcons .cogStroke {
-    @apply stroke-neutral-100 stroke-2
-  }
-  .AccountCircleIcons {
-    @apply fill-neutral-100
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: "Josefin Sans", Arial, Helvetica, sans-serif;
-}
+/* Logo Styling */
 .logo {
   @apply relative 
   text-5xl 
@@ -238,8 +224,6 @@ body {
   after:transition-all 
   after:duration-300 
   after:ease-in-out
-  /* hover:before:translate-x-[-40px]
-  hover:after:translate-x-[40px] */
 }
 .logo.origin:after {
   @apply 
@@ -271,24 +255,10 @@ body {
   translate-x-[40px]
   z-[-10]
 }
-/* .logo:after:hover {
-  animation-name: logo-slide-back;
-  animation-duration: 1s;
+/* Nav Menu */
+.profileNav {
+  @apply bg-neutral-50 text-neutral-950 rounded-md stroke-2 stroke-neutral-950
 }
-@keyframes logo-slide-back {
-  0%, 100% {
-    transform: translate(0, 0);
-    z-index: -10;
-  }
-  33% {
-    transform: translate(20px, 0);
-    z-index: 10;
-  }
-  66% {
-    transform: translate(-40px, 0);
-    z-index: 10;
-  }
-} */
 .profileNav.active {
   @apply visible opacity-100 translate-y-0 ease-in-out duration-300
 }
@@ -298,6 +268,8 @@ body {
 .borderDefault {
   @apply border-2 border-neutral-950
 }
+
+/* Buttons */
 .buttonClass {
   @apply text-black p-6 pt-3.5 pb-3.5
 }
@@ -309,4 +281,34 @@ body {
 }
 .buttonWrapperSecondary {
   @apply bg-neutral-50 hover:bg-neutral-300 border-black after:border-black after:bg-neutral-600 hover:after:bg-neutral-700;
+}
+
+/* Forms */
+form {
+  @apply 
+  [&>input[type="text"]]:p-2 
+  [&>input[type="email"]]:p-2 
+  [&>input[type="password"]]:p-2
+  [&>input[type="text"]]:rounded
+  [&>input[type="email"]]:rounded 
+  [&>input[type="password"]]:rounded
+}
+/* Dark Mode Settings */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #53534b;
+    --foreground: #fdfdfb;
+  }
+  .hamburgerIcons {
+    fill: var(--neutral-light);
+  }
+  .cogIcons .cogStroke {
+    @apply stroke-neutral-100 stroke-2
+  }
+  .AccountCircleIcons {
+    @apply fill-neutral-100
+  }
+  .profileNav {
+    @apply bg-neutral-950 text-neutral-50 rounded-md stroke-2 stroke-neutral-50
+  }
 }
