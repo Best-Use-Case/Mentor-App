@@ -130,7 +130,7 @@ public class UserRepo : IUserRepo
       //   user.PublicId = imageResult.PublicId;
       // }
 
-      await _context.SaveChangesAsync();
+      //await _context.SaveChangesAsync();
 
       return new ResponseManager
       {
