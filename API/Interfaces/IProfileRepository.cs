@@ -13,7 +13,7 @@ public interface IProfileRepository
   //Get all Edu for current-user, update and delete func
 
 
-  Task<List<EduDto>> GetEducationsForUser();
+  Task<List<EduDto>> GetEducationsForUser(string username);
   Task<bool> UpdateEducationsForUser(Education education);
   Task<bool> DeleteEducationForUser(int EduId);
   //Get all Work-history for current-user and add, update and delete

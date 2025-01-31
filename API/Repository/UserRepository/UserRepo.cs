@@ -12,11 +12,12 @@ public class UserRepo : IUserRepo
 {
   private readonly DataContext _context;
   private readonly ITokenService _tokenService;
-  private readonly ImageSerivice _imageSerivice;
+  //private readonly ImageSerivice _imageSerivice;
+  //ImageSerivice imageSerivice
 
-  public UserRepo(DataContext context, ITokenService tokenService, ImageSerivice imageSerivice)
+  public UserRepo(DataContext context, ITokenService tokenService)
   {
-    _imageSerivice = imageSerivice;
+    //_imageSerivice = imageSerivice;
     _context = context;
     _tokenService = tokenService;
   }

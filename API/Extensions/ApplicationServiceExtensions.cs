@@ -14,7 +14,7 @@ public static class ApplicationServiceExtensions
   {
     services.AddControllers();
     //services.Configure<CloudinarySetting>(config.GetSection("Cloudinary"));
-    services.AddScoped<ImageSerivice>();
+    //services.AddScoped<ImageSerivice>();
     services.AddScoped<IClientDataRepository, ClientDataRepository>();
     services.AddScoped<IAccountRepository, AccountRepository>();
     services.AddScoped<IUserRepo, UserRepo>();
