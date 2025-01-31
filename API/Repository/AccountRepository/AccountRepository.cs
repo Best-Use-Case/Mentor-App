@@ -106,6 +106,8 @@ public class AccountRepository : IAccountRepository
         {
             UserName = user.UserName,
             UserId = user.UserId,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
             Token = _tokenService.CreateToken(user),
             Message = "Login succeeded",
             IsSuccess = true

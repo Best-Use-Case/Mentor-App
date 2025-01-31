@@ -1,3 +1,4 @@
+using API.Dtos.UserProfile;
 using API.Models;
 using API.Repository;
 using AutoMapper;
@@ -10,6 +11,7 @@ public class AutoMapperProfile : Profile
   {
     CreateMap<FieldOfInterest, FieldOfInterestDto>();
     CreateMap<Interest, InterestDto>();
+    CreateMap<Education, EduDto>();
 
   }
 }
