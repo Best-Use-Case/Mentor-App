@@ -13,13 +13,14 @@ public static class ApplicationServiceExtensions
   public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
   {
     services.AddControllers();
-    services.Configure<CloudinarySetting>(config.GetSection("Cloudinary"));
+    //services.Configure<CloudinarySetting>(config.GetSection("Cloudinary"));
     services.AddScoped<ImageSerivice>();
     services.AddScoped<IClientDataRepository, ClientDataRepository>();
     services.AddScoped<IAccountRepository, AccountRepository>();
     services.AddScoped<IUserRepo, UserRepo>();
     services.AddScoped<ITokenService, TokenService>();
     services.AddScoped<IAdminRepository, AdminRepository>();
+    services.AddScoped<IProfileRepository, ProfileRespository>();
     services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     services.AddDbContext<DataContext>(options =>
            options.UseSqlite(config.GetConnectionString("DbConnection")));

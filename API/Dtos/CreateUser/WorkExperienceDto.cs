@@ -1,4 +1,3 @@
-using System;
 
 namespace API.Dtos.CreateUser;
 
