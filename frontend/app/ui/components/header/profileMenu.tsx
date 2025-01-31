@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { AccountCircle } from "./icons";
+import { AccountCircle, Logout } from "./icons";
 
 export function ProfileMenu() {
 	const [open, setOpen] = useState(false);
@@ -40,8 +40,8 @@ export function ProfileMenu() {
 				</button>
 				{/* {open ? <div>Dropdown content</div> : <div></div>} */}
 				<nav
-					className={`profileNav absolute top-16 right-0 p-6 bg-neutral-50 text-neutral-950 rounded-md stroke-2 stroke-neutral-950 ease-in-out duration-300 ${
-						open ? "right-0" : "right-[-500px]"
+					className={`profileNav absolute top-16 right-0 p-6 bg-neutral-50 text-neutral-950 rounded-md stroke-2 stroke-neutral-950 ${
+						open ? "active" : "inactive"
 					} `}
 				>
 					<div>
@@ -51,15 +51,14 @@ export function ProfileMenu() {
 								: session?.user?.email}
 						</h5>
 					</div>
-                    <hr className="border-t-2 border-4-neutral-500 border-t-solid pb-4 mt-4"></hr>
+					<hr className='border-t-2 border-4-neutral-500 border-t-solid pb-4 mt-4'></hr>
 					<div>
 						<ul>
-							<li>Profile</li>
-							<li>Settings</li>
 							<li
 								onClick={() => signOut({ callbackUrl: "/" })}
-								className='cursor-pointer'
+								className='cursor-pointer inline-flex gap-2 items-center'
 							>
+                                <Logout />
 								Logout
 							</li>
 						</ul>

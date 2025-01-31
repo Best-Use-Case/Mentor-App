@@ -65,7 +65,11 @@ export function CogWheel() {
 }
 export function AccountCircle() {
 	return (
-		<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' className='AccountCircleIcons'>
+		<svg
+			viewBox='0 0 24 24'
+			xmlns='http://www.w3.org/2000/svg'
+			className='AccountCircleIcons'
+		>
 			<g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
 			<g
 				id='SVGRepo_tracerCarrier'
@@ -79,6 +83,31 @@ export function AccountCircle() {
 					<path fill='none' d='M0 0h24v24H0z'></path>{" "}
 					<path d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-4.987-3.744A7.966 7.966 0 0 0 12 20c1.97 0 3.773-.712 5.167-1.892A6.979 6.979 0 0 0 12.16 16a6.981 6.981 0 0 0-5.147 2.256zM5.616 16.82A8.975 8.975 0 0 1 12.16 14a8.972 8.972 0 0 1 6.362 2.634 8 8 0 1 0-12.906.187zM12 13a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z'></path>{" "}
 				</g>{" "}
+			</g>
+		</svg>
+	);
+}
+export function Logout() {
+	return (
+		<svg
+			viewBox='0 0 24 24'
+			fill='none'
+			xmlns='http://www.w3.org/2000/svg'
+			className='logOutIcon'
+		>
+			<g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
+			<g
+				id='SVGRepo_tracerCarrier'
+				strokeLinecap='round'
+				strokeLinejoin='round'
+			></g>
+			<g id='SVGRepo_iconCarrier'>
+				{" "}
+				<path
+					fillRule='evenodd'
+					clipRule='evenodd'
+					d='M2 6.5C2 4.01472 4.01472 2 6.5 2H12C14.2091 2 16 3.79086 16 6V7C16 7.55228 15.5523 8 15 8C14.4477 8 14 7.55228 14 7V6C14 4.89543 13.1046 4 12 4H6.5C5.11929 4 4 5.11929 4 6.5V17.5C4 18.8807 5.11929 20 6.5 20H12C13.1046 20 14 19.1046 14 18V17C14 16.4477 14.4477 16 15 16C15.5523 16 16 16.4477 16 17V18C16 20.2091 14.2091 22 12 22H6.5C4.01472 22 2 19.9853 2 17.5V6.5ZM18.2929 8.29289C18.6834 7.90237 19.3166 7.90237 19.7071 8.29289L22.7071 11.2929C23.0976 11.6834 23.0976 12.3166 22.7071 12.7071L19.7071 15.7071C19.3166 16.0976 18.6834 16.0976 18.2929 15.7071C17.9024 15.3166 17.9024 14.6834 18.2929 14.2929L19.5858 13L11 13C10.4477 13 10 12.5523 10 12C10 11.4477 10.4477 11 11 11L19.5858 11L18.2929 9.70711C17.9024 9.31658 17.9024 8.68342 18.2929 8.29289Z'
+				></path>{" "}
 			</g>
 		</svg>
 	);
