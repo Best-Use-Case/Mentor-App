@@ -28,8 +28,10 @@ public class ProfileRespository(DataContext context) : IProfileRepository
       return false;
     }
 
-
-
+  }
+  public Task<List<EduDto>> GetEducationsForUser(string username)
+  {
+    throw new NotImplementedException();
   }
   public Task<bool> DeleteEducationForUser(int EduId)
   {
@@ -41,10 +43,6 @@ public class ProfileRespository(DataContext context) : IProfileRepository
     throw new NotImplementedException();
   }
 
-  public Task<List<EduDto>> GetEducationsForUser()
-  {
-    throw new NotImplementedException();
-  }
 
   public Task<List<WorkExperienceDto>> GetWorkExperienceForUser(string userName)
   {
