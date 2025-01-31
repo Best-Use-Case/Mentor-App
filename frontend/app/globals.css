@@ -67,6 +67,14 @@
       z-index: -10;
     }
   }
+  --text-base: 1rem;
+  --text-lg: 1.188rem;
+  --text-xl: 1.438rem;
+  --text-2xl: 1.750rem;
+  --text-3xl: 2.062rem;
+  --text-4xl: 2.500rem;
+  --text-5xl: 3.000rem;
+
 }
 
 /*
@@ -132,7 +140,28 @@
   --tertiary-darker: #564F18;
 }
 h1 {
-  @apply text-7xl self-center text-center m-6;
+  @apply text-5xl self-center text-center m-6
+}
+h2 {
+  @apply text-4xl
+}
+h3 {
+  @apply text-3xl
+}
+h4 {
+  @apply text-2xl
+}
+h5 {
+  @apply text-xl
+}
+h6 {
+  @apply text-lg
+}
+p {
+  @apply text-base
+}
+button, input[type="submit"] {
+  cursor: pointer;
 }
 .hamburgerIcons {
   fill: var(--neutral-darker);
@@ -144,7 +173,7 @@ h1 {
   @apply stroke-neutral-900 stroke-2
 }
 .AccountCircleIcons {
-  @apply w-[24px] h-[24px]  fill-neutral-900
+  @apply w-[42px] h-[42px]  fill-neutral-900
 }
 
 path#hamburgerLineOne, path#hamburgerLineTwo, path#hamburgerLineThree{
