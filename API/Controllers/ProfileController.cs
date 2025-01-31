@@ -15,7 +15,13 @@ public class ProfileController(IProfileRepository profile) : ControllerBase
 
     if (!result) return BadRequest("Updating profile failed");
     return Ok(result);
+  }
 
+  [HttpGet("get-education/{userId}")]
+  public async Task<ActionResult<List<EduDto>>> GetEducationForUser(int userId)
+  {
+    if (userId == 0) return BadRequest("User's identification number is missed");
+    return await profile.GetEducationsForUser(userId);
 
   }
 }
