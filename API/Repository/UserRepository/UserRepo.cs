@@ -42,6 +42,12 @@ public class UserRepo : IUserRepo
       user.Description = userDto.Description;
       user.Gender = userDto.Gender;
 
+      if (await _context.SaveChangesAsync() > 0)
+      {
+        return new ResponseManager { Message = "Data successfully created to the user" };
+      }
+
+
       if (userDto.Educations.Count != 0)
       {
         userDto.Educations.ForEach(async edu =>

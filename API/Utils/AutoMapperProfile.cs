@@ -10,5 +10,6 @@ public class AutoMapperProfile : Profile
   {
     CreateMap<FieldOfInterest, FieldOfInterestDto>();
     CreateMap<Interest, InterestDto>();
+
   }
 }
