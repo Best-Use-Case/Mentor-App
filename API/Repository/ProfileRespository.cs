@@ -35,20 +35,11 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
   {
     try
     {
-      var usersWithEducation = await context.Users.Include(u => u.Educations).ToListAsync();
-      var eduToReturn = new List<EduDto>();
-      if (usersWithEducation is not null)
-      {
-        usersWithEducation.ForEach(userEdu =>
-        {
-          if (userEdu.Educations!.Count > 0)
-          {
-            var edu = userEdu.Educations.Where(u => u.UserId == userId).ToList();
-          }
-          eduToReturn = mapper.Map<List<EduDto>>(userEdu);
-        });
-      }
-      return eduToReturn;
+      var userEducations = await context.Educations
+                .Where(u => u.UserId == userId)
+                .Include(e => e.Degree)
+                .ToListAsync();
+      return mapper.Map<List<EduDto>>(userEducations);
     }
     catch (Exception)
     {
@@ -56,31 +47,45 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
     }
 
   }
-  public Task<bool> DeleteEducationForUser(int EduId)
+  public Task<bool> UpdateEducationsForUser(Education education)
   {
     throw new NotImplementedException();
   }
-
-  public Task<bool> DeleteWorkExperienceForUser(int WorkId)
+  public async Task<bool> DeleteEducationForUser(int eduId, int userId)
   {
-    throw new NotImplementedException();
-  }
+    try
+    {
+      var edu = await context.Educations.FindAsync(eduId);
+      if (edu is not null)
+      {
+        var userEducations = await context.Educations
+              .Where(edu => edu.UserId == userId)
+              .ToListAsync();
+        userEducations.Remove(edu);
+        return true;
+      }
+      if (await context.SaveChangesAsync() > 0) return true;
 
+      return false;
+    }
+    catch (Exception)
+    {
+      return false;
+    }
+
+  }
 
   public Task<List<WorkExperienceDto>> GetWorkExperienceForUser(string userName)
   {
     throw new NotImplementedException();
   }
-
-  public Task<bool> UpdateEducationsForUser(Education education)
-  {
-    throw new NotImplementedException();
-  }
-
-
-
   public Task<bool> UpdateWorkExperienceForUser(WorkExperienceDto workExperienceDto)
   {
     throw new NotImplementedException();
   }
+  public Task<bool> DeleteWorkExperienceForUser(int WorkId)
+  {
+    throw new NotImplementedException();
+  }
+
 }

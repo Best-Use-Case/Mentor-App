@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDataAdded : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,9 +17,9 @@ namespace API.Data.Migrations
                 name: "AppRoles",
                 columns: table => new
                 {
-                    RoleId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    RoleName = table.Column<string>(type: "TEXT", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,9 +30,9 @@ namespace API.Data.Migrations
                 name: "Degrees",
                 columns: table => new
                 {
-                    DegreeId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    DegreeName = table.Column<string>(type: "TEXT", nullable: false)
+                    DegreeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DegreeName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,9 +43,9 @@ namespace API.Data.Migrations
                 name: "FieldOfInterests",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Category = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,9 +56,9 @@ namespace API.Data.Migrations
                 name: "Industries",
                 columns: table => new
                 {
-                    IndustryId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    IndustryName = table.Column<string>(type: "TEXT", nullable: false)
+                    IndustryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IndustryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,9 +69,9 @@ namespace API.Data.Migrations
                 name: "Questions",
                 columns: table => new
                 {
-                    QuestionId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    QuestionText = table.Column<string>(type: "TEXT", nullable: false)
+                    QuestionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    QuestionText = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,16 +82,17 @@ namespace API.Data.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    UserName = table.Column<string>(type: "TEXT", nullable: false),
-                    PasswordHash = table.Column<byte[]>(type: "BLOB", nullable: false),
-                    PasswordSalt = table.Column<byte[]>(type: "BLOB", nullable: false),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", nullable: false),
-                    Gender = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    PhotoUrl = table.Column<string>(type: "TEXT", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhotoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PublicId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,10 +103,10 @@ namespace API.Data.Migrations
                 name: "Interests",
                 columns: table => new
                 {
-                    InterestId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    InterestName = table.Column<string>(type: "TEXT", nullable: false),
-                    FieldOfInterestId = table.Column<int>(type: "INTEGER", nullable: false)
+                    InterestId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InterestName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FieldOfInterestId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -115,18 +116,18 @@ namespace API.Data.Migrations
                         column: x => x.FieldOfInterestId,
                         principalTable: "FieldOfInterests",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Answers",
                 columns: table => new
                 {
-                    AnswerId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    AnswerText = table.Column<string>(type: "TEXT", nullable: false),
-                    QuestionId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                    AnswerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AnswerText = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    QuestionId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -142,21 +143,21 @@ namespace API.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Educations",
                 columns: table => new
                 {
-                    EducationId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    SchoolName = table.Column<string>(type: "TEXT", nullable: false),
-                    StudyCity = table.Column<string>(type: "TEXT", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DegreeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                    EducationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SchoolName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StudyCity = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DegreeId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -172,15 +173,15 @@ namespace API.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "UserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    RoleId = table.Column<int>(type: "INTEGER", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -190,25 +191,25 @@ namespace API.Data.Migrations
                         column: x => x.RoleId,
                         principalTable: "AppRoles",
                         principalColumn: "RoleId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UserRoles_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "WorkExperiences",
                 columns: table => new
                 {
-                    WorkExpId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CompanyName = table.Column<string>(type: "TEXT", nullable: false),
-                    Jobtitle = table.Column<string>(type: "TEXT", nullable: false),
-                    IndustryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                    WorkExpId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Jobtitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IndustryId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -224,15 +225,15 @@ namespace API.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "UserInterests",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    InterestId = table.Column<int>(type: "INTEGER", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    InterestId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -242,13 +243,13 @@ namespace API.Data.Migrations
                         column: x => x.InterestId,
                         principalTable: "Interests",
                         principalColumn: "InterestId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UserInterests_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
@@ -314,14 +315,14 @@ namespace API.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "UserId", "Description", "FirstName", "Gender", "LastName", "PasswordHash", "PasswordSalt", "PhotoUrl", "UserName" },
+                columns: new[] { "UserId", "Description", "FirstName", "Gender", "LastName", "PasswordHash", "PasswordSalt", "PhotoUrl", "PublicId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, "I'm admin", "Admin", "Female", "Admin", new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 74, 53, 86, 72, 48, 101, 87, 82, 104, 80, 77, 99, 66, 121, 103, 114, 74, 50, 75, 73, 113, 100, 43, 53, 55, 48, 110, 85, 84, 85, 72, 77, 86, 53, 118, 53, 66, 114, 56, 86, 82, 85, 100, 107, 110, 102, 97, 117, 109, 104, 66, 97, 70, 83, 109, 105, 49, 48, 102, 88, 69, 108, 115, 79, 81, 61, 61 }, new byte[0], "", "Admin@gmail.com" },
-                    { 2, "mentor description...", "Mentor1", "Male", "ment1", new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 76, 57, 72, 52, 67, 53, 104, 70, 85, 110, 69, 111, 113, 43, 101, 107, 65, 50, 72, 49, 113, 116, 70, 82, 118, 85, 52, 107, 53, 99, 56, 70, 89, 114, 120, 89, 52, 57, 104, 111, 50, 79, 115, 116, 99, 86, 100, 105, 107, 67, 99, 74, 52, 121, 83, 52, 70, 76, 86, 89, 109, 74, 86, 86, 65, 61, 61 }, new byte[0], "https://picsum.photos/200", "mentor1@gmail.com" },
-                    { 3, "stud description,", "Student1", "Male", "stud1VGS", new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 73, 110, 116, 52, 110, 70, 68, 107, 65, 120, 57, 57, 117, 97, 84, 73, 100, 87, 52, 50, 54, 81, 100, 98, 115, 99, 118, 85, 88, 118, 65, 89, 66, 97, 74, 103, 54, 118, 122, 87, 88, 90, 84, 109, 57, 78, 75, 111, 51, 99, 119, 114, 97, 113, 81, 65, 114, 110, 67, 118, 122, 48, 100, 120, 65, 61, 61 }, new byte[0], "https://picsum.photos/200", "student1@gmail.com" },
-                    { 4, "mentor description...", "Mentor2", "Female", "ment2", new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 71, 86, 57, 118, 116, 43, 88, 77, 83, 120, 97, 109, 83, 104, 52, 117, 66, 82, 56, 97, 99, 49, 103, 122, 52, 78, 90, 47, 49, 121, 68, 116, 113, 108, 89, 103, 120, 103, 83, 79, 76, 74, 73, 84, 76, 77, 49, 51, 72, 89, 101, 98, 68, 119, 52, 117, 74, 112, 106, 83, 98, 104, 111, 102, 81, 61, 61 }, new byte[0], "https://picsum.photos/200", "mentor2@gmail.com" },
-                    { 5, "stud description", "Student2", "Male", "studVGS2", new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 67, 114, 114, 88, 89, 102, 117, 53, 114, 90, 53, 73, 119, 121, 100, 51, 54, 120, 71, 87, 69, 113, 76, 112, 69, 113, 110, 66, 116, 77, 90, 90, 102, 66, 121, 84, 53, 74, 99, 43, 101, 66, 48, 98, 55, 87, 56, 85, 97, 118, 122, 97, 87, 70, 112, 112, 73, 122, 57, 116, 108, 69, 119, 101, 65, 61, 61 }, new byte[0], "https://picsum.photos/200", "student2@gmail.com" }
+                    { 1, "I'm admin", "Admin", "Female", "Admin", new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 80, 108, 89, 55, 113, 49, 116, 84, 48, 81, 114, 103, 54, 67, 107, 103, 72, 49, 82, 82, 50, 118, 86, 75, 99, 66, 116, 86, 82, 48, 71, 89, 56, 70, 85, 76, 111, 122, 70, 87, 113, 71, 49, 105, 122, 121, 51, 56, 119, 77, 90, 43, 100, 57, 102, 69, 80, 67, 54, 70, 98, 57, 88, 87, 103, 61, 61 }, new byte[0], "", "", "Admin@gmail.com" },
+                    { 2, "mentor description...", "Mentor1", "Male", "ment1", new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 66, 53, 109, 119, 55, 57, 50, 110, 121, 48, 74, 119, 52, 109, 84, 66, 56, 99, 77, 104, 71, 68, 55, 87, 109, 105, 50, 98, 74, 115, 112, 43, 78, 52, 55, 112, 104, 89, 105, 102, 82, 80, 88, 55, 102, 66, 53, 86, 122, 81, 74, 66, 90, 111, 82, 120, 66, 113, 67, 79, 68, 111, 73, 78, 103, 61, 61 }, new byte[0], "https://picsum.photos/200", "", "mentor1@gmail.com" },
+                    { 3, "stud description,", "Student1", "Male", "stud1VGS", new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 71, 87, 67, 51, 49, 48, 76, 74, 102, 122, 56, 100, 101, 74, 74, 115, 72, 52, 66, 56, 73, 47, 86, 52, 52, 83, 107, 99, 87, 70, 65, 49, 102, 75, 120, 104, 120, 74, 73, 77, 71, 80, 108, 85, 108, 80, 56, 77, 51, 98, 79, 71, 90, 51, 66, 100, 103, 86, 57, 99, 104, 77, 88, 122, 103, 61, 61 }, new byte[0], "https://picsum.photos/200", "", "student1@gmail.com" },
+                    { 4, "mentor description...", "Mentor2", "Female", "ment2", new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 77, 116, 50, 50, 86, 106, 100, 52, 113, 119, 57, 97, 48, 71, 114, 98, 83, 88, 114, 90, 83, 80, 89, 122, 105, 117, 100, 79, 111, 84, 88, 50, 50, 56, 116, 52, 78, 57, 119, 119, 82, 118, 114, 65, 69, 73, 100, 84, 106, 78, 116, 49, 106, 90, 97, 73, 55, 116, 118, 54, 53, 116, 66, 101, 81, 61, 61 }, new byte[0], "https://picsum.photos/200", "", "mentor2@gmail.com" },
+                    { 5, "stud description", "Student2", "Male", "studVGS2", new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 78, 80, 86, 118, 70, 90, 117, 72, 104, 118, 47, 56, 50, 88, 76, 122, 118, 108, 48, 97, 117, 82, 43, 53, 108, 104, 68, 77, 83, 53, 101, 65, 121, 101, 122, 78, 76, 102, 80, 53, 111, 107, 108, 82, 49, 68, 101, 100, 119, 119, 75, 107, 88, 99, 111, 86, 72, 76, 73, 100, 111, 81, 43, 67, 119, 61, 61 }, new byte[0], "https://picsum.photos/200", "", "student2@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -340,9 +341,9 @@ namespace API.Data.Migrations
                 columns: new[] { "EducationId", "DegreeId", "EndDate", "SchoolName", "StartDate", "StudyCity", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2025, 1, 21, 22, 38, 47, 495, DateTimeKind.Local).AddTicks(8045), "school-name", new DateTime(2025, 1, 21, 22, 38, 47, 492, DateTimeKind.Local).AddTicks(445), "Oslo", 2 },
-                    { 2, 2, new DateTime(2025, 1, 21, 22, 38, 47, 495, DateTimeKind.Local).AddTicks(9747), "school-name", new DateTime(2025, 1, 21, 22, 38, 47, 495, DateTimeKind.Local).AddTicks(9729), "Bergen", 3 },
-                    { 3, 3, new DateTime(2025, 1, 21, 22, 38, 47, 495, DateTimeKind.Local).AddTicks(9756), "school-name", new DateTime(2025, 1, 21, 22, 38, 47, 495, DateTimeKind.Local).AddTicks(9754), "Stavanger", 4 }
+                    { 1, 1, new DateTime(2025, 2, 3, 11, 5, 54, 945, DateTimeKind.Local).AddTicks(4490), "school-name", new DateTime(2025, 2, 3, 11, 5, 54, 939, DateTimeKind.Local).AddTicks(8106), "Oslo", 2 },
+                    { 2, 2, new DateTime(2025, 2, 3, 11, 5, 54, 945, DateTimeKind.Local).AddTicks(6216), "school-name", new DateTime(2025, 2, 3, 11, 5, 54, 945, DateTimeKind.Local).AddTicks(6199), "Bergen", 3 },
+                    { 3, 3, new DateTime(2025, 2, 3, 11, 5, 54, 945, DateTimeKind.Local).AddTicks(6224), "school-name", new DateTime(2025, 2, 3, 11, 5, 54, 945, DateTimeKind.Local).AddTicks(6222), "Stavanger", 4 }
                 });
 
             migrationBuilder.InsertData(

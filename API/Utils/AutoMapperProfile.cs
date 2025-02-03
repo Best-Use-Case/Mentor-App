@@ -11,7 +11,8 @@ public class AutoMapperProfile : Profile
   {
     CreateMap<FieldOfInterest, FieldOfInterestDto>();
     CreateMap<Interest, InterestDto>();
-    CreateMap<Education, EduDto>();
+    CreateMap<Education, EduDto>().ForMember(a => a.DegreeName, b =>
+            b.MapFrom(c => c.Degree.DegreeName));
 
   }
 }
