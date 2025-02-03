@@ -6,7 +6,6 @@ import React, { useState } from "react";
 const UserForm = () => {
 	const router = useRouter();
 	const [formData, setFormData] = useState({
-		name: "",
 		email: "",
 		password: "",
 		confirmPassword: "",
@@ -34,7 +33,7 @@ const UserForm = () => {
 			router.refresh();
 			router.push("/register/success");
 		} else {
-			const errorRes = await res.json();
+			let errorRes = await res.json();
 			setErrorMessage(errorRes.message);
 		}
 	};
@@ -46,15 +45,6 @@ const UserForm = () => {
 				className='registerForm flex flex-col gap-4 [&>input]:bg-white [&>input]:text-black p-4 mx-auto w-auto md:w-md'
 			>
 				<h1>Create new account</h1>
-				<label>Full name</label>
-				<input
-					id='name'
-					name='name'
-					type='text'
-					onChange={handleChange}
-					required={true}
-					value={formData.name}
-				/>
 				<label>Email</label>
 				<input
 					id='email'

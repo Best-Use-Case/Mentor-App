@@ -84,8 +84,9 @@ export const options = {
 	],
 	callbacks: {
 		async jwt({ token, user, session }) {
-			console.log("jwt callback", { token, user, session });
+			
 			if (user) {
+				console.log("jwt callback", { token, user, session });
 				return {
 					...token, 
 					id: user?.id,
@@ -100,7 +101,7 @@ export const options = {
 			}
 		},
 		async session({ session, token, user}) {
-			console.log("session callback", { token, user, session });
+			// console.log("session callback", { token, user, session });
 			return {
 				...session,
 				user: {
