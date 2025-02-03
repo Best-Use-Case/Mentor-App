@@ -187,55 +187,55 @@ public class DataContext(DbContextOptions options) : DbContext(options)
                      .HasOne(e => e.AppUser)
                      .WithMany(au => au.Educations)
                      .HasForeignKey(ed => ed.UserId)
-                     .OnDelete(DeleteBehavior.Cascade);
+                     .OnDelete(DeleteBehavior.Restrict);
 
               builder.Entity<WorkExperience>()
                     .HasOne(e => e.AppUser)
                     .WithMany(au => au.WorkExperiences)
                     .HasForeignKey(we => we.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.Restrict);
 
               builder.Entity<AppUser>()
                      .HasMany(au => au.Answers)
                      .WithOne(a => a.AppUser)
-                     .OnDelete(DeleteBehavior.Cascade);
+                     .OnDelete(DeleteBehavior.Restrict);
 
               builder.Entity<UserInterest>()
                      .HasOne(ui => ui.AppUser)
                      .WithMany(au => au.UserInterests)
                      .HasForeignKey(ui => ui.UserId)
-                     .OnDelete(DeleteBehavior.Cascade);
+                     .OnDelete(DeleteBehavior.Restrict);
 
               builder.Entity<UserInterest>()
                .HasOne(ui => ui.Interest)
                .WithMany(i => i.UserInterests)
                .HasForeignKey(ui => ui.InterestId)
-               .OnDelete(DeleteBehavior.Cascade);
+               .OnDelete(DeleteBehavior.Restrict);
 
               builder.Entity<UserRole>()
                      .HasOne(ur => ur.AppUser)
                      .WithMany(au => au.Roles)
                      .HasForeignKey(ur => ur.UserId)
-                     .OnDelete(DeleteBehavior.Cascade);
+                     .OnDelete(DeleteBehavior.Restrict);
 
               builder.Entity<UserRole>()
                      .HasOne(ur => ur.AppRole)
                      .WithMany(ar => ar.UserRoles)
                      .HasForeignKey(ar => ar.RoleId)
-                     .OnDelete(DeleteBehavior.Cascade);
+                     .OnDelete(DeleteBehavior.Restrict);
 
 
               builder.Entity<Interest>()
                      .HasOne(i => i.FieldOfInterest)
                      .WithMany(fi => fi.Interests)
                      .HasForeignKey(i => i.FieldOfInterestId)
-                     .OnDelete(DeleteBehavior.Cascade);
+                     .OnDelete(DeleteBehavior.Restrict);
 
               builder.Entity<Answer>()
                      .HasOne(a => a.AppUser)
                      .WithMany(au => au.Answers)
                      .HasForeignKey(au => au.UserId)
-                     .OnDelete(DeleteBehavior.Cascade);
+                     .OnDelete(DeleteBehavior.Restrict);
 
        }
 

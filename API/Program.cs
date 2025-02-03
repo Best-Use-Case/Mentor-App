@@ -37,9 +37,9 @@ app.UseCors(policy =>
     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins(
             [
             "http://localhost:3000",
-        "https://locahost:3000",
-        "http://localhost:4200",
-        "https://localhost:4200"
+            "https://locahost:3000",
+            "http://localhost:4200",
+            "https://localhost:4200"
             ]
         );
 });

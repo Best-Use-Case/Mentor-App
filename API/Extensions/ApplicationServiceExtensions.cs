@@ -23,7 +23,7 @@ public static class ApplicationServiceExtensions
     services.AddScoped<IProfileRepository, ProfileRespository>();
     services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     services.AddDbContext<DataContext>(options =>
-           options.UseSqlite(config.GetConnectionString("DbConnection")));
+           options.UseSqlServer(config.GetConnectionString("DbConnection")));
     services.AddSwaggerGen();
     services.AddCors();
 
