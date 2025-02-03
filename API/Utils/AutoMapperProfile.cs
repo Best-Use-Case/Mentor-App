@@ -1,3 +1,4 @@
+using API.Dtos.CreateUser;
 using API.Dtos.UserProfile;
 using API.Models;
 using API.Repository;
@@ -13,6 +14,9 @@ public class AutoMapperProfile : Profile
     CreateMap<Interest, InterestDto>();
     CreateMap<Education, EduDto>().ForMember(a => a.DegreeName, b =>
             b.MapFrom(c => c.Degree.DegreeName));
+    CreateMap<EducationUpdateDto, Education>();
+    CreateMap<WorkExperience, WorkExperienceDto>().ForMember(d => d.CompanyName,
+          o => o.MapFrom(s => s.Indudtry.IndustryName));
 
   }
 }

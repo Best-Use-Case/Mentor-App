@@ -42,15 +42,9 @@ public class UserRepo : IUserRepo
       user.Description = userDto.Description;
       user.Gender = userDto.Gender;
 
-      if (await _context.SaveChangesAsync() > 0)
-      {
-        return new ResponseManager { Message = "Data successfully created to the user" };
-      }
-
-
       if (userDto.Educations.Count != 0)
       {
-        userDto.Educations.ForEach(async edu =>
+        userDto.Educations.ForEach(edu =>
         {
           var education = new Education()
           {
@@ -63,13 +57,15 @@ public class UserRepo : IUserRepo
 
           user.Educations!.Add(education);
 
-          await _context.Educations.AddAsync(education);
+
+          //await _context.Educations.AddAsync(education);
         });
+      
       }
 
       if (userDto.WorkExperiences.Count != 0)
       {
-        userDto.WorkExperiences.ForEach(async work =>
+        userDto.WorkExperiences.ForEach(work =>
         {
           var workHistory = new WorkExperience()
           {
@@ -78,13 +74,14 @@ public class UserRepo : IUserRepo
             Jobtitle = work.Jobtitle,
           };
           user.WorkExperiences!.Add(workHistory);
-          await _context.WorkExperiences.AddAsync(workHistory);
+          //await _context.WorkExperiences.AddAsync(workHistory);
         });
+      
       }
 
       if (userDto.Answers.Count != 0)
       {
-        userDto.Answers.ForEach(async ans =>
+        userDto.Answers.ForEach(ans =>
         {
           var answers = new Answer()
           {
@@ -92,7 +89,6 @@ public class UserRepo : IUserRepo
             QuestionId = ans.QuestionId,
           };
           user.Answers.Add(answers);
-          await _context.AddAsync(answers);
         });
       }
 
@@ -106,12 +102,13 @@ public class UserRepo : IUserRepo
         };
         user.Roles.Add(userRole);
         await _context.UserRoles.AddAsync(userRole);
+
       }
 
 
       if (userDto.InterestIds.Count != 0)
       {
-        userDto.InterestIds.ForEach(async id =>
+        userDto.InterestIds.ForEach( id =>
         {
           var userInterest = new UserInterest()
           {
@@ -119,39 +116,42 @@ public class UserRepo : IUserRepo
             InterestId = id
           };
           user.UserInterests.Add(userInterest);
-          await _context.UserInterests.AddAsync(userInterest);
-
-          await _context.SaveChangesAsync();
+          //await _context.UserInterests.AddAsync(userInterest);
         });
       }
 
-      // if (userDto.File != null)
-      // {
-      //   var imageResult = await _imageSerivice.AddImageAsync(userDto.File);
-      //   if (imageResult.Error != null)
-      //   {
-      //     return new ResponseManager { Message = imageResult.Error.Message };
-      //   }
-      //   user.PhotoUrl = imageResult.SecureUrl.AbsoluteUri;
-      //   user.PublicId = imageResult.PublicId;
-      // }
+            // if (userDto.File != null)
+            // {
+            //   var imageResult = await _imageSerivice.AddImageAsync(userDto.File);
+            //   if (imageResult.Error != null)
+            //   {
+            //     return new ResponseManager { Message = imageResult.Error.Message };
+            //   }
+            //   user.PhotoUrl = imageResult.SecureUrl.AbsoluteUri;
+            //   user.PublicId = imageResult.PublicId;
+            // }
 
-      //await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
 
-      return new ResponseManager
-      {
-        Message = "User successfully registered",
-        IsSuccess = true,
-        FirstName = userDto.FirstName,
-        LastName = userDto.LastName,
-        Token = _tokenService.CreateToken(user)
+            await _context.SaveChangesAsync();
+            
+              return new ResponseManager
+                {
+                    Message = "User successfully registered",
+                    IsSuccess = true,
+                    FirstName = userDto.FirstName,
+                    LastName = userDto.LastName,
+                    Token = _tokenService.CreateToken(user)
 
-      };
+                };
+            
+
+     
     }
 
     catch (Exception ex)
     {
-      return new ResponseManager { Message = $" Rgistration failed:\n{ex.Message}" };
+      return new ResponseManager { Message = $" Rgistration failed:\n{ex.Message}", IsSuccess = false };
     }
   }
 

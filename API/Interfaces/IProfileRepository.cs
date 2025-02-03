@@ -12,13 +12,13 @@ public interface IProfileRepository
 
   //Get all Edu for current-user, update and delete func
   Task<List<EduDto>> GetEducationsForUser(int userId);
-  Task<bool> UpdateEducationsForUser(Education education);
+  Task<bool> UpdateEducationsForUser(List<EducationUpdateDto> educationDto);
   Task<bool> DeleteEducationForUser(int eduId, int userId);
 
 
   //Get all Work-history for current-user and add, update and delete
-  Task<List<WorkExperienceDto>> GetWorkExperienceForUser(string userName);
-  Task<bool> UpdateWorkExperienceForUser(WorkExperienceDto workExperienceDto);
+  Task<List<WorkExperienceDto>> GetWorkExperienceForUser(int userId);
+  Task<bool> UpdateWorkExperienceForUser(List<WorkExperienceDto> workExperienceDto);
   // Get all interests for current-user and add and delete -> iff user has still one interest registered
   Task<bool> DeleteWorkExperienceForUser(int WorkId);
   //

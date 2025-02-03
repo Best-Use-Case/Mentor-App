@@ -47,9 +47,37 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
     }
 
   }
-  public Task<bool> UpdateEducationsForUser(Education education)
+  public async Task<bool> UpdateEducationsForUser(List<EducationUpdateDto> educationDto)
   {
-    throw new NotImplementedException();
+    try
+    {
+      educationDto.ForEach(async edu =>
+      {
+        var userEducation = await context.Educations.FindAsync(edu.EducationId);
+        if (userEducation != null)
+        {
+          // userEducation.EducationId = edu.EducationId;
+          // userEducation.SchoolName = edu.SchoolName;
+          // userEducation.StudyCity = edu.StudyCity;
+          // userEducation.StartDate = edu.StartDate;
+          // userEducation.EndDate = edu.EndDate;
+          // userEducation.DegreeId = edu.DegreeId;
+          // userEducation.UserId = edu.UserId;
+
+          mapper.Map<List<Education>>(edu);
+        }
+      });
+      if (await context.SaveChangesAsync() > 0) return true;
+
+      return false;
+
+    }
+    catch (Exception)
+    {
+
+      return false;
+    }
+
   }
   public async Task<bool> DeleteEducationForUser(int eduId, int userId)
   {
@@ -75,11 +103,22 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
 
   }
 
-  public Task<List<WorkExperienceDto>> GetWorkExperienceForUser(string userName)
+  public async Task<List<WorkExperienceDto>> GetWorkExperienceForUser(int userId)
   {
-    throw new NotImplementedException();
+    try
+    {
+      var userWorkHistories = await context.WorkExperiences
+                               .Where(w => w.UserId == userId)
+                               .Include(x => x.Indudtry)
+                               .ToListAsync();
+      return mapper.Map<List<WorkExperienceDto>>(userWorkHistories);
+    }
+    catch (Exception)
+    {
+      return [];
+    }
   }
-  public Task<bool> UpdateWorkExperienceForUser(WorkExperienceDto workExperienceDto)
+  public Task<bool> UpdateWorkExperienceForUser(List<WorkExperienceDto> workExperienceDto)
   {
     throw new NotImplementedException();
   }
