@@ -15,7 +15,7 @@ public class AutoMapperProfile : Profile
     CreateMap<Education, EduDto>().ForMember(a => a.DegreeName, b =>
             b.MapFrom(c => c.Degree.DegreeName));
     CreateMap<EducationUpdateDto, Education>();
-    CreateMap<WorkExperience, WorkExperienceDto>().ForMember(d => d.CompanyName,
+    CreateMap<WorkExperience, WorkHistoryDto>().ForMember(d => d.IndustryName,
           o => o.MapFrom(s => s.Indudtry.IndustryName));
 
   }

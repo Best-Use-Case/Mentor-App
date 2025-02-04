@@ -1,0 +1,12 @@
+using System;
+
+namespace API.Dtos.UserProfile;
+
+public record WorkHistoryDto
+{
+  public int WorkExpId { get; set; }
+  public string CompanyName { get; set; } = string.Empty;
+  public string Jobtitle { get; set; } = string.Empty;
+  public string IndustryName { get; set; } = null!;
+
+}
