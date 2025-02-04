@@ -8,10 +8,10 @@ namespace API.Controllers;
 [Route("[controller]")]
 public class ProfileController(IProfileRepository profile) : ControllerBase
 {
-  [HttpPut("update-user")]
+  [HttpPost("update-user")]
   public async Task<IActionResult> UpdateProfile(ProfileDto profileDto)
   {
-    if (profileDto == null) return BadRequest("No data given for update");
+    if (profileDto.UserId == 0) return BadRequest("No user found");
     var result = await profile.UpdateProfileAsync(profileDto);
 
     if (!result) return BadRequest("Problem updating profile");

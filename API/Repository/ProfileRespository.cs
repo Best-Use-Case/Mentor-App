@@ -14,7 +14,7 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
   {
     try
     {
-      var user = await context.Users.FindAsync(profileDto.UserName);
+      var user = await context.Users.FindAsync(profileDto.UserId);
       if (user is null) return false;
       user.FirstName = profileDto.FirstName;
       user.LastName = profileDto.LastName;
