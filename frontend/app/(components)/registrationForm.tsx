@@ -29,12 +29,14 @@ const UserForm = () => {
 			},
 			body: JSON.stringify(formData),
 		});
-		if (res.ok) {
+		if (!res.ok) {
+			let errorRes = await res.json();
+
+			setErrorMessage(`${errorRes.message}. Status: ${res.status}`);
+		} else {
 			router.refresh();
 			router.push("/register/success");
-		} else {
-			let errorRes = await res.json();
-			setErrorMessage(errorRes.message);
+			
 		}
 	};
 	return (
