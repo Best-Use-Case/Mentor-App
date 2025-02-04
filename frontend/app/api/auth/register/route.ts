@@ -9,11 +9,15 @@ export async function POST(request: Request) {
         // const hashedPassword = await bcrypt.hash(password, 10); // encrypting password
         // console.log({hashedPassword});
         const user = await postUser(email, password, confirmPassword);
+        if (!user.ok) {
+            console.log(`Error from postUser: ${user.error}`);
+            throw(user.error);
+        }
         console.log(user);
         return NextResponse.json({ user });
     } catch (e) {
         console.log(`Failed error: ${e}`);
-        return NextResponse.json({ error: "Failed to register user" }, { status: 500 });
+        return NextResponse.json({ message: "Failed to register user" }, { status: 500 });
     }
 }
 export async function postUser(email: string, password: string, confirmPassword: string) {
@@ -51,11 +55,12 @@ Hash Confirm Password: ${hashComparePassword}`)
         }); 
         console.log(`postUser Response: ${response.status} Body: ${response.body} Status text: ${response.statusText} URL: ${response.url}`);
         if (!response.ok) {
-            throw new Error(`Failed to create user: ${response.status}`);
+            throw(response.status);
         }
         console.log(`postUser Response: ${response}`);
         return await response.json();
     } catch (e) {
+        console.log("Caught error in postUser:")
         console.log({e});
         return e;
     }
