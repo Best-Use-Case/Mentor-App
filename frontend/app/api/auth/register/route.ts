@@ -9,15 +9,24 @@ export async function POST(request: Request) {
         // const hashedPassword = await bcrypt.hash(password, 10); // encrypting password
         // console.log({hashedPassword});
         const user = await postUser(email, password, confirmPassword);
-        if (!user.ok) {
-            console.log(`Error from postUser: ${user.error}`);
-            throw(user.error);
+        console.log('User headers received from postUser:');
+        console.log({user});
+        if (user.error) {
+            console.log(`Error from postUser: ${user.message}`);
+            throw(user.message);
         }
         console.log(user);
         return NextResponse.json({ user });
     } catch (e) {
         console.log(`Failed error: ${e}`);
-        return NextResponse.json({ message: "Failed to register user" }, { status: 500 });
+        switch (e) {
+            case 400:
+                return NextResponse.json({message: "User already found in the database"}, {status: 400});
+            case 500:
+                return NextResponse.json({ message: "Failed to register user" }, { status: 500 });
+            default:
+                return NextResponse.json({ message: "Something went wrong" }, { status: 500 });
+        }   
     }
 }
 export async function postUser(email: string, password: string, confirmPassword: string) {
@@ -53,15 +62,21 @@ Hash Confirm Password: ${hashComparePassword}`)
                 // }
             }),
         }); 
-        console.log(`postUser Response: ${response.status} Body: ${response.body} Status text: ${response.statusText} URL: ${response.url}`);
+        console.log(`postUser Response:
+Status: ${response.status} 
+Body: ${response.body} 
+Status text: ${response.statusText} 
+URL: ${response.url}`);
         if (!response.ok) {
             throw(response.status);
         }
-        console.log(`postUser Response: ${response}`);
+        console.log('Response object: ')
+        console.log({response});
         return await response.json();
     } catch (e) {
         console.log("Caught error in postUser:")
         console.log({e});
-        return e;
+        let error = {message: e, error: true}
+        return error;
     }
 }

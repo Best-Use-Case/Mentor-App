@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
-import { options } from "@/app/api/auth/[...nextauth]/options";
 
 const UserDataForm = () => {
 	const router = useRouter();
@@ -13,12 +12,13 @@ const UserDataForm = () => {
 		lastName: "",
 		gender: "",
 		description: "",
+		role: 1,
 	});
 	const [errorMessage, setErrorMessage] = useState("");
 
 	const handleChange = (e: any) => {
 		const { name, value } = e.target;
-		console.log(`Name: ${name}, Value: ${value}`);
+		// console.log(`Name: ${name}, Value: ${value}`);
 		setFormData((prevState) => ({
 			...prevState,
 			[name]: value,
@@ -34,15 +34,25 @@ const UserDataForm = () => {
 			},
 			body: JSON.stringify(formData),
 		});
-		if (res.ok) {
-			// alert("User updated successfully!");
-			// let parsedRes = JSON.parse(res.body as any);
-			// const response = JSON.parse(res as any);
-			let response = await res.json();
-			console.log(response);
+		const response = await res.json();
+		// console.log({ response });
+
+		if (response.error) {
+			setErrorMessage(response.message);
 		} else {
-			let errorRes = await res.json();
-			setErrorMessage(errorRes.message);
+			let newFirstName: string = response.updatedUser.firstName;
+			let newLastName: string = response.updatedUser.lastName;
+			let newDescription: string = response.updatedUser.description;
+			let newGender: string = response.updatedUser.gender;
+			let newRole: number = response.updatedUser.role;
+			await update({ firstName: newFirstName, lastName: newLastName, description: newDescription, gender: newGender, role: newRole  });
+			console.log(`formData.role: ${formData.role}`);
+			if (formData.role == 1) {
+				console.log(`Role: Student`);
+				router.push("/loggedin/onboarding/student");
+			} else if (formData.role == 2) {
+				console.log(`Role: Mentor`);
+			}
 		}
 	};
 	return (
@@ -55,7 +65,7 @@ const UserDataForm = () => {
 				<h2>Lets get som more info for your profile.</h2>
 				<section>
 					<label>First Name</label>
-					<p className="text-xs">*Required</p>
+					<p className='text-xs'>*Required</p>
 					<input
 						id='firstName'
 						type='text'
@@ -128,9 +138,14 @@ const UserDataForm = () => {
 						</label>
 					</div>
 				</section>
-				<section className="z-10">
+				<section className='z-10'>
 					<div className='buttonWrapper buttonWrapperDefault'>
-						<button className='buttonClass' value='submit' name="submit" type="submit">
+						<button
+							className='buttonClass'
+							value='submit'
+							name='submit'
+							type='submit'
+						>
 							Submit
 						</button>
 					</div>

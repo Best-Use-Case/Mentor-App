@@ -1,7 +1,7 @@
 import Link from "next/link";
 import clsx from "clsx";
 
-export function ButtonLink({type = "primary", target, text}: {type?: "primary" | "secondary", target: string, text: string}) {
+export function ButtonLink({type = "primary", target, text} : {type?: "primary" | "secondary", target: string, text: string}) {
     // const primary = type
     const buttonClass = "text-black p-6 pt-3.5 pb-3.5";
     const wrapperClass = clsx (
