@@ -58,7 +58,7 @@ export function ProfileMenu() {
 								onClick={() => signOut({ callbackUrl: "/" })}
 								className='cursor-pointer inline-flex gap-2 items-center'
 							>
-                                <Logout />
+								<Logout />
 								Logout
 							</li>
 						</ul>
