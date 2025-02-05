@@ -14,7 +14,7 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
   {
     try
     {
-      var user = await context.Users.FindAsync(profileDto.UserName);
+      var user = await context.Users.FindAsync(profileDto.UserId);
       if (user is null) return false;
       user.FirstName = profileDto.FirstName;
       user.LastName = profileDto.LastName;
@@ -31,12 +31,12 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
     }
 
   }
-  public async Task<List<EduDto>> GetEducationsForUser(int userId)
+  public async Task<List<EduDto>> GetEducationsForUser(int UserId)
   {
     try
     {
       var userEducations = await context.Educations
-                .Where(u => u.UserId == userId)
+                .Where(u => u.UserId == UserId)
                 .Include(e => e.Degree)
                 .ToListAsync();
       return mapper.Map<List<EduDto>>(userEducations);
@@ -79,17 +79,14 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
     }
 
   }
-  public async Task<bool> DeleteEducationForUser(int eduId, int userId)
+  public async Task<bool> DeleteEducationForUser(int EduId)
   {
     try
     {
-      var edu = await context.Educations.FindAsync(eduId);
+      var edu = await context.Educations.FindAsync(EduId);
       if (edu is not null)
       {
-        var userEducations = await context.Educations
-              .Where(edu => edu.UserId == userId)
-              .ToListAsync();
-        userEducations.Remove(edu);
+        context.Educations.Remove(edu); // check if the DegreeId is removed ass well
         return true;
       }
       if (await context.SaveChangesAsync() > 0) return true;
@@ -103,28 +100,58 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
 
   }
 
-  public async Task<List<WorkExperienceDto>> GetWorkExperienceForUser(int userId)
+  public async Task<List<WorkHistoryDto>> GetWorkExperienceForUser(int UserId)
   {
     try
     {
       var userWorkHistories = await context.WorkExperiences
-                               .Where(w => w.UserId == userId)
+                               .Where(w => w.UserId == UserId)
                                .Include(x => x.Indudtry)
                                .ToListAsync();
-      return mapper.Map<List<WorkExperienceDto>>(userWorkHistories);
+      return mapper.Map<List<WorkHistoryDto>>(userWorkHistories);
     }
     catch (Exception)
     {
       return [];
     }
   }
-  public Task<bool> UpdateWorkExperienceForUser(List<WorkExperienceDto> workExperienceDto)
+  public async Task<bool> UpdateWorkExperienceForUser(List<WorkExperienceDto> workExperienceDto)
   {
-    throw new NotImplementedException();
+    try
+    {
+      workExperienceDto.ForEach(async work =>
+      {
+        var userWorkHistory = await context.WorkExperiences.FindAsync(work.WorkId);
+        if (userWorkHistory != null)
+        {
+          mapper.Map<WorkExperience>(work);
+        }
+      });
+      if (await context.SaveChangesAsync() > 0) return true;
+      return false;
+    }
+    catch (Exception)
+    {
+      return false;
+    }
   }
-  public Task<bool> DeleteWorkExperienceForUser(int WorkId)
+  public async Task<bool> DeleteWorkExperienceForUser(int WorkId)
   {
-    throw new NotImplementedException();
+    try
+    {
+      var workToDeleted = await context.WorkExperiences.FindAsync(WorkId);
+      if (workToDeleted != null)
+      {
+        var result = context.WorkExperiences.Remove(workToDeleted);
+        return true;
+      }
+      return false;
+    }
+    catch (Exception)
+    {
+
+      return false;
+    }
   }
 
 }

@@ -1,6 +1,5 @@
 using API.Dtos.CreateUser;
 using API.Dtos.UserProfile;
-using API.Models;
 
 namespace API.Interfaces;
 
@@ -11,13 +10,13 @@ public interface IProfileRepository
 
 
   //Get all Edu for current-user, update and delete func
-  Task<List<EduDto>> GetEducationsForUser(int userId);
+  Task<List<EduDto>> GetEducationsForUser(int UserId);
   Task<bool> UpdateEducationsForUser(List<EducationUpdateDto> educationDto);
-  Task<bool> DeleteEducationForUser(int eduId, int userId);
+  Task<bool> DeleteEducationForUser(int EduId);
 
 
   //Get all Work-history for current-user and add, update and delete
-  Task<List<WorkExperienceDto>> GetWorkExperienceForUser(int userId);
+  Task<List<WorkHistoryDto>> GetWorkExperienceForUser(int UserId);
   Task<bool> UpdateWorkExperienceForUser(List<WorkExperienceDto> workExperienceDto);
   // Get all interests for current-user and add and delete -> iff user has still one interest registered
   Task<bool> DeleteWorkExperienceForUser(int WorkId);

@@ -54,13 +54,12 @@ public class UserRepo : IUserRepo
             StartDate = edu.StartDate,
             EndDate = edu.EndDate,
           };
-
           user.Educations!.Add(education);
 
 
           //await _context.Educations.AddAsync(education);
         });
-      
+
       }
 
       if (userDto.WorkExperiences.Count != 0)
@@ -76,7 +75,7 @@ public class UserRepo : IUserRepo
           user.WorkExperiences!.Add(workHistory);
           //await _context.WorkExperiences.AddAsync(workHistory);
         });
-      
+
       }
 
       if (userDto.Answers.Count != 0)
@@ -105,10 +104,9 @@ public class UserRepo : IUserRepo
 
       }
 
-
       if (userDto.InterestIds.Count != 0)
       {
-        userDto.InterestIds.ForEach( id =>
+        userDto.InterestIds.ForEach(id =>
         {
           var userInterest = new UserInterest()
           {
@@ -120,33 +118,30 @@ public class UserRepo : IUserRepo
         });
       }
 
-            // if (userDto.File != null)
-            // {
-            //   var imageResult = await _imageSerivice.AddImageAsync(userDto.File);
-            //   if (imageResult.Error != null)
-            //   {
-            //     return new ResponseManager { Message = imageResult.Error.Message };
-            //   }
-            //   user.PhotoUrl = imageResult.SecureUrl.AbsoluteUri;
-            //   user.PublicId = imageResult.PublicId;
-            // }
+      // if (userDto.File != null)
+      // {
+      //   var imageResult = await _imageSerivice.AddImageAsync(userDto.File);
+      //   if (imageResult.Error != null)
+      //   {
+      //     return new ResponseManager { Message = imageResult.Error.Message };
+      //   }
+      //   user.PhotoUrl = imageResult.SecureUrl.AbsoluteUri;
+      //   user.PublicId = imageResult.PublicId;
+      // }
 
-            //await _context.SaveChangesAsync();
+      //await _context.SaveChangesAsync();
 
-            await _context.SaveChangesAsync();
-            
-              return new ResponseManager
-                {
-                    Message = "User successfully registered",
-                    IsSuccess = true,
-                    FirstName = userDto.FirstName,
-                    LastName = userDto.LastName,
-                    Token = _tokenService.CreateToken(user)
+      await _context.SaveChangesAsync();
 
-                };
-            
+      return new ResponseManager
+      {
+        Message = "User successfully registered",
+        IsSuccess = true,
+        FirstName = userDto.FirstName,
+        LastName = userDto.LastName,
+        Token = _tokenService.CreateToken(user)
 
-     
+      };
     }
 
     catch (Exception ex)
