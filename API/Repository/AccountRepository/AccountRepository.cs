@@ -16,16 +16,10 @@ public interface IAccountRepository
 
 }
 
-public class AccountRepository : IAccountRepository
+public class AccountRepository(DataContext context, ITokenService tokenService) : IAccountRepository
 {
-    private readonly DataContext _context;
-    private readonly ITokenService _tokenService;
-
-    public AccountRepository(DataContext context, ITokenService tokenService)
-    {
-        _context = context;
-        _tokenService = tokenService;
-    }
+    private readonly DataContext _context = context;
+    private readonly ITokenService _tokenService = tokenService;
 
     public async Task<ResponseManager> Register(RegisterDto registerDto)
     {
@@ -71,6 +65,7 @@ public class AccountRepository : IAccountRepository
         return new ResponseManager
         {
             UserId = user.UserId,
+            UserName = user.UserName,
             Message = "Registration succeeded",
             IsSuccess = true
         };
@@ -84,7 +79,7 @@ public class AccountRepository : IAccountRepository
         {
             return new ResponseManager
             {
-                Message = "Invalid username",
+                Message = "Invalid username or password",
                 IsSuccess = false
             };
         }
@@ -97,7 +92,7 @@ public class AccountRepository : IAccountRepository
             if (computedHash[i] != user.PasswordHash[i])
                 return new ResponseManager
                 {
-                    Message = "Either username or Password is invalid",
+                    Message = "Invalid username or password",
                     IsSuccess = false
                 };
         }
@@ -108,6 +103,8 @@ public class AccountRepository : IAccountRepository
             UserId = user.UserId,
             FirstName = user.FirstName,
             LastName = user.LastName,
+            // Description = user.Description, since not all users have these fields registered
+            // Gender = user.Gender,
             Token = _tokenService.CreateToken(user),
             Message = "Login succeeded",
             IsSuccess = true
@@ -118,8 +115,7 @@ public class AccountRepository : IAccountRepository
 
     private async Task<bool> UserExists(RegisterDto registerDto)
     {
-        return await _context.Users.AnyAsync(u =>
-               u.UserName == registerDto.UserName.ToLower());
+        return await _context.Users.AnyAsync(u => u.UserName == registerDto.UserName.ToLower());
 
     }
 
