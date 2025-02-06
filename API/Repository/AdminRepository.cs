@@ -12,13 +12,17 @@ public class AdminRepository(DataContext context) : IAdminRepository
     {
         try
         {
+            var degreeDb = await context.Degrees.Select(d => d.DegreeName).ToListAsync();
             if (!string.IsNullOrEmpty(degree.DegreeName))
             {
-                var newDegree = new Degree
+                var result = degreeDb.Contains(degree.DegreeName);
                 {
-                    DegreeName = degree.DegreeName
-                };
-                context.Degrees.Add(newDegree);
+                    var newDegree = new Degree
+                    {
+                        DegreeName = degree.DegreeName
+                    };
+                    context.Degrees.Add(newDegree);
+                }
             }
 
             if (await context.SaveChangesAsync() > 0) return true;
@@ -54,20 +58,24 @@ public class AdminRepository(DataContext context) : IAdminRepository
         }
     }
 
-
     // swagger-tested
     public async Task<bool> AddInterest(AddInterestDto interestDto)
     {
         try
         {
+            var interestDb = await context.Interests.Select(x => x.InterestName).ToListAsync();
             if (!string.IsNullOrEmpty(interestDto.InterestName))
             {
-                var newInt = new Interest
+                var result = interestDb.Contains(interestDto.InterestName);
+                if (!result)
                 {
-                    InterestName = interestDto.InterestName,
-                    FieldOfInterestId = interestDto.FieldOfInterestId,
-                };
-                context.Interests.Add(newInt);
+                    var newInt = new Interest
+                    {
+                        InterestName = interestDto.InterestName,
+                        FieldOfInterestId = interestDto.FieldOfInterestId,
+                    };
+                    context.Interests.Add(newInt);
+                }
             }
             if (await context.SaveChangesAsync() > 0) return true;
 
