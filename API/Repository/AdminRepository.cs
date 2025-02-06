@@ -2,6 +2,7 @@ using API.Data;
 using API.Dtos.Admin;
 using API.Interfaces;
 using API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repository;
 
@@ -83,13 +84,18 @@ public class AdminRepository(DataContext context) : IAdminRepository
     {
         try
         {
+            var rolesDb = await context.AppRoles.Select(x => x.RoleName).ToListAsync();
             if (!string.IsNullOrEmpty(role.RoleName))
             {
-                var newRole = new AppRole
+                var result = rolesDb.Contains(role.RoleName);
+                if (!result)
                 {
-                    RoleName = role.RoleName,
-                };
-                context.AppRoles.Add(newRole);
+                    var newRole = new AppRole
+                    {
+                        RoleName = role.RoleName,
+                    };
+                    context.AppRoles.Add(newRole);
+                }
             }
             if (await context.SaveChangesAsync() > 0) return true;
 
