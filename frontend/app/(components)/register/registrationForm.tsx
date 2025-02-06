@@ -36,7 +36,6 @@ const UserForm = () => {
 		} else {
 			router.refresh();
 			router.push("/register/success");
-			
 		}
 	};
 	return (
@@ -74,11 +73,13 @@ const UserForm = () => {
 					required={true}
 					value={formData.confirmPassword}
 				></input>
-				<div className='buttonWrapper buttonWrapperDefault'>
-					<button type='submit' value='Register' className="buttonClass">
-						Register new user
-					</button>
-				</div>
+				<section className='z-10 mt-6'>
+					<div className='buttonWrapper buttonWrapperDefault'>
+						<button type='submit' value='Register' className='buttonClass'>
+							Register new user
+						</button>
+					</div>
+				</section>
 			</form>
 			<p>{errorMessage}</p> {/* For testing only, needs to be removed */}
 		</>

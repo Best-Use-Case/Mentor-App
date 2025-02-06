@@ -83,7 +83,7 @@ export const options = {
 		}),
 	],
 	callbacks: {
-		async jwt({ token, user, session }) {
+		async jwt({ token, user, trigger, session }) {
 			
 			if (user) {
 				console.log("jwt callback", { token, user, session });
@@ -96,6 +96,24 @@ export const options = {
 					role: user?.role,
 				}
 
+			} else if (trigger) {
+				// console.log("jwt session", {session});
+				// console.log("jwt user", {user});
+				// console.log("jwt token", {token});
+				// console.log("jwt trigger", {trigger});
+				if (session?.firstName) {
+					token.firstName = session?.firstName;
+				}
+				if (session?.lastName) {
+					token.lastName = session?.lastName;
+				}
+				if (session?.description) {
+					token.description = session?.description;
+				}
+				if (session?.role) {
+					token.role = session?.role;
+				}
+				return token;
 			} else {
 				return token;
 			}

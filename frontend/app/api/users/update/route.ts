@@ -16,6 +16,8 @@ export async function POST(request: Request) {
 			description,
 			role
 		);
+		console.log("updated user")
+		console.log({ updatedUser });
 		return NextResponse.json({ updatedUser });
 	} catch (e) {
 		return NextResponse.json(
@@ -41,9 +43,9 @@ export async function updateUser(
 			role,
 		};
 		const session = await getServerSession(options as any);
-		console.log({ session });
+		console.log({ session }); // remove this!
 		const email = session?.user?.email as string; // Need to research this issue, works for now.
-		console.log({ userData });
+		console.log({ userData }); // remove this!
 		const url = process.env.UPDATE_USER_URL as string;
 		const response = await fetch(url, {
 			method: "POST",
@@ -54,21 +56,25 @@ export async function updateUser(
 			},
 			body: JSON.stringify({
 				userName: email,
-				firstName,
-				lastName,
+				firstName: firstName,
+				lastName: lastName,
 				gender,
 				description,
-				roleId: role,
+				// roleId: role,
 			}),
 		});
 		if (!response.ok) {
+			const res = await response.json();
+			console.log("Full error response: ")
+			console.log({ res });
 			throw new Error(`Failed to update user: ${response.status}`);
-		} else {
-			console.log(`updateUser Response: ${{ response }}`);
-            let res = await response.json();
-			return res;
 		}
+			let res = await response.json();
+			console.log("Full response: ");
+			console.log({ res });
+			return res;
 	} catch (e) {
+		console.log({ e });
 		return e;
 	}
 }
