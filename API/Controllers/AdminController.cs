@@ -40,7 +40,7 @@ namespace API.Controllers
         }
 
         [HttpPost("add-interest")]
-        public async Task<IActionResult> AddInterest(InterestDTO interestDto)
+        public async Task<IActionResult> AddInterest(AddInterestDto interestDto)
         {
             if (string.IsNullOrEmpty(interestDto.InterestName))
                 return BadRequest("Interest name is required to create an interest");

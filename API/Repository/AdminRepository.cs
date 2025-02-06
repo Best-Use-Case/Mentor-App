@@ -53,7 +53,9 @@ public class AdminRepository(DataContext context) : IAdminRepository
         }
     }
 
-    public async Task<bool> AddInterest(InterestDTO interestDto)
+
+    // swagger-tested
+    public async Task<bool> AddInterest(AddInterestDto interestDto)
     {
         try
         {
@@ -61,8 +63,8 @@ public class AdminRepository(DataContext context) : IAdminRepository
             {
                 var newInt = new Interest
                 {
-                    InterestId = interestDto.InterestId,
-                    InterestName = interestDto.InterestName
+                    InterestName = interestDto.InterestName,
+                    FieldOfInterestId = interestDto.FieldOfInterestId,
                 };
                 context.Interests.Add(newInt);
             }
@@ -76,6 +78,7 @@ public class AdminRepository(DataContext context) : IAdminRepository
         }
     }
 
+    // swagger-tested
     public async Task<bool> AddRole(RoleDTO role)
     {
         try
