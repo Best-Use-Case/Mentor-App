@@ -13,7 +13,7 @@ public class MessageController(
   IMapper mapper
   ) : ControllerBase
 {
-  [HttpPost]
+  [HttpPost("send-message")]
   public async Task<ActionResult> SendMessage(SendMessageDto sendMessageDto)
   {
     var sender = await userRepo.GetUserByUsername(sendMessageDto.SenderUsername);
