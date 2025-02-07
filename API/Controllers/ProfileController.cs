@@ -74,7 +74,7 @@ public class ProfileController(IProfileRepository profile) : ControllerBase
   public async Task<ActionResult<List<string>>> GetUserInterests(int UserId)
   {
     var result = await profile.GetUserInterests(UserId);
-    if (result.Count == 0) return NotFound("No interest for the user found");
+    if (result.Count == 0) return NotFound("No interest found for the user");
     return Ok(result);
   }
 

@@ -21,6 +21,7 @@ public static class ApplicationServiceExtensions
     services.AddScoped<ITokenService, TokenService>();
     services.AddScoped<IAdminRepository, AdminRepository>();
     services.AddScoped<IProfileRepository, ProfileRespository>();
+    services.AddScoped<IMessageRepository, MessageRepository>();
     services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     services.AddDbContext<DataContext>(options =>
            options.UseSqlServer(config.GetConnectionString("DbConnection")));

@@ -237,6 +237,15 @@ public class DataContext(DbContextOptions options) : DbContext(options)
                      .HasForeignKey(au => au.UserId)
                      .OnDelete(DeleteBehavior.Restrict);
 
+              builder.Entity<Message>()
+                     .HasOne(m => m.Recipient)
+                     .WithMany(r => r.ReciveidMessages)
+                     .OnDelete(DeleteBehavior.Restrict);
+              builder.Entity<Message>()
+                     .HasOne(m => m.Sender)
+                     .WithMany(s => s.SentMessages)
+                     .OnDelete(DeleteBehavior.Restrict);
+
        }
 
        public DbSet<AppUser> Users { get; set; }
@@ -251,5 +260,6 @@ public class DataContext(DbContextOptions options) : DbContext(options)
        public DbSet<Degree> Degrees { get; set; }
        public DbSet<Question> Questions { get; set; }
        public DbSet<Answer> Answers { get; set; }
+       public DbSet<Message> Messages { get; set; }
 
 }

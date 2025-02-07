@@ -1,4 +1,5 @@
 using API.Dtos.CreateUser;
+using API.Dtos.Message;
 using API.Dtos.UserProfile;
 using API.Models;
 using API.Repository;
@@ -18,6 +19,7 @@ public class AutoMapperProfile : Profile
     CreateMap<WorkExperience, WorkHistoryDto>().ForMember(d => d.IndustryName,
           o => o.MapFrom(s => s.Indudtry.IndustryName));
     CreateMap<WorkUpdateDto, WorkExperience>();
+    CreateMap<Message, MessageDto>();
 
   }
 }

@@ -183,16 +183,16 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
         return userInterestList;
       }
 
-      return [""];
+      return ["No interest found for the user"];
     }
-    catch (Exception)
+    catch (Exception ex)
     {
 
-      return [""];
+      return ["Something went wrong\n" + ex.Message];
     }
   }
 
-  public async Task<bool> UpdateUserInterest(InterestDTO interestDTO)
+  public async Task<bool> UpdateUserInterest(InterestDTO interestDTO) // TODO: This will be removed 
   {
     try
     {

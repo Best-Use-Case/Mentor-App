@@ -20,6 +20,8 @@ public class AppUser
     public List<Education>? Educations { get; set; } = [];
     public List<WorkExperience>? WorkExperiences { get; set; } = [];
     public List<Answer> Answers { get; set; } = [];
+    public List<Message> SentMessages { get; set; } = [];
+    public List<Message> ReciveidMessages { get; set; } = [];
 
     public string FullName
     {
