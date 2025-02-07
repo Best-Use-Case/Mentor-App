@@ -1,7 +1,7 @@
-import React from "react";
-import Image from "next/image";
-import { ButtonLink } from "@/app/(components)/ui/buttons";
-import WelcomeMessage from "./(components)/home/welcomeMessage";
+import React from 'react';
+// import Image from "next/image";
+// import { ButtonLink } from "@/app/(components)/ui/buttons";
+import WelcomeMessage from './(components)/home/welcomeMessage';
 
 export default function Home() {
 	return (

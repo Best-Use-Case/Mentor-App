@@ -1,7 +1,7 @@
-import GitHubProvider from "next-auth/providers/github";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { POST } from "@/app/api/auth/register/route";
-import bcrypt from "bcrypt";
+import GitHubProvider from 'next-auth/providers/github';
+import CredentialsProvider from 'next-auth/providers/credentials';
+// import { POST } from "@/app/api/auth/register/route";
+// import bcrypt from "bcrypt";
 
 export const options = {
 	// pages: {
@@ -18,27 +18,27 @@ export const options = {
 		}),
 		CredentialsProvider({
 			// Read more on credentials provider here: https://next-auth.js.org/providers/credentials
-			name: "Credentials",
+			name: 'Credentials',
 			credentials: {
 				username: {
-					label: "Email:",
-					type: "email",
-					placeholder: "Your email",
+					label: 'Email:',
+					type: 'email',
+					placeholder: 'Your email',
 				},
 				password: {
-					label: "Password:",
-					type: "password",
-					placeholder: "Your password",
+					label: 'Password:',
+					type: 'password',
+					placeholder: 'Your password',
 				},
 			},
-			async authorize(credentials, req) {
+			async authorize(credentials) {
 				try {
-					const url = "http://localhost:5000/account/login";
+					const url = 'http://localhost:5000/account/login';
 					const response = await fetch(url, {
-						method: "POST",
-						mode: "cors",
+						method: 'POST',
+						mode: 'cors',
 						headers: {
-							"Content-Type": "application/json",
+							'Content-Type': 'application/json',
 						},
 						body: JSON.stringify({
 							UserName: credentials?.username,
@@ -48,17 +48,16 @@ export const options = {
 					if (!response.ok) {
 						throw new Error(`Failed to get user: ${response.status}`);
 					}
-					const data = await response.json();					
+					const data = await response.json();
 					const user = {
 						email: data?.userName,
-						name: "",
-						image: "",
+						name: '',
+						image: '',
 						id: data?.userId,
 						firstName: data?.firstName,
 						lastName: data?.lastName,
 						description: data?.description,
 						role: data?.role,
-
 					};
 					// Keeping this in case we need to use encryption from the frontend.
 					// users.map(function (mapUser: any) {
@@ -84,18 +83,16 @@ export const options = {
 	],
 	callbacks: {
 		async jwt({ token, user, trigger, session }) {
-			
 			if (user) {
-				console.log("jwt callback", { token, user, session });
+				console.log('jwt callback', { token, user, session });
 				return {
-					...token, 
+					...token,
 					id: user?.id,
 					firstName: user?.firstName,
 					lastName: user?.lastName,
 					description: user?.description,
 					role: user?.role,
-				}
-
+				};
 			} else if (trigger) {
 				// console.log("jwt session", {session});
 				// console.log("jwt user", {user});
@@ -118,7 +115,7 @@ export const options = {
 				return token;
 			}
 		},
-		async session({ session, token, user}) {
+		async session({ session, token }) {
 			// console.log("session callback", { token, user, session });
 			return {
 				...session,
@@ -129,12 +126,12 @@ export const options = {
 					lastName: token?.lastName,
 					description: token?.description,
 					role: token?.role,
-				}
-			}
-		}
+				},
+			};
+		},
 	},
 	secret: process.env.NEXTAUTH_SECRET,
 	session: {
-		strategy: "jwt",
+		strategy: 'jwt',
 	},
 };

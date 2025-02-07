@@ -1,27 +1,46 @@
 {
-  "compilerOptions": {
-    "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "paths": {
-      "@/*": ["./*"]
-    }
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/loggedin/page.jsx", "app/(components)/authProvider.tsx", "app/api/auth/[...nextauth]/options.js", "app/page.tsx"],
-  "exclude": ["node_modules"]
+	"compilerOptions": {
+		"target": "ES2017",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"incremental": true,
+		"plugins": [
+			{
+				"name": "next"
+			}
+		],
+		"paths": {
+			"@/*": ["./*"]
+		}
+	},
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts",
+		"app/loggedin/page.jsx",
+		"app/(components)/authProvider.tsx",
+		"app/api/auth/[...nextauth]/options.js",
+		"app/page.tsx",
+		"app/api/clientData/getInterests/route.js",
+		"app/(components)/onboarding/userDataForm.jsx",
+		"app/(components)/onboarding/interests/interestsDataForm.jsx",
+		"app/(components)/register/registrationForm.jsx",
+		"app/(components)/ui/header/profileMenu.jsx",
+		"app/loggedin/onboarding/page.jsx",
+		"app/api/users/update/route.js",
+		"next.config.js",
+		"app/api/auth/[...nextauth]/route.js"
+	],
+	"exclude": ["node_modules"]
 }
+

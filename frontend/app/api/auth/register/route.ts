@@ -90,7 +90,7 @@ URL: ${response.url}`);
 	} catch (e) {
 		console.log('Caught error in postUser:');
 		console.log({ e });
-		let error = { message: e, error: true };
+		const error = { message: e, error: true };
 		return error;
 	}
 }
