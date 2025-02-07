@@ -234,4 +234,18 @@ public class UserRepo : IUserRepo
       return new MatchResponseManager { Message = $"{ex.Message}" };
     }
   }
+
+  public async Task<AppUser> GetUserById(int id)
+  {
+    var userById = await _context.Users.FindAsync(id);
+    if (userById == null) return null!;
+    return userById;
+  }
+
+  public async Task<AppUser> GetUserByUsername(string userName)
+  {
+    var userByUsername = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+    if (userByUsername == null) return null!;
+    return userByUsername;
+  }
 }

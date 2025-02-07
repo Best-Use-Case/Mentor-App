@@ -16,6 +16,7 @@ public class AdminRepository(DataContext context) : IAdminRepository
             if (!string.IsNullOrEmpty(degree.DegreeName))
             {
                 var result = degreeDb.Contains(degree.DegreeName);
+                if (!result)
                 {
                     var newDegree = new Degree
                     {

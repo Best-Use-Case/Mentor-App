@@ -6,16 +6,10 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class RegisterController : ControllerBase
+public class RegisterController(IUserRepo userRepo, ILogger<RegisterController> logger) : ControllerBase
 {
-  private readonly IUserRepo _userRepo;
-  private readonly ILogger<RegisterController> _logger;
-  public RegisterController(IUserRepo userRepo, ILogger<RegisterController> logger)
-  {
-    _logger = logger;
-    _userRepo = userRepo;
-
-  }
+  private readonly IUserRepo _userRepo = userRepo;
+  private readonly ILogger<RegisterController> _logger = logger;
 
   [HttpPost("register-user")]
   public async Task<IActionResult> RegisterUser([FromBody] UserDto userDto)
