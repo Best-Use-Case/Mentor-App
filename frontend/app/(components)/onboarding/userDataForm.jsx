@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import { useSession } from "next-auth/react";
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 const UserDataForm = () => {
 	const router = useRouter();
-	const { data: session, status, update } = useSession();
+	const { update } = useSession();
 	const [formData, setFormData] = useState({
-		firstName: "",
-		lastName: "",
-		gender: "",
-		description: "",
+		firstName: '',
+		lastName: '',
+		gender: '',
+		description: '',
 		role: 1,
 	});
-	const [errorMessage, setErrorMessage] = useState("");
+	// const [errorMessage, setErrorMessage] = useState(''); // Not used yet. Keeping...
 
-	const handleChange = (e: any) => {
+	const handleChange = (e) => {
 		const { name, value } = e.target;
 		// console.log(`Name: ${name}, Value: ${value}`);
 		setFormData((prevState) => ({
@@ -24,13 +24,13 @@ const UserDataForm = () => {
 			[name]: value,
 		}));
 	};
-	const handleSubmit = async (e: any) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		setErrorMessage("");
-		const res = await fetch("/api/users/update", {
-			method: "POST",
+		// setErrorMessage(''); // Not used yet. Keeping...
+		const res = await fetch('/api/users/update', {
+			method: 'POST',
 			headers: {
-				"Content-Type": "application/json",
+				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(formData),
 		});
@@ -40,16 +40,22 @@ const UserDataForm = () => {
 		if (response.error) {
 			setErrorMessage(response.message);
 		} else {
-			let newFirstName: string = response.updatedUser.firstName;
-			let newLastName: string = response.updatedUser.lastName;
-			let newDescription: string = response.updatedUser.description;
-			let newGender: string = response.updatedUser.gender;
-			let newRole: number = response.updatedUser.role;
-			await update({ firstName: newFirstName, lastName: newLastName, description: newDescription, gender: newGender, role: newRole  });
+			const newFirstName = response.updatedUser.firstName;
+			const newLastName = response.updatedUser.lastName;
+			const newDescription = response.updatedUser.description;
+			const newGender = response.updatedUser.gender;
+			const newRole = response.updatedUser.role;
+			await update({
+				firstName: newFirstName,
+				lastName: newLastName,
+				description: newDescription,
+				gender: newGender,
+				role: newRole,
+			});
 			console.log(`formData.role: ${formData.role}`);
 			if (formData.role == 1) {
 				console.log(`Role: Student`);
-				router.push("/loggedin/onboarding/student");
+				router.push('/loggedin/onboarding/student');
 			} else if (formData.role == 2) {
 				console.log(`Role: Mentor`);
 			}
@@ -93,7 +99,10 @@ const UserDataForm = () => {
 						defaultValue='select'
 						onChange={handleChange}
 					>
-						<option disabled value='select'>
+						<option
+							disabled
+							value='select'
+						>
 							Select an option
 						</option>
 						<option value='Male'>Male</option>
@@ -122,7 +131,10 @@ const UserDataForm = () => {
 							value='1'
 							onChange={handleChange}
 						/>
-						<label htmlFor='student' className='w-fit'>
+						<label
+							htmlFor='student'
+							className='w-fit'
+						>
 							Student
 						</label>
 						<input
@@ -133,7 +145,10 @@ const UserDataForm = () => {
 							value='2'
 							onChange={handleChange}
 						/>
-						<label htmlFor='mentor' className='w-fit'>
+						<label
+							htmlFor='mentor'
+							className='w-fit'
+						>
 							Mentor
 						</label>
 					</div>

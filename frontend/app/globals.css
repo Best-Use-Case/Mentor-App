@@ -1,80 +1,79 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
 
-  --color-primary-50: var(--primary-light);
-  --color-primary-100: var(--primary-light-hover);
-  --color-primary-200: var(--primary-light-active);
-  --color-primary-300: var(--primary-normal);
-  --color-primary-400: var(--primary-normal-hover);
-  --color-primary-500: var(--primary-normal-active);
-  --color-primary-600: var(--primary-dark);
-  --color-primary-700: var(--primary-dark-hover);
-  --color-primary-800: var(--primary-dark-active);
-  --color-primary-900: var(--primary-darker);
+	--color-primary-50: var(--primary-light);
+	--color-primary-100: var(--primary-light-hover);
+	--color-primary-200: var(--primary-light-active);
+	--color-primary-300: var(--primary-normal);
+	--color-primary-400: var(--primary-normal-hover);
+	--color-primary-500: var(--primary-normal-active);
+	--color-primary-600: var(--primary-dark);
+	--color-primary-700: var(--primary-dark-hover);
+	--color-primary-800: var(--primary-dark-active);
+	--color-primary-900: var(--primary-darker);
 
-  --color-secondary-50: var(--secondary-light);
-  --color-secondary-100: var(--secondary-light-hover);
-  --color-secondary-200: var(--secondary-light-active);
-  --color-secondary-300: var(--secondary-normal);
-  --color-secondary-400: var(--secondary-normal-hover);
-  --color-secondary-500: var(--secondary-normal-active);
-  --color-secondary-600: var(--secondary-dark);
-  --color-secondary-700: var(--secondary-dark-hover);
-  --color-secondary-800: var(--secondary-dark-active);
-  --color-secondary-900: var(--secondary-darker);
+	--color-secondary-50: var(--secondary-light);
+	--color-secondary-100: var(--secondary-light-hover);
+	--color-secondary-200: var(--secondary-light-active);
+	--color-secondary-300: var(--secondary-normal);
+	--color-secondary-400: var(--secondary-normal-hover);
+	--color-secondary-500: var(--secondary-normal-active);
+	--color-secondary-600: var(--secondary-dark);
+	--color-secondary-700: var(--secondary-dark-hover);
+	--color-secondary-800: var(--secondary-dark-active);
+	--color-secondary-900: var(--secondary-darker);
 
-  --color-tertiary-50: var(--tertiary-light);
-  --color-tertiary-100: var(--tertiary-light-hover);
-  --color-tertiary-200: var(--tertiary-light-active);
-  --color-tertiary-300: var(--tertiary-normal);
-  --color-tertiary-400: var(--tertiary-normal-hover);
-  --color-tertiary-500: var(--tertiary-normal-active);
-  --color-tertiary-600: var(--tertiary-dark);
-  --color-tertiary-700: var(--tertiary-dark-hover);
-  --color-tertiary-800: var(--tertiary-dark-active);
-  --color-tertiary-900: var(--tertiary-darker);
+	--color-tertiary-50: var(--tertiary-light);
+	--color-tertiary-100: var(--tertiary-light-hover);
+	--color-tertiary-200: var(--tertiary-light-active);
+	--color-tertiary-300: var(--tertiary-normal);
+	--color-tertiary-400: var(--tertiary-normal-hover);
+	--color-tertiary-500: var(--tertiary-normal-active);
+	--color-tertiary-600: var(--tertiary-dark);
+	--color-tertiary-700: var(--tertiary-dark-hover);
+	--color-tertiary-800: var(--tertiary-dark-active);
+	--color-tertiary-900: var(--tertiary-darker);
 
-  --color-neutral-50: var(--neutral-light);
-  --color-neutral-100: var(--neutral-light-hover);
-  --color-neutral-200: var(--neutral-light-active);
-  --color-neutral-300: var(--neutral-normal);
-  --color-neutral-400: var(--neutral-normal-hover);
-  --color-neutral-500: var(--neutral-normal-active);
-  --color-neutral-600: var(--neutral-dark);
-  --color-neutral-700: var(--neutral-dark-hover);
-  --color-neutral-800: var(--neutral-dark-active);
-  --color-neutral-900: var(--neutral-darker);
-  /* Animations */
-  --animate-logo-spin-back: logo-spin-back 0.5s;
-  @keyframes logo-spin-back {
-    0% {
-      transform: translate(0, 0);
-      z-index: -10;
-    }
-    33% {
-      transform: translate(20px, 0);
-      z-index: 10;
-    }
-    66% {
-      transform: translate(-40px, 0);
-      z-index: 10;
-    }
-    100% {
-      transform: translate(0, 0);
-      z-index: -10;
-    }
-  }
-  --text-base: 1rem;
-  --text-lg: 1.188rem;
-  --text-xl: 1.438rem;
-  --text-2xl: 1.750rem;
-  --text-3xl: 2.062rem;
-  --text-4xl: 2.500rem;
-  --text-5xl: 3.000rem;
-
+	--color-neutral-50: var(--neutral-light);
+	--color-neutral-100: var(--neutral-light-hover);
+	--color-neutral-200: var(--neutral-light-active);
+	--color-neutral-300: var(--neutral-normal);
+	--color-neutral-400: var(--neutral-normal-hover);
+	--color-neutral-500: var(--neutral-normal-active);
+	--color-neutral-600: var(--neutral-dark);
+	--color-neutral-700: var(--neutral-dark-hover);
+	--color-neutral-800: var(--neutral-dark-active);
+	--color-neutral-900: var(--neutral-darker);
+	/* Animations */
+	--animate-logo-spin-back: logo-spin-back 0.5s;
+	@keyframes logo-spin-back {
+		0% {
+			transform: translate(0, 0);
+			z-index: -10;
+		}
+		33% {
+			transform: translate(20px, 0);
+			z-index: 10;
+		}
+		66% {
+			transform: translate(-40px, 0);
+			z-index: 10;
+		}
+		100% {
+			transform: translate(0, 0);
+			z-index: -10;
+		}
+	}
+	--text-base: 1rem;
+	--text-lg: 1.188rem;
+	--text-xl: 1.438rem;
+	--text-2xl: 1.75rem;
+	--text-3xl: 2.062rem;
+	--text-4xl: 2.5rem;
+	--text-5xl: 3rem;
 }
 
 /*
@@ -86,121 +85,124 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentColor);
+	}
 }
 
 :root {
-  --background: #eeedd7;
-  --foreground: #53534b;
-  --neutral-light: #FDFDFB;
-  --neutral-light-hover: #FCFCF9;
-  --neutral-light-active: #FAF9F3;
-  --neutral-normal: #EEEDD7;
-  --neutral-normal-hover: #D6D5C2;
-  --neutral-normal-active: #BEBEAC;
-  --neutral-dark: #B3B2A1;
-  --neutral-dark-hover: #8F8E81;
-  --neutral-dark-active: #6B6B61;
-  --neutral-darker: #53534B;
-  --primary-light: #F0FEFE;
-  --primary-light-hover: #E8FDFE;
-  --primary-light-active: #D0FCFD;
-  --primary-normal: #67f4f9;
-  --primary-normal-hover: #5ddce0;
-  --primary-normal-active: #52c3c7;
-  --primary-dark: #4DB7BB;
-  --primary-dark-hover: #3E9295;
-  --primary-dark-active: #2E6E70;
-  --primary-darker: #245557; 
-  --secondary-light: #FFE8F8;
-  --secondary-light-hover: #FEDDF4;
-  --secondary-light-active: #FDB8E9;
-  --secondary-normal: #FA19B7;
-  --secondary-normal-hover: #E117A5;
-  --secondary-normal-active: #C81492;
-  --secondary-dark:#BC1389;
-  --secondary-dark-hover: #960F6E;
-  --secondary-dark-active: #700B52;
-  --secondary-darker: #580940;
-  --tertiary-light: #FEFCEC;
-  --tertiary-light-hover: #FEFBE3;
-  --tertiary-light-active: #FDF6C5;
-  --tertiary-normal: #F7E245;
-  --tertiary-normal-hover: #DECB3E;
-  --tertiary-normal-active: #C6B537;
-  --tertiary-dark: #B9AA34;
-  --tertiary-dark-hover: #948829;
-  --tertiary-dark-active: #6F661F;
-  --tertiary-darker: #564F18;
+	--background: #eeedd7;
+	--foreground: #53534b;
+	--neutral-light: #fdfdfb;
+	--neutral-light-hover: #fcfcf9;
+	--neutral-light-active: #faf9f3;
+	--neutral-normal: #eeedd7;
+	--neutral-normal-hover: #d6d5c2;
+	--neutral-normal-active: #bebeac;
+	--neutral-dark: #b3b2a1;
+	--neutral-dark-hover: #8f8e81;
+	--neutral-dark-active: #6b6b61;
+	--neutral-darker: #53534b;
+	--primary-light: #f0fefe;
+	--primary-light-hover: #e8fdfe;
+	--primary-light-active: #d0fcfd;
+	--primary-normal: #67f4f9;
+	--primary-normal-hover: #5ddce0;
+	--primary-normal-active: #52c3c7;
+	--primary-dark: #4db7bb;
+	--primary-dark-hover: #3e9295;
+	--primary-dark-active: #2e6e70;
+	--primary-darker: #245557;
+	--secondary-light: #ffe8f8;
+	--secondary-light-hover: #feddf4;
+	--secondary-light-active: #fdb8e9;
+	--secondary-normal: #fa19b7;
+	--secondary-normal-hover: #e117a5;
+	--secondary-normal-active: #c81492;
+	--secondary-dark: #bc1389;
+	--secondary-dark-hover: #960f6e;
+	--secondary-dark-active: #700b52;
+	--secondary-darker: #580940;
+	--tertiary-light: #fefcec;
+	--tertiary-light-hover: #fefbe3;
+	--tertiary-light-active: #fdf6c5;
+	--tertiary-normal: #f7e245;
+	--tertiary-normal-hover: #decb3e;
+	--tertiary-normal-active: #c6b537;
+	--tertiary-dark: #b9aa34;
+	--tertiary-dark-hover: #948829;
+	--tertiary-dark-active: #6f661f;
+	--tertiary-darker: #564f18;
 }
 /* Universal Styling */
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: "Josefin Sans", Arial, Helvetica, sans-serif;
+	color: var(--foreground);
+	background: var(--background);
+	font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
 }
 h1 {
-  @apply text-5xl
+	@apply text-5xl;
 }
 h2 {
-  @apply text-4xl
+	@apply text-4xl;
 }
 h3 {
-  @apply text-3xl
+	@apply text-3xl;
 }
 h4 {
-  @apply text-2xl
+	@apply text-2xl;
 }
 h5 {
-  @apply text-xl
+	@apply text-xl;
 }
 h6 {
-  @apply text-lg
+	@apply text-lg;
 }
-button, input[type="submit"] {
-  cursor: pointer;
+button,
+input[type='submit'] {
+	cursor: pointer;
 }
 /* Icons */
 .hamburgerIcons {
-  fill: var(--neutral-darker);
+	fill: var(--neutral-darker);
 }
 .cogIcons {
-  @apply w-[20px] h-[20px] block
+	@apply w-[20px] h-[20px] block;
 }
 .cogIcons .cogStroke {
-  @apply stroke-neutral-900 stroke-2
+	@apply stroke-neutral-900 stroke-2;
 }
 .AccountCircleIcons {
-  @apply w-[42px] h-[42px]  fill-neutral-900
+	@apply w-[42px] h-[42px]  fill-neutral-900;
 }
 .logOutIcon {
-  @apply text-neutral-500 w-[18px] h-[18px] pb-1
+	@apply text-neutral-500 w-[18px] h-[18px] pb-1;
 }
 .logOutIcon path {
-  @apply stroke-neutral-700
+	@apply stroke-neutral-700;
 }
-path#hamburgerLineOne, path#hamburgerLineTwo, path#hamburgerLineThree{
-  @apply transition-all ease-in-out duration-300;
+path#hamburgerLineOne,
+path#hamburgerLineTwo,
+path#hamburgerLineThree {
+	@apply transition-all ease-in-out duration-300;
 }
 .clicked path#hamburgerLineOne {
-  @apply rotate-45 translate-x-[8px];
+	@apply rotate-45 translate-x-[8px];
 }
 .clicked path#hamburgerLineThree {
-  @apply opacity-0;
+	@apply opacity-0;
 }
 .clicked path#hamburgerLineTwo {
-  @apply -rotate-45 -translate-x-[9px] translate-y-[9px];
+	@apply -rotate-45 -translate-x-[9px] translate-y-[9px];
 }
 
 /* Logo Styling */
 .logo {
-  @apply relative 
+	@apply relative 
   text-5xl 
   text-secondary-300 
   font-bold before:content-['M'] 
@@ -220,116 +222,124 @@ path#hamburgerLineOne, path#hamburgerLineTwo, path#hamburgerLineThree{
   after:-z-10 
   after:transition-all 
   after:duration-300 
-  after:ease-in-out
+  after:ease-in-out;
 }
 .logo.origin:after {
-  @apply 
-  translate-x-0
-  z-[-10]
+	@apply translate-x-0
+  z-[-10];
 }
 .logo.slide-one:after {
-  @apply 
-  translate-x-[40px]
-  z-[10]
+	@apply translate-x-[40px]
+  z-[10];
 }
 .logo.slide-two:after {
-  @apply 
-  translate-x-[-40px]
-  z-[10]
+	@apply translate-x-[-40px]
+  z-[10];
 }
 .logo.origin:before {
-  @apply 
-  translate-x-0
-  z-[10]
+	@apply translate-x-0
+  z-[10];
 }
 .logo.slide-one:before {
-  @apply 
-  translate-x-[-40px]
-  z-[-10]
+	@apply translate-x-[-40px]
+  z-[-10];
 }
 .logo.slide-two:before {
-  @apply 
-  translate-x-[40px]
-  z-[-10]
+	@apply translate-x-[40px]
+  z-[-10];
 }
 /* Nav Menu */
 .profileNav {
-  @apply bg-neutral-50 text-neutral-950 rounded-md stroke-2 stroke-neutral-950 min-w-48
+	@apply bg-neutral-50 text-neutral-950 rounded-md stroke-2 stroke-neutral-950 min-w-48;
 }
 .profileNav.active {
-  @apply visible opacity-100 translate-y-0 ease-in-out duration-300
+	@apply visible opacity-100 translate-y-0 ease-in-out duration-300 z-50;
 }
 .profileNav.inactive {
-  @apply invisible opacity-0 translate-y-[-20px] ease-in-out duration-300
+	@apply invisible opacity-0 translate-y-[-20px] ease-in-out duration-300 z-0;
 }
 .borderDefault {
-  @apply border-2 border-neutral-950
+	@apply border-2 border-neutral-950;
 }
 
 /* Buttons */
 .buttonClass {
-  @apply text-black p-6 pt-3.5 pb-3.5
+	@apply text-black p-6 pt-3.5 pb-3.5;
 }
 .buttonWrapper {
-  @apply cursor-pointer w-fit self-center flex relative rounded-lg border-solid  border-2 after:content-[''] after:absolute after:left-2 after:top-2 after:w-full after:h-full after:block after:rounded-lg after:border-solid after:border-2 after:-z-10;
+	@apply cursor-pointer w-fit self-center flex relative rounded-lg border-solid  border-2 after:content-[''] after:absolute after:left-2 after:top-2 after:w-full after:h-full after:block after:rounded-lg after:border-solid after:border-2 after:-z-10;
 }
 .buttonWrapperDefault {
-  @apply bg-primary-300 hover:bg-primary-400 border-black after:border-black after:bg-secondary-300 hover:after:bg-secondary-400;
+	@apply bg-primary-300 hover:bg-primary-400 border-black after:border-black after:bg-secondary-300 hover:after:bg-secondary-400;
 }
 .buttonWrapperSecondary {
-  @apply bg-neutral-50 hover:bg-neutral-300 border-black after:border-black after:bg-neutral-600 hover:after:bg-neutral-700;
+	@apply bg-neutral-50 hover:bg-neutral-300 border-black after:border-black after:bg-neutral-600 hover:after:bg-neutral-700;
 }
 
 /* Forms */
-form input[type="text"], form input[type="email"], form input[type="password"] {
-  @apply p-2 rounded-xl bg-neutral-50 text-neutral-900 border-2 border-neutral-950
+form input[type='text'],
+form input[type='email'],
+form input[type='password'] {
+	@apply p-2 rounded-xl bg-neutral-50 text-neutral-900 border-2 border-neutral-950;
 }
 form option {
-  @apply bg-neutral-50 text-neutral-900 p-2 border-2 border-neutral-950
+	@apply bg-neutral-50 text-neutral-900 p-2 border-2 border-neutral-950;
 }
 form select {
-  @apply bg-neutral-50 text-neutral-900 p-3 rounded-xl border-2 border-neutral-950
+	@apply bg-neutral-50 text-neutral-900 p-3 rounded-xl border-2 border-neutral-950;
 }
 form textarea {
-  @apply bg-neutral-50 text-neutral-900 p-2 rounded-xl border-2 border-neutral-950
+	@apply bg-neutral-50 text-neutral-900 p-2 rounded-xl border-2 border-neutral-950;
 }
 form label {
-  @apply text-xl
+	@apply text-xl;
 }
 .registerForm {
-  @apply relative mb-12 rounded-2xl p-10 bg-neutral-200 border-2 border-neutral-950 after:content-[''] after:absolute after:left-5 after:top-5 after:bg-neutral-400 after:w-full after:h-full after:block after:-z-15 after:rounded-2xl after:border-2 after:border-neutral-950
+	@apply relative mb-12 rounded-2xl p-10 bg-neutral-200 border-2 border-neutral-950 after:content-[''] after:absolute after:left-5 after:top-5 after:bg-neutral-400 after:w-full after:h-full after:block after:-z-15 after:rounded-2xl after:border-2 after:border-neutral-950;
 }
 .registerForm section {
-  @apply flex flex-col gap-2
+	@apply flex flex-col gap-2;
 }
 .registerForm section.radioSection div {
-  @apply flex flex-row m-auto gap-8 contain-content justify-items-center p-3
+	@apply flex flex-row m-auto gap-8 contain-content justify-items-center p-3;
 }
-.registerForm section.radioSection div input[type="radio"]+label {
-  @apply block text-base relative pl-6 pr-6 pt-3 pb-3 bg-neutral-50 text-neutral-900 rounded-md border-2 border-neutral-950 after:content-[''] after:absolute after:left-2 after:top-2 after:w-full after:h-full after:block after:rounded-lg after:border-solid after:border-2 after:-z-10 after:border-black after:bg-neutral-600 hover:after:bg-neutral-700
+.registerForm section.checkbox-section {
+	@apply flex flex-row gap-2 z-10;
 }
-.registerForm section.radioSection div input[type="radio"]:checked+label {
-  @apply bg-primary-300 after:bg-secondary-300 font-bold
+.registerForm section.checkbox-section label {
+	@apply relative p-6 pt-3.5 pb-2.5 pl-6 bg-neutral-600 dark:bg-neutral-300 dark:text-neutral-950 rounded-full border-2 border-neutral-950 ease-in-out duration-300 
+  after:content-['\00d7'] after:text-[50px] after:font-[300] after:-top-3 after:absolute after:left-3 after:ease-in-out after:duration-300 after:opacity-0
+  before:content-[''] before:w-full before:h-full before:block before:rounded-full before:border-2 before:border-neutral-950 before:left-2 before:top-2 before:absolute before:-z-1 before:bg-neutral-700 dark:before:bg-neutral-400;
 }
+.registerForm section.checkbox-section input:checked + label {
+	@apply bg-primary-600 dark:bg-primary-300 pl-12 ease-in-out duration-300  after:opacity-100 before:bg-secondary-700 dark:before:bg-secondary-400;
+}
+.registerForm section.radioSection div input[type='radio'] + label {
+	@apply block text-base relative pl-6 pr-6 pt-3 pb-3 bg-neutral-50 text-neutral-900 rounded-md border-2 border-neutral-950 after:content-[''] after:absolute after:left-2 after:top-2 after:w-full after:h-full after:block after:rounded-lg after:border-solid after:border-2 after:-z-10 after:border-black after:bg-neutral-600 hover:after:bg-neutral-700;
+}
+.registerForm section.radioSection div input[type='radio']:checked + label {
+	@apply bg-primary-300 after:bg-secondary-300 font-bold;
+}
+
 /* Dark Mode Settings */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #53534b;
-    --foreground: #fdfdfb;
-  }
-  .hamburgerIcons {
-    fill: var(--neutral-light);
-  }
-  .cogIcons .cogStroke {
-    @apply stroke-neutral-100 stroke-2
-  }
-  .AccountCircleIcons {
-    @apply fill-neutral-100
-  }
-  .profileNav {
-    @apply bg-neutral-950 text-neutral-50 rounded-md stroke-2 stroke-neutral-50
-  }
-  .registerForm {
-    @apply bg-neutral-800 after:bg-neutral-700
-  }
+	:root {
+		--background: #53534b;
+		--foreground: #fdfdfb;
+	}
+	.hamburgerIcons {
+		fill: var(--neutral-light);
+	}
+	.cogIcons .cogStroke {
+		@apply stroke-neutral-100 stroke-2;
+	}
+	.AccountCircleIcons {
+		@apply fill-neutral-100;
+	}
+	.profileNav {
+		@apply bg-neutral-950 text-neutral-50 rounded-md stroke-2 stroke-neutral-50;
+	}
+	.registerForm {
+		@apply bg-neutral-800 after:bg-neutral-700;
+	}
 }

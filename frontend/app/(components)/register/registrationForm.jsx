@@ -1,41 +1,53 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 const UserForm = () => {
 	const router = useRouter();
+	const { data: session } = useSession();
+	if (session && session?.user?.role) {
+		switch (session.user.id) {
+			case '1':
+				router.push('/loggedin/onboarding/student');
+				break;
+			case '2':
+				router.push('/loggedin/onboarding/mentor');
+				break;
+		}
+	}
 	const [formData, setFormData] = useState({
-		email: "",
-		password: "",
-		confirmPassword: "",
+		email: '',
+		password: '',
+		confirmPassword: '',
 	});
-	const [errorMessage, setErrorMessage] = useState("");
+	const [errorMessage, setErrorMessage] = useState('');
 
-	const handleChange = (e: any) => {
+	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData((prevState) => ({
 			...prevState,
 			[name]: value,
 		}));
 	};
-	const handleSubmit = async (e: any) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		setErrorMessage("");
-		const res = await fetch("/api/auth/register", {
-			method: "POST",
+		setErrorMessage('');
+		const res = await fetch('/api/auth/register', {
+			method: 'POST',
 			headers: {
-				"Content-Type": "application/json",
+				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(formData),
 		});
 		if (!res.ok) {
-			let errorRes = await res.json();
+			const errorRes = await res.json();
 
 			setErrorMessage(`${errorRes.message}. Status: ${res.status}`);
 		} else {
 			router.refresh();
-			router.push("/register/success");
+			router.push('/register/success');
 		}
 	};
 	return (
@@ -75,7 +87,11 @@ const UserForm = () => {
 				></input>
 				<section className='z-10 mt-6'>
 					<div className='buttonWrapper buttonWrapperDefault'>
-						<button type='submit' value='Register' className='buttonClass'>
+						<button
+							type='submit'
+							value='Register'
+							className='buttonClass'
+						>
 							Register new user
 						</button>
 					</div>
