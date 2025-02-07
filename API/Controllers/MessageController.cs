@@ -1,13 +1,16 @@
 using API.Dtos.Message;
+using API.Extensions;
 using API.Interfaces;
 using API.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 public class MessageController(
   IMessageRepository messageRepository,
-  IUserRepo userRepo
+  IUserRepo userRepo,
+  IMapper mapper
   ) : ControllerBase
 {
   [HttpPost]
@@ -21,17 +24,21 @@ public class MessageController(
 
     var message = new Message
     {
+      Sender = sender,
+      Recipient = recipient,
       SenderUserName = sender.UserName,
       RecipientUserName = recipient.UserName,
       Content = content
     };
 
     messageRepository.CreateMessage(message);
+    if (await messageRepository.SaveAllAsync())
+      return Ok(mapper.Map<MessageDto>(message));
 
-    return Ok();
+    return BadRequest("Could not able to send your message");
   }
 
-  [HttpGet("id")]
+  [HttpGet("get-user-message/{id}")]
   public async Task<ActionResult<Message>> GetMessageForUser(int id)
   {
     var messageDb = await messageRepository.GetMessageAsync(id);
@@ -40,9 +47,10 @@ public class MessageController(
     return Ok(messageDb);
   }
 
-  [HttpGet("message-thread")]
-  public async Task<ActionResult<MessageDto>> GetMessageThread(string currentUsername, string otherUsername)
+  [HttpGet("message-thread/{username}")]
+  public async Task<ActionResult<MessageDto>> GetMessageThread(string otherUsername)
   {
+    var currentUsername = User.GetUserName();
     var messageThread = await messageRepository.GetMessageThreadAsync(currentUsername, otherUsername);
     return Ok(messageThread);
   }

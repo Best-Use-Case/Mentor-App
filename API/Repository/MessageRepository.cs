@@ -19,12 +19,17 @@ public class MessageRepository(DataContext context, IMapper mapper) : IMessageRe
     return await context.Messages.FindAsync(id);
 
   }
-  public async Task<List<MessageDto>> GetMessageThreadAsync(string currentUser, string otherUsername)
+  public async Task<List<MessageDto>> GetMessageThreadAsync(string currentUsername, string otherUsername)
   {
-    var messages = await context.Messages.Where(m => m.RecipientUserName == otherUsername && m.SenderUserName == otherUsername
-      || m.SenderUserName == otherUsername && m.RecipientUserName == otherUsername
+    var messages = await context.Messages.Where(m => m.RecipientUserName == currentUsername && m.SenderUserName == otherUsername
+      || m.SenderUserName == currentUsername && m.RecipientUserName == otherUsername
       ).OrderBy(m => m.DateMessageSent).ToListAsync();
 
     return mapper.Map<List<MessageDto>>(messages);
+  }
+
+  public async Task<bool> SaveAllAsync()
+  {
+    return await context.SaveChangesAsync() > 0;
   }
 }
