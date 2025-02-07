@@ -35,7 +35,7 @@
 		"app/(components)/onboarding/userDataForm.jsx",
 		"app/(components)/onboarding/interests/interestsDataForm.jsx",
 		"app/(components)/register/registrationForm.jsx",
-		"app/(components)/ui/header/profileMenu.jsx",
+		"app/(components)/ui/header/profileMenu.tsx",
 		"app/loggedin/onboarding/page.jsx",
 		"app/api/users/update/route.js",
 		"next.config.js",
