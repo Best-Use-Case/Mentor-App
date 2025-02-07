@@ -47,7 +47,7 @@ public class MessageController(
     return Ok(messageDb);
   }
 
-  [HttpGet("message-thread/{username}")]
+  [HttpGet("get-message-thread/{username}")]
   public async Task<ActionResult<MessageDto>> GetMessageThread(string otherUsername)
   {
     var currentUsername = User.GetUserName();
