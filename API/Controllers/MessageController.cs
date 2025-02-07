@@ -47,11 +47,12 @@ public class MessageController(
     return Ok(messageDb);
   }
 
-  [HttpGet("get-message-thread/{username}")]
-  public async Task<ActionResult<MessageDto>> GetMessageThread(string otherUsername)
+  [HttpGet("get-message-thread/{otherUserName}")]
+  public async Task<ActionResult<MessageDto>> GetMessageThread(string otherUserName)
   {
-    var currentUsername = User.GetUserName();
-    var messageThread = await messageRepository.GetMessageThreadAsync(currentUsername, otherUsername);
+    //var currentUsername = User.GetUserName();
+    string currentUsername = "zerfine@gmail.com";
+    var messageThread = await messageRepository.GetMessageThreadAsync(currentUsername, otherUserName);
     return Ok(messageThread);
   }
 
