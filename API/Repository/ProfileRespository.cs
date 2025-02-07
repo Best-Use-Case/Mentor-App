@@ -2,7 +2,6 @@ using API.Data;
 using API.Dtos.Admin;
 using API.Dtos.UserProfile;
 using API.Interfaces;
-using API.Models;
 using API.Utils;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +10,7 @@ namespace API.Repository;
 
 public class ProfileRespository(DataContext context, IMapper mapper) : IProfileRepository
 {
+  // swagger-tested
   public async Task<ResponseManager> UpdateProfileAsync(ProfileDto profileDto)
   {
     try
@@ -85,6 +85,7 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
     }
 
   }
+  //swagger-tested
   public async Task<bool> DeleteEducationForUser(int EduId)
   {
     try
@@ -92,8 +93,7 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
       var edu = await context.Educations.FindAsync(EduId);
       if (edu is not null)
       {
-        context.Educations.Remove(edu); // TODO: check if the DegreeId has been removed as well
-        return true;
+        context.Educations.Remove(edu);
       }
       if (await context.SaveChangesAsync() > 0) return true;
 
@@ -143,6 +143,7 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
       return false;
     }
   }
+  // swagger-tested
   public async Task<bool> DeleteWorkExperienceForUser(int WorkId)
   {
     try
@@ -151,13 +152,12 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
       if (workToDeleted != null)
       {
         var result = context.WorkExperiences.Remove(workToDeleted);
-        return true;
       }
+      if (await context.SaveChangesAsync() > 0) return true;
       return false;
     }
     catch (Exception)
     {
-
       return false;
     }
   }
@@ -215,6 +215,7 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
     }
   }
 
+  // swagger-tested
   public async Task<bool> DeleteUserInterest(InterestDTO interestDTO)
   {
     try
@@ -223,13 +224,13 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
       if (ints != null)
       {
         var result = context.UserInterests.Remove(ints);
-        return true;
+
       }
+      if (await context.SaveChangesAsync() > 0) return true;
       return false;
     }
     catch (Exception)
     {
-
       return false;
     }
 
