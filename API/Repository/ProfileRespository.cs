@@ -221,7 +221,10 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
     try
     {
       var ints = await context.UserInterests.FirstOrDefaultAsync(x => x.UserId == interestDTO.UserId && x.InterestId == x.InterestId);
-      if (ints != null)
+      var userInterests = await context.UserInterests.Where(i => i.UserId == interestDTO.UserId)
+                                                    .Select(i => i.InterestId)
+                                                    .ToListAsync();
+      if (ints != null && userInterests.Count > 1)
       {
         var result = context.UserInterests.Remove(ints);
 
