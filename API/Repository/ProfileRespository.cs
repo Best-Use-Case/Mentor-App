@@ -256,7 +256,7 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
     }
     catch (Exception)
     {
-      return [""];
+      return ["No role found for the user"];
     }
   }
 }

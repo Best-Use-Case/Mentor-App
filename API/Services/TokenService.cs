@@ -23,7 +23,6 @@ public class TokenService(IConfiguration config) : ITokenService
             new(ClaimTypes.NameIdentifier, Convert.ToString(user.UserId))
         };
 
-
         var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
         var tokenDescritor = new SecurityTokenDescriptor
@@ -38,7 +37,5 @@ public class TokenService(IConfiguration config) : ITokenService
         var token = tokenHandler.CreateToken(tokenDescritor);
 
         return tokenHandler.WriteToken(token);
-
-
     }
 }
