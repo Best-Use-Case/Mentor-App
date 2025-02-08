@@ -37,5 +37,13 @@ public class ClientDataController(IClientDataRepository clientData, IMapper mapp
     return Ok(interestToReturn);
   }
 
+  [HttpGet("get-industries")]
+  public async Task<ActionResult<Industry>> GetIndustryList()
+  {
+    var industries = await clientData.GetIndustriesAsync();
+    if (industries.Count == 0) return NotFound("No industry found to show");
+    return Ok(industries);
+  }
+
 
 }

@@ -18,6 +18,11 @@ public class ClientDataRepository(DataContext context) : IClientDataRepository
     return await context.FieldOfInterests.Include(b => b.Interests).ToListAsync();
   }
 
+  public async Task<List<Industry>> GetIndustriesAsync()
+  {
+    return await context.Industries.ToListAsync();
+  }
+
   public async Task<List<AppRole>> GetRolesAsync()
   {
     return await context.AppRoles.ToListAsync();
