@@ -5,7 +5,7 @@ import { AccountCircle, Logout } from './icons';
 
 export function ProfileMenu() {
 	const [open, setOpen] = useState(false);
-	const menuRef = useRef < HTMLDivElement > null;
+	const menuRef = useRef<HTMLDivElement>(null);
 	useEffect(() => {
 		const menuCloser = (e) => {
 			if (menuRef.current && !menuRef.current.contains(e.target)) {
