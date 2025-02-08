@@ -1,11 +1,11 @@
-﻿using API.Data;
+﻿using System.Security.Cryptography;
+using System.Text;
+using API.Data;
 using API.Dtos;
 using API.Models;
 using API.Services;
 using API.Utils;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace API.Repository.AccountRepository;
 
@@ -18,9 +18,6 @@ public interface IAccountRepository
 
 public class AccountRepository(DataContext context, ITokenService tokenService) : IAccountRepository
 {
-    private readonly DataContext _context = context;
-    private readonly ITokenService _tokenService = tokenService;
-
     public async Task<ResponseManager> Register(RegisterDto registerDto)
     {
         if (await UserExists(registerDto))
@@ -51,8 +48,8 @@ public class AccountRepository(DataContext context, ITokenService tokenService) 
             PasswordSalt = hmac.Key
         };
 
-        _context.Users.Add(user);
-        var result = await _context.SaveChangesAsync() > 0;
+        context.Users.Add(user);
+        var result = await context.SaveChangesAsync() > 0;
         if (!result)
         {
             return new ResponseManager
@@ -74,7 +71,7 @@ public class AccountRepository(DataContext context, ITokenService tokenService) 
 
     public async Task<ResponseManager> Login(LoginDto loginDto)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.UserName.ToLower());
+        var user = await context.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.UserName.ToLower());
         if (user is null)
         {
             return new ResponseManager
@@ -105,7 +102,8 @@ public class AccountRepository(DataContext context, ITokenService tokenService) 
             LastName = user.LastName,
             // Description = user.Description, since not all users have these fields registered
             // Gender = user.Gender,
-            Token = _tokenService.CreateToken(user),
+            Token = tokenService.CreateToken(user),
+            Role = GetUserRoles(user.UserId),
             Message = "Login succeeded",
             IsSuccess = true
 
@@ -115,8 +113,29 @@ public class AccountRepository(DataContext context, ITokenService tokenService) 
 
     private async Task<bool> UserExists(RegisterDto registerDto)
     {
-        return await _context.Users.AnyAsync(u => u.UserName == registerDto.UserName.ToLower());
+        return await context.Users.AnyAsync(u => u.UserName == registerDto.UserName.ToLower());
 
+    }
+
+    private List<string> GetUserRoles(int userId)
+    {
+        try
+        {
+            var userRoles = context.UserRoles.Where(r => r.UserId == userId).Select(r => r.RoleId).ToList();
+            var roles = new List<string>();
+            if (userRoles.Count > 0)
+            {
+                userRoles.ForEach(roleId =>
+                {
+                    roles = context.AppRoles.Where(r => r.RoleId == roleId).Select(r => r.RoleName).ToList();
+                });
+            }
+            return roles;
+        }
+        catch (Exception)
+        {
+            return ["No role found for the user"];
+        }
     }
 
 

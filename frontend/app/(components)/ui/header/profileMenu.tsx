@@ -7,8 +7,8 @@ export function ProfileMenu() {
 	const [open, setOpen] = useState(false);
 	const menuRef = useRef<HTMLDivElement>(null);
 	useEffect(() => {
-		const menuCloser = (e) => {
-			if (menuRef.current && !menuRef.current.contains(e.target)) {
+		const menuCloser = (e: Event) => {
+			if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
 				setOpen(false);
 			}
 		};

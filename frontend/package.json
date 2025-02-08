@@ -13,7 +13,7 @@
 		"bcrypt": "^5.1.1",
 		"clsx": "^2.1.1",
 		"motion": "^11.18.0",
-		"next": "15.1.4",
+		"next": "^15.1.6",
 		"next-auth": "^4.24.11",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
@@ -27,7 +27,7 @@
 		"@types/react-dom": "^19",
 		"@types/react-modal": "^3.16.3",
 		"eslint": "^9",
-		"eslint-config-next": "15.1.4",
+		"eslint-config-next": "^15.1.6",
 		"postcss": "^8.5.1",
 		"tailwindcss": "^4.0.0",
 		"typescript": "^5"
