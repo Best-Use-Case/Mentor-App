@@ -304,11 +304,14 @@ form label {
 	@apply flex flex-row m-auto gap-8 contain-content justify-items-center p-3;
 }
 .registerForm section.checkbox-section {
-	@apply flex flex-row gap-2 z-10;
+	@apply flex flex-row gap-4 z-10;
+}
+.registerForm section.checkbox-section div {
+	@apply pt-3 pb-3;
 }
 .registerForm section.checkbox-section label {
-	@apply relative p-6 pt-3.5 pb-2.5 pl-6 bg-neutral-600 dark:bg-neutral-300 dark:text-neutral-950 rounded-full border-2 border-neutral-950 ease-in-out duration-300 
-  after:content-['\00d7'] after:text-[50px] after:font-[300] after:-top-3 after:absolute after:left-3 after:ease-in-out after:duration-300 after:opacity-0
+	@apply text-base cursor-pointer relative p-8 pt-4.5 pb-4.5 pl-6 bg-neutral-600 dark:bg-neutral-300 dark:text-neutral-950 rounded-full border-2 border-neutral-950 ease-in-out duration-300 
+  after:content-['\00d7'] after:text-[50px] after:font-[300] after:-top-[17px] after:absolute after:left-3 after:ease-in-out after:duration-300 after:opacity-0
   before:content-[''] before:w-full before:h-full before:block before:rounded-full before:border-2 before:border-neutral-950 before:left-2 before:top-2 before:absolute before:-z-1 before:bg-neutral-700 dark:before:bg-neutral-400;
 }
 .registerForm section.checkbox-section input:checked + label {

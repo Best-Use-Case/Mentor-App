@@ -27,20 +27,20 @@
 		"**/*.ts",
 		"**/*.tsx",
 		".next/types/**/*.ts",
-		"app/loggedin/page.jsx",
+		"app/loggedin/page.tsx",
 		"app/(components)/authProvider.tsx",
 		"app/api/auth/[...nextauth]/options.js",
 		"app/page.tsx",
-		"app/api/clientData/getInterests/route.js",
+		"app/api/clientData/interests/route.js",
 		"app/(components)/onboarding/userDataForm.jsx",
-		"app/(components)/onboarding/interests/interestsDataForm.jsx",
+		"app/(components)/onboarding/interests/interestsDataForm.tsx",
 		"app/(components)/register/registrationForm.jsx",
 		"app/(components)/ui/header/profileMenu.tsx",
 		"app/loggedin/onboarding/page.jsx",
 		"app/api/users/update/route.js",
 		"next.config.js",
-		"app/api/auth/[...nextauth]/route.js"
+		"app/api/auth/[...nextauth]/route.js",
+		"app/(functions)/clientData/getInterests.jsx"
 	],
 	"exclude": ["node_modules"]
 }
-
