@@ -18,8 +18,6 @@ export interface InterestData {
 const InterestForm = (props: InterestData) => {
 	// console.log('Props:');
 	// console.log(props);
-	const formContent = [];
-	let formCheckBoxes = [];
 	const initialState = (checkboxInputObject: InterestData) => {
 		const stateToReturnt = [];
 		// console.log('Initial state setter:');
@@ -93,7 +91,7 @@ const InterestForm = (props: InterestData) => {
 												name={interest.interestName}
 												id={interest.interestName}
 												value={interest.interestId}
-												onClick={(e) => checkHandler(interest.interestName)}
+												onClick={() => checkHandler(interest.interestName)}
 											/>
 											<label
 												key={
