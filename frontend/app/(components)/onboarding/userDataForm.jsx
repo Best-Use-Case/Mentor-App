@@ -6,26 +6,52 @@ import { useSession } from 'next-auth/react';
 
 const UserDataForm = () => {
 	const router = useRouter();
-	const { update } = useSession();
+	const { data: session, update, status } = useSession();
+	console.log('Status:'); // use status loading to show skeleton of form before the session is loaded so the username can be put in the state.
+	console.log({ status });
+	console.log('Session data');
+	console.log({ session });
 	const [formData, setFormData] = useState({
+		userName: session?.user?.email,
 		firstName: '',
 		lastName: '',
 		gender: '',
 		description: '',
-		role: 1,
+		roleId: 1,
 	});
+	if (status === 'authenticated') {
+		if (!formData.userName) {
+			setFormData((prevState) => ({
+				...prevState,
+				userName: session?.user?.email,
+			}));
+		}
+	}
+	console.log('Initial form data:');
+	console.log({ formData });
 	// const [errorMessage, setErrorMessage] = useState(''); // Not used yet. Keeping...
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		// console.log(`Name: ${name}, Value: ${value}`);
-		setFormData((prevState) => ({
-			...prevState,
-			[name]: value,
-		}));
+		if (name === 'roleId')
+			setFormData((prevState) => ({
+				...prevState,
+				[name]: Number(value),
+			}));
+		else {
+			setFormData((prevState) => ({
+				...prevState,
+				[name]: value,
+			}));
+		}
+		// console.log('Form data from handle change:');
+		// console.log(formData);
 	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		// console.log('Stringified form data:');
+		// console.log(JSON.stringify(formData));
 		// setErrorMessage(''); // Not used yet. Keeping...
 		const res = await fetch('/api/users/update', {
 			method: 'POST',
@@ -50,13 +76,13 @@ const UserDataForm = () => {
 				lastName: newLastName,
 				description: newDescription,
 				gender: newGender,
-				role: newRole,
+				roleId: newRole,
 			});
-			console.log(`formData.role: ${formData.role}`);
-			if (formData.role == 1) {
+			console.log(`formData.role: ${formData.roleId}`);
+			if (formData.roleId == 3) {
 				console.log(`Role: Student`);
 				router.push('/loggedin/onboarding/student');
-			} else if (formData.role == 2) {
+			} else if (formData.roleId == 2) {
 				console.log(`Role: Mentor`);
 			}
 		}
@@ -127,8 +153,8 @@ const UserDataForm = () => {
 							className='hidden'
 							type='radio'
 							id='student'
-							name='role'
-							value='1'
+							name='roleId'
+							value='3'
 							onChange={handleChange}
 						/>
 						<label
@@ -141,7 +167,7 @@ const UserDataForm = () => {
 							className='hidden'
 							type='radio'
 							id='mentor'
-							name='role'
+							name='roleId'
 							value='2'
 							onChange={handleChange}
 						/>

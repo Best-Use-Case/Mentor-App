@@ -4,18 +4,10 @@ import { options } from '@/app/api/auth/[...nextauth]/options';
 
 export async function POST(request) {
 	try {
-		const { firstName, lastName, gender, description, role } =
-			await request.json();
-		console.log(
-			`Received data from form: Firstname: ${firstName}, Lastname: ${lastName}, Gender: ${gender}, Description: ${description}, Role ${role}`,
-		);
-		const updatedUser = await updateUser(
-			firstName,
-			lastName,
-			gender,
-			description,
-			role,
-		);
+		const formData = await request.json();
+		// console.log('Received data from the form:');
+		console.log({ formData });
+		const updatedUser = await updateUser(formData);
 		console.log('updated user');
 		console.log({ updatedUser });
 		return NextResponse.json({ updatedUser });
@@ -28,20 +20,18 @@ export async function POST(request) {
 		);
 	}
 }
-async function updateUser(firstName, lastName, gender, description, role) {
+async function updateUser(formData) {
 	try {
 		// const session = await getServerSession(options);
-		const userData = {
-			firstName,
-			lastName,
-			gender,
-			description,
-			role,
-		};
-		const session = await getServerSession(options);
-		console.log({ session }); // remove this!
-		const email = session?.user?.email; // Need to research this issue, works for now.
-		console.log({ userData }); // remove this!
+
+		// const session = await getServerSession(options);
+		// console.log({ session }); // remove this!
+		// const email = session?.user?.email; // Need to research this issue, works for now.
+		console.log({ formData }); // remove this!
+		// const fetchData = { ...formData, userName: email };
+		// console.log({ fetchData }); // remove this!
+		console.log('Stringified form data in fetch request:');
+		console.log(JSON.stringify(formData));
 		const url = process.env.UPDATE_USER_URL;
 		const response = await fetch(url, {
 			method: 'POST',
@@ -50,14 +40,7 @@ async function updateUser(firstName, lastName, gender, description, role) {
 				'Content-Type': 'application/json',
 				Accept: 'application/json',
 			},
-			body: JSON.stringify({
-				userName: email,
-				firstName: firstName,
-				lastName: lastName,
-				gender,
-				description,
-				roleId: role,
-			}),
+			body: JSON.stringify({ formData }),
 		});
 		if (!response.ok) {
 			const res = await response.json();
