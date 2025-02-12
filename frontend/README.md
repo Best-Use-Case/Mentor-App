@@ -76,19 +76,19 @@ The applications needs the following environment variables.
 
 ### Authentication
 
-AUTH_SECRET=generate a random secret 64 bit 32 length
-GITHUB_SECRET=Get from github
+AUTH_SECRET=generate a random secret 64 bit 32 length  
+GITHUB_SECRET=Get from github  
 GITHUB_ID=Get from github
 
 ### Connection points to server
 
 _Examples for endpoints, replace with your own_
 
-FRONTEND_URL=http://localhost:3000
-BACKEND_URL=http://localhost:5000
-GET_INTERESTS_URL=/ClientData/get-interests
-REGISTER_URL=http://localhost:5000/account/register
-LOGIN_URL=http://localhost:5000/account/login
+FRONTEND_URL=http://localhost:3000  
+BACKEND_URL=http://localhost:5000  
+GET_INTERESTS_URL=/ClientData/get-interests  
+REGISTER_URL=http://localhost:5000/account/register  
+LOGIN_URL=http://localhost:5000/account/login  
 UPDATE_USER_URL=http://localhost:5000/Register/register-user
 
 ## Learn More
