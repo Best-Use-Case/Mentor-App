@@ -74,13 +74,13 @@ bun deploy
 
 The applications needs the following environment variables.
 
-# Authentication
+### Authentication
 
 AUTH_SECRET=generate a random secret 64 bit 32 length
 GITHUB_SECRET=Get from github
 GITHUB_ID=Get from github
 
-# Connection points to server
+### Connection points to server
 
 _Examples for endpoints, replace with your own_
 
