@@ -1,15 +1,20 @@
+import { error } from 'console';
 import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { options } from '@/app/api/auth/[...nextauth]/options';
+// import { getServerSession } from 'next-auth';
+// import { options } from '@/app/api/auth/[...nextauth]/options';
 
 export async function POST(request) {
 	try {
 		const formData = await request.json();
-		// console.log('Received data from the form:');
+		console.log('Received data from the form:');
 		console.log({ formData });
 		const updatedUser = await updateUser(formData);
 		console.log('updated user');
 		console.log({ updatedUser });
+		if (!updatedUser.isSuccess) {
+			console.log('Error caught in POST Method.');
+			throw new error({ updatedUser });
+		}
 		return NextResponse.json({ updatedUser });
 	} catch (e) {
 		console.log({ e });
@@ -33,6 +38,8 @@ async function updateUser(formData) {
 		console.log('Stringified form data in fetch request:');
 		console.log(JSON.stringify(formData));
 		const url = process.env.UPDATE_USER_URL;
+		console.log('URL in fetch request:');
+		console.log({ url });
 		const response = await fetch(url, {
 			method: 'POST',
 			mode: 'cors',
@@ -40,20 +47,21 @@ async function updateUser(formData) {
 				'Content-Type': 'application/json',
 				Accept: 'application/json',
 			},
-			body: JSON.stringify({ formData }),
+			body: JSON.stringify(formData),
 		});
 		if (!response.ok) {
 			const res = await response.json();
 			console.log('Full error response: ');
 			console.log({ res });
-			throw new Error(`Failed to update user: ${response.status}`);
+			throw new Error(`${response.status} ${response.title}`);
 		}
 		let res = await response.json();
 		console.log('Full response: ');
 		console.log({ res });
 		return res;
 	} catch (e) {
-		console.log({ e });
+		console.log('Error caught in updateUser function.');
+		console.log(e);
 		return e;
 	}
 }

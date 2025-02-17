@@ -1,5 +1,4 @@
 'use client';
-
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
@@ -17,7 +16,7 @@ const UserDataForm = () => {
 		lastName: '',
 		gender: '',
 		description: '',
-		roleId: 1,
+		roleId: 3,
 	});
 	if (status === 'authenticated') {
 		if (!formData.userName) {
@@ -29,7 +28,7 @@ const UserDataForm = () => {
 	}
 	console.log('Initial form data:');
 	console.log({ formData });
-	// const [errorMessage, setErrorMessage] = useState(''); // Not used yet. Keeping...
+	const [errorMessage, setErrorMessage] = useState(''); // Not used yet. Keeping...
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -52,7 +51,7 @@ const UserDataForm = () => {
 		e.preventDefault();
 		// console.log('Stringified form data:');
 		// console.log(JSON.stringify(formData));
-		// setErrorMessage(''); // Not used yet. Keeping...
+		setErrorMessage(''); // Resetting error message
 		const res = await fetch('/api/users/update', {
 			method: 'POST',
 			headers: {
@@ -60,11 +59,13 @@ const UserDataForm = () => {
 			},
 			body: JSON.stringify(formData),
 		});
+
 		const response = await res.json();
-		// console.log({ response });
+		console.log('Response from server:');
+		console.log({ response });
 
 		if (response.error) {
-			setErrorMessage(response.message);
+			setErrorMessage('Failed to update user.');
 		} else {
 			const newFirstName = response.updatedUser.firstName;
 			const newLastName = response.updatedUser.lastName;
@@ -84,6 +85,7 @@ const UserDataForm = () => {
 				router.push('/loggedin/onboarding/student');
 			} else if (formData.roleId == 2) {
 				console.log(`Role: Mentor`);
+				// need to redirect users registered as mentors.
 			}
 		}
 	};
@@ -189,6 +191,9 @@ const UserDataForm = () => {
 						>
 							Submit
 						</button>
+					</div>
+					<div>
+						<span>{errorMessage}</span>
 					</div>
 				</section>
 			</form>

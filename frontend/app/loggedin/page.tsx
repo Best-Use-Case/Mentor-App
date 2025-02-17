@@ -20,8 +20,8 @@ export default async function loggedIn() {
 		case 'admin':
 			redirect('/loggedin/admin');
 			break;
-		case 'user':
-			redirect('/loggedin/user');
+		case 'student':
+			redirect('/loggedin/student');
 			break;
 		case 'mentor':
 			redirect('/loggedin/mentor');
