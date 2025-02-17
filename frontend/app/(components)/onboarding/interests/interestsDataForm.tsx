@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+// import { error } from 'console';
 export interface InterestData {
 	interestData: [
 		{
@@ -18,8 +20,10 @@ export interface InterestData {
 }
 const InterestForm = (props: InterestData) => {
 	const { data: session } = useSession();
+	const router = useRouter();
 	// console.log('Props:');
 	// console.log(props);
+	const [errorMessage, setErrorMessage] = useState('');
 	const initialState = (checkboxInputObject: InterestData) => {
 		const stateToReturnt = [];
 		// console.log('Initial state setter:');
@@ -57,6 +61,7 @@ const InterestForm = (props: InterestData) => {
 	};
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setErrorMessage(''); // Resetting error message
 		console.log('Form submitted');
 		console.log(checkBoxes);
 		const tagIds = [];
@@ -78,6 +83,11 @@ const InterestForm = (props: InterestData) => {
 			body: JSON.stringify(formData),
 		});
 		const data = await res.json();
+		if (data.error) {
+			setErrorMessage(data.error);
+		} else {
+			router.push('/loggedin/student');
+		}
 		console.log(data);
 	};
 
@@ -143,6 +153,11 @@ const InterestForm = (props: InterestData) => {
 						>
 							Save selection
 						</button>
+					</div>
+				</section>
+				<section>
+					<div>
+						<p>{errorMessage}</p>
 					</div>
 				</section>
 			</form>
