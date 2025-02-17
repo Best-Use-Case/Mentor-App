@@ -3,8 +3,8 @@ namespace API.Dtos.CreateUser;
 public class UserDto
 {
   public required string UserName { get; set; }
-  public required string FirstName { get; set; }
-  public required string LastName { get; set; }
+  public string FirstName { get; set; } = string.Empty;
+  public string LastName { get; set; } = string.Empty;
   public string Description { get; set; } = string.Empty;
   public string Gender { get; set; } = string.Empty;
   public int? RoleId { get; set; }

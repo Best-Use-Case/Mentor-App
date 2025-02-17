@@ -4,6 +4,7 @@ using API.Interfaces;
 using API.Models;
 using API.Services;
 using API.Utils;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Repository.UserRepository;
@@ -36,6 +37,8 @@ public class UserRepo : IUserRepo
           IsSuccess = false,
         };
       }
+      var userIdDB = user.UserId;
+      var userRoleDB = await _context.UserRoles.Where(ur => ur.UserId == userIdDB).Select(r => r.RoleId).ToListAsync();
 
       user.FirstName = userDto.FirstName;
       user.LastName = userDto.LastName;
@@ -94,13 +97,29 @@ public class UserRepo : IUserRepo
       if (userDto.RoleId != null)
       {
         var UserRoleId = userDto.RoleId;
+
         var userRole = new UserRole()
         {
           UserId = user.UserId,
           RoleId = (int)UserRoleId
         };
+
+        foreach (var role in userRoleDB)
+        {
+          if (role != UserRoleId)
+          {
+            var userRoleToRemove = new UserRole
+            {
+              UserId = user.UserId,
+              RoleId = role
+            };
+            _context.UserRoles.Remove(userRoleToRemove);
+          }
+        }
         user.Roles.Add(userRole);
-        await _context.UserRoles.AddAsync(userRole);
+
+
+        //await _context.UserRoles.AddAsync(userRole);
 
       }
 

@@ -24,7 +24,7 @@ public class AccountRepository(DataContext context, ITokenService tokenService) 
         {
             return new ResponseManager
             {
-                Message = $"A user with {registerDto.UserName} found - Go to " +
+                Message = $"A user with {registerDto.UserName} username found - Go to " +
                           $"the login page!",
                 IsSuccess = false
             };
