@@ -1,5 +1,8 @@
 'use client';
 import { useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+// import { error } from 'console';
 export interface InterestData {
 	interestData: [
 		{
@@ -16,8 +19,11 @@ export interface InterestData {
 	];
 }
 const InterestForm = (props: InterestData) => {
+	const { data: session } = useSession();
+	const router = useRouter();
 	// console.log('Props:');
 	// console.log(props);
+	const [errorMessage, setErrorMessage] = useState('');
 	const initialState = (checkboxInputObject: InterestData) => {
 		const stateToReturnt = [];
 		// console.log('Initial state setter:');
@@ -53,10 +59,36 @@ const InterestForm = (props: InterestData) => {
 		// console.log('Logging from CheckBoxGenerator');
 		// console.log(checkBoxes);
 	};
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setErrorMessage(''); // Resetting error message
 		console.log('Form submitted');
 		console.log(checkBoxes);
+		const tagIds = [];
+		for (const check of checkBoxes) {
+			if (check.checked) {
+				tagIds.push(check.value);
+			}
+		}
+		console.log(tagIds);
+		const formData = {
+			userName: session?.user?.email,
+			interestIds: tagIds,
+		};
+		const res = await fetch('/api/users/update', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(formData),
+		});
+		const data = await res.json();
+		if (data.error) {
+			setErrorMessage(data.error);
+		} else {
+			router.push('/loggedin/student');
+		}
+		console.log(data);
 	};
 
 	return (
@@ -64,9 +96,9 @@ const InterestForm = (props: InterestData) => {
 			<form
 				onSubmit={handleSubmit}
 				method='POST'
-				className='registerForm flex flex-col gap-4 [&>input]:bg-white [&>input]:text-black p-4 mx-auto w-auto md:w-md'
+				className='registerForm flex flex-col gap-4 [&>input]:bg-white [&>input]:text-black p-4 mx-auto w-full'
 			>
-				<h2>Form heading</h2>
+				<h2>What are you interested in?</h2>
 				{props.interestData.map((category) => {
 					return (
 						<section key={category.category + 'container'}>
@@ -121,6 +153,11 @@ const InterestForm = (props: InterestData) => {
 						>
 							Save selection
 						</button>
+					</div>
+				</section>
+				<section>
+					<div>
+						<p>{errorMessage}</p>
 					</div>
 				</section>
 			</form>
