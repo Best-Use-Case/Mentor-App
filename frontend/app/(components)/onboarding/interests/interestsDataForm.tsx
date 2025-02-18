@@ -75,7 +75,8 @@ const InterestForm = (props: InterestData) => {
 			userName: session?.user?.email,
 			interestIds: tagIds,
 		};
-		const res = await fetch('/api/users/update', {
+		console.log('Form data: ', formData);
+		const res = await fetch('/api/auth/register/userInterest', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

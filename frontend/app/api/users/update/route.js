@@ -20,7 +20,7 @@ export async function POST(request) {
 		console.log({ e });
 		// Change this to use the message and status from the error.
 		return NextResponse.json(
-			{ error: 'Failed to update user' },
+			{ error: 'Failed to update user details.' },
 			{ status: 500 },
 		);
 	}

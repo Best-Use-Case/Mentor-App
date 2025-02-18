@@ -1,4 +1,4 @@
-import { ButtonLink } from "@/app/(components)/ui/buttons";
+import { ButtonLink } from '@/app/(components)/ui/buttons';
 
 export default async function RegisterPage() {
 	return (
@@ -8,7 +8,10 @@ export default async function RegisterPage() {
 					<h1>Account registered</h1>
 					<p>Thank you for registering, your account has been created.</p>
 				</div>
-				<ButtonLink target='/api/auth/signin' text='Login'></ButtonLink>
+				<ButtonLink
+					target='/api/auth/signin?callbackUrl=/loggedin'
+					text='Login'
+				></ButtonLink>
 			</div>
 		</>
 	);

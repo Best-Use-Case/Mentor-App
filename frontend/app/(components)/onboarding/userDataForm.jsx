@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 const UserDataForm = () => {
 	const router = useRouter();
 	const { data: session, update, status } = useSession();
+	const userId = session?.user?.id;
 	console.log('Status:'); // use status loading to show skeleton of form before the session is loaded so the username can be put in the state.
 	console.log({ status });
 	console.log('Session data');
@@ -49,48 +50,117 @@ const UserDataForm = () => {
 	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// console.log('Stringified form data:');
-		// console.log(JSON.stringify(formData));
 		setErrorMessage(''); // Resetting error message
-		const res = await fetch('/api/users/update', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(formData),
-		});
-
-		const response = await res.json();
-		console.log('Response from server:');
-		console.log({ response });
-
-		if (response.error) {
-			setErrorMessage('Failed to update user.');
-		} else {
-			const newFirstName = response.updatedUser.firstName;
-			const newLastName = response.updatedUser.lastName;
-			const newDescription = response.updatedUser.description;
-			const newGender = response.updatedUser.gender;
-			const newRole = response.updatedUser.role;
+		const userDetails = {
+			// Define user details for registration on the server
+			userName: formData.userName,
+			firstName: formData.firstName,
+			lastName: formData.lastName,
+			gender: formData.gender,
+			description: formData.description,
+		};
+		const userRole = {
+			// Define user ID and role ID for registration on the server
+			userName: formData.userName,
+			roleId: formData.roleId,
+			userId: userId,
+		};
+		try {
+			// Register user details on the server
+			console.log('Sending user details to server...');
+			const userDetailsRes = await fetch('/api/auth/register/userDetails', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(userDetails),
+			});
+			const responseDetails = await userDetailsRes.json();
+			console.log('User detailsresponse from server:');
+			console.log({ responseDetails });
+			if (responseDetails.error) {
+				throw responseDetails.error;
+			}
+			// Register user role on the server
+			const userIdRes = await fetch('/api/auth/register/userRole', {
+				method: 'POST',
+				mode: 'cors',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(userRole),
+			});
+			const responseRole = await userIdRes.json();
+			console.log('Response from server:');
+			console.log(responseRole);
+			if (responseRole.error) {
+				throw responseRole.error;
+			}
+			// Get registered role for user from the server
+			const userRoleRes = await fetch('/api/auth/profile/getUserRoles', {
+				method: 'POST',
+				mode: 'cors',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(userId),
+			});
+			const responseRegisteredRole = await userRoleRes.json();
+			console.log('Role from server:');
+			console.log(responseRegisteredRole);
+			if (responseRegisteredRole.error) {
+				throw responseRegisteredRole.error;
+			}
+			const newFirstName = responseDetails.firstName;
+			const newLastName = responseDetails.lastName;
+			const newDescription = responseDetails.description;
+			const newGender = responseDetails.gender;
+			const newRole = responseRegisteredRole;
 			await update({
 				firstName: newFirstName,
 				lastName: newLastName,
 				description: newDescription,
 				gender: newGender,
-				roleId: newRole,
+				role: newRole,
 			});
 			console.log(`formData.role: ${formData.roleId}`);
-			if (formData.roleId == 3) {
+			console.log(`newRole: ${newRole}`);
+			if (newRole == 'Student') {
 				console.log(`Role: Student`);
 				router.push('/loggedin/onboarding/student');
-			} else if (formData.roleId == 2) {
+			} else if (newRole == 'Mentor') {
 				console.log(`Role: Mentor`);
 				// need to redirect users registered as mentors.
 			}
+		} catch (error) {
+			console.error('Error:', error);
+			setErrorMessage(error);
 		}
 	};
+	// const getUserRoleFromServer = async () => {
+	// 	try {
+	// 		const roleRes = await fetch('/api/auth/profile/getUserRoles', {
+	// 			method: 'POST',
+	// 			mode: 'cors',
+	// 			headers: {
+	// 				'Content-Type': 'application/json',
+	// 			},
+	// 			body: JSON.stringify(userId),
+	// 		});
+	// 		const responseRole = await roleRes.json();
+	// 		console.log('Role from server:');
+	// 		console.log(responseRole);
+	// 		if (responseRole.error) {
+	// 			throw responseRole.error;
+	// 		}
+	// 	} catch (e) {
+	// 		console.error('Error: ', e);
+	// 		setErrorMessage(e);
+	// 	}
+	// };
 	return (
 		<>
+			{/* <button onClick={getUserRoleFromServer}>Get Role</button> */}
 			<form
 				className='registerForm flex flex-col gap-8 p-4 mx-auto w-auto md:w-md'
 				onSubmit={handleSubmit}
