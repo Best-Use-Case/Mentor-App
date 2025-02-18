@@ -57,7 +57,7 @@ export const options = {
 						firstName: data?.firstName,
 						lastName: data?.lastName,
 						description: data?.description,
-						role: data?.role,
+						role: data?.role[0],
 					};
 					// Keeping this in case we need to use encryption from the frontend.
 					// users.map(function (mapUser: any) {
