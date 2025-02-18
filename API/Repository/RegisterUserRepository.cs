@@ -203,9 +203,9 @@ public class RegisterUserRepository(DataContext context, ITokenService tokenServ
             };
             context.UserRoles.Remove(userRoleToRemove);
           }
-          user.Roles.Add(userRole);
 
         }
+        user.Roles.Add(userRole);
         if (await context.SaveChangesAsync() > 0)
         {
           return new ResponseManager
@@ -256,14 +256,14 @@ public class RegisterUserRepository(DataContext context, ITokenService tokenServ
           };
           user.WorkExperiences!.Add(workHistory);
         });
-      }
-      if (await context.SaveChangesAsync() > 0)
-      {
-        return new ResponseManager
+        if (await context.SaveChangesAsync() > 0)
         {
-          Message = "Registeration succeeded",
-          IsSuccess = true
-        };
+          return new ResponseManager
+          {
+            Message = "Registeration succeeded",
+            IsSuccess = true
+          };
+        }
       }
 
       return new ResponseManager
