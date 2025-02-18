@@ -6,31 +6,50 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class RegisterController(IUserRepo userRepo, ILogger<RegisterController> logger) : ControllerBase
+public class RegisterController(IUserRepository userRepository, ILogger<RegisterController> logger) : ControllerBase
 {
-  private readonly IUserRepo _userRepo = userRepo;
-  private readonly ILogger<RegisterController> _logger = logger;
 
-  [HttpPost("register-user")]
-  public async Task<IActionResult> RegisterUser([FromBody] UserDto userDto)
+
+  [HttpPost("register-user-details")]
+  public async Task<IActionResult> RegisterUserDetials(UserDetailsDto detailsDto)
   {
-    var result = await _userRepo.CreateUser(userDto);
+    var result = await userRepository.RegisterUserDetailsAsync(detailsDto);
 
     if (!result.IsSuccess) return BadRequest(result);
-    _logger.LogInformation($"Registration attempt by {userDto.UserName} failed");
+    logger.LogInformation($"Registration attempt by {detailsDto.UserName} failed");
 
     return Ok(result);
-
   }
 
-  [HttpGet("match-users")]
-  public async Task<IActionResult> MatchUsers(string UserName)
+  [HttpPost("register-user-education")]
+  public async Task<IActionResult> RegisterUserEducation(List<UserEducationDto> educationDto)
   {
-    var result = await _userRepo.MatchUsers(UserName);
-
+    var result = await userRepository.RegisterUserEducationAsync(educationDto);
     if (!result.IsSuccess) return BadRequest(result);
-    _logger.LogInformation($"Match making attempt for {UserName} failed");
+    return Ok(result);
+  }
 
+  [HttpPost("register-user-interest")]
+  public async Task<IActionResult> RegisterUserInterest(List<InterestUserDto> interestIds)
+  {
+    var result = await userRepository.RegisterUserInterestAsync(interestIds);
+    if (!result.IsSuccess) return BadRequest(result);
+    return Ok(result);
+  }
+
+  [HttpPost("register-user-role")]
+  public async Task<IActionResult> RegisterUserRole(UserRoleDto role)
+  {
+    var result = await userRepository.RegisterUserRoleAsync(role);
+    if (!result.IsSuccess) return BadRequest(result);
+    return Ok(result);
+  }
+
+  [HttpPost("register-user-work-history")]
+  public async Task<IActionResult> RegisterUserWorkHistory(List<UserWorkHistoryDto> workHistoryDto)
+  {
+    var result = await userRepository.RegisterUserWorkHistoryAsync(workHistoryDto);
+    if (!result.IsSuccess) return BadRequest(result);
     return Ok(result);
   }
 
