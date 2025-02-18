@@ -128,7 +128,7 @@ export const options = {
 			};
 		},
 	},
-	secret: process.env.NEXTAUTH_SECRET,
+	secret: process.env.AUTH_SECRET,
 	session: {
 		strategy: 'jwt',
 	},
