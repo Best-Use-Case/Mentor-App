@@ -110,10 +110,8 @@ export const options = {
 				if (session?.role) {
 					token.role = session?.role;
 				}
-				return token;
-			} else {
-				return token;
 			}
+			return token;
 		},
 		async session({ session, token }) {
 			// console.log("session callback", { token, user, session });

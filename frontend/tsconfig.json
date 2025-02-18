@@ -41,6 +41,6 @@
 		"next.config.js",
 		"app/api/auth/[...nextauth]/route.js",
 		"app/(functions)/clientData/getInterests.jsx"
-	],
+, "app/loggedin/(profile)/student/page.jsx"	],
 	"exclude": ["node_modules"]
 }
