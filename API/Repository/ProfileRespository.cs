@@ -175,15 +175,12 @@ public class ProfileRespository(DataContext context, IMapper mapper) : IProfileR
       {
         userinterestIds.ForEach(ints =>
         {
-          userInterestList = [.. context.Interests.Where(x => x.InterestId == ints).Select(x => x.InterestName)];// vs-code recommendation
-          // userInterestList = context.Interests.Where(x => x.InterestId == ints)
-          //                                       .Select(x => x.InterestName)
-          //                                       .ToList();
+          var userInteres = context.Interests.FirstOrDefault(x => x.InterestId == ints);
+          userInterestList.Add(userInteres!.InterestName);
         });
-        return userInterestList;
       }
+      return userInterestList;
 
-      return ["No interest found for the user"];
     }
     catch (Exception ex)
     {
