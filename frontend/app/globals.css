@@ -294,6 +294,12 @@ form textarea {
 form label {
 	@apply text-xl;
 }
+form label.headline-label {
+	@apply text-3xl;
+}
+/* form section.expand-section {
+	transition: max-height 0.3s ease-out;
+} */
 .registerForm {
 	@apply relative mb-12 rounded-2xl p-10 bg-neutral-200 border-2 border-neutral-950 after:content-[''] after:absolute after:left-5 after:top-5 after:bg-neutral-400 after:w-full after:h-full after:block after:-z-15 after:rounded-2xl after:border-2 after:border-neutral-950;
 }
@@ -304,11 +310,11 @@ form label {
 	@apply flex flex-row m-auto gap-8 contain-content justify-items-center p-3;
 }
 .registerForm section.checkbox-section {
-	@apply flex flex-wrap flex-row gap-4 gap-y-6 z-10;
+	@apply grid z-10;
 }
-.registerForm section.checkbox-section div {
-	@apply pt-3 pb-3;
-}
+/* .registerForm section.checkbox-section div {
+	@apply pt-0 pb-0;
+} */
 .registerForm section.checkbox-section label {
 	@apply text-base cursor-pointer relative p-8 pt-4.5 pb-4.5 pl-6 bg-neutral-600 dark:bg-neutral-300 dark:text-neutral-950 rounded-full border-2 border-neutral-950 ease-in-out duration-300 
   after:content-['\00d7'] after:text-[50px] after:font-[300] after:-top-[17px] after:absolute after:left-3 after:ease-in-out after:duration-300 after:opacity-0
