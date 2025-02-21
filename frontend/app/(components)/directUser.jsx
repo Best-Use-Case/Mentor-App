@@ -13,7 +13,7 @@ export default function DirectUser() {
 	} else if (status == 'unauthenticated') {
 		redirect('/api/auth/signin?callbackUrl=/loggedin');
 	} else {
-		if (session?.user?.role) {
+		if (session && session?.user?.role) {
 			const role = session?.user?.role;
 			switch (role) {
 				case 'Admin':
