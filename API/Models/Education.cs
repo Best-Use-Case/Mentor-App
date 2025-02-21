@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace API.Models;
@@ -7,13 +6,14 @@ public class Education
 {
   [Key]
   public int EducationId { get; set; }
-  public required string SchoolName { get; set; }
-  public required string StudyCity { get; set; }
-  public required DateTime StartDate { get; set; }
-  public required DateTime EndDate { get; set; }
-  public required Degree Degree { get; set; }
-  public int StudentId { get; set; }
-  public Student Student { get; set; } = new Student();
+  public string SchoolName { get; set; } = string.Empty;
+  public string StudyCity { get; set; } = string.Empty;
+  public DateTime StartDate { get; set; }
+  public DateTime EndDate { get; set; }
+  public Degree Degree { get; set; } = null!;
+  public int DegreeId { get; set; }
+  public int UserId { get; set; }
+  public AppUser AppUser { get; set; } = null!;
 
 }
 

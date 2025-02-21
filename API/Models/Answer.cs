@@ -7,9 +7,10 @@ public class Answer
   [Key]
   public int AnswerId { get; set; }
   public string AnswerText { get; set; } = string.Empty;
-  public required Question Question { get; set; }
+  public int QuestionId { get; set; }
+  public Question Question { get; set; } = null!;
   public int UserId { get; set; }
-  public required AppUser AppUser { get; set; }
+  public AppUser AppUser { get; set; } = null!;
 
 
 }

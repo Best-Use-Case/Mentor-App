@@ -1,23 +1,12 @@
-using API.Data;
-using API.Repository.AccountRepository;
-using API.Services;
+using API.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers();
-builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddDbContext<DataContext>(options =>
-       options.UseSqlite(builder.Configuration.GetConnectionString("DbConnection")));
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-//builder.Services.AddOpenApi();
-builder.Services.AddSwaggerGen();
+builder.Services.AddApplicationServices(builder.Configuration);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
        .AddJwtBearer(options =>
@@ -39,7 +28,21 @@ if (app.Environment.IsDevelopment())
     //app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();
+    // create a file to log info
+
+
 }
+app.UseCors(policy =>
+{
+    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins(
+            [
+            "http://localhost:3000",
+            "https://locahost:3000",
+            "http://localhost:4200",
+            "https://localhost:4200"
+            ]
+        );
+});
 
 app.UseHttpsRedirection();
 

@@ -3,6 +3,7 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -15,45 +16,80 @@ namespace API.Data.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "9.0.1");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "9.0.1")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("API.Models.Answer", b =>
                 {
                     b.Property<int>("AnswerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AnswerId"));
 
                     b.Property<string>("AnswerText")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("AppUserUserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("QuestionId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("AnswerId");
 
-                    b.HasIndex("AppUserUserId");
-
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Answer");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Answers");
+
+                    b.HasData(
+                        new
+                        {
+                            AnswerId = 1,
+                            AnswerText = "Gode kollega",
+                            QuestionId = 1,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            AnswerId = 2,
+                            AnswerText = "matematikk :) ",
+                            QuestionId = 3,
+                            UserId = 3
+                        },
+                        new
+                        {
+                            AnswerId = 3,
+                            AnswerText = "for lite ferie :) ",
+                            QuestionId = 2,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            AnswerId = 4,
+                            AnswerText = "for mye teori :) ",
+                            QuestionId = 4,
+                            UserId = 5
+                        });
                 });
 
             modelBuilder.Entity("API.Models.AppRole", b =>
                 {
                     b.Property<int>("RoleId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
 
                     b.Property<string>("RoleName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RoleId");
 
@@ -81,113 +117,115 @@ namespace API.Data.Migrations
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Gender")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("BLOB");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<byte[]>("PasswordSalt")
                         .IsRequired()
-                        .HasColumnType("BLOB");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("PhotoUrl")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PublicId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
 
-                    b.HasDiscriminator().HasValue("AppUser");
-
-                    b.UseTphMappingStrategy();
-
                     b.HasData(
                         new
                         {
                             UserId = 1,
-                            Description = "",
-                            FirstName = "",
-                            Gender = "",
-                            LastName = "",
-                            PasswordHash = new byte[0],
+                            Description = "I'm admin",
+                            FirstName = "Admin",
+                            Gender = "Female",
+                            LastName = "Admin",
+                            PasswordHash = new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 79, 88, 79, 90, 107, 54, 115, 113, 56, 78, 65, 98, 90, 83, 75, 114, 90, 48, 107, 52, 55, 120, 105, 112, 110, 50, 72, 78, 50, 76, 73, 48, 89, 83, 77, 66, 118, 108, 115, 107, 98, 72, 50, 53, 102, 121, 106, 71, 74, 103, 114, 67, 86, 48, 54, 111, 75, 85, 48, 107, 43, 47, 109, 68, 103, 61, 61 },
                             PasswordSalt = new byte[0],
                             PhotoUrl = "",
-                            UserName = "test1@gmail.com"
+                            PublicId = "",
+                            UserName = "Admin@gmail.com"
                         },
                         new
                         {
                             UserId = 2,
-                            Description = "",
-                            FirstName = "",
-                            Gender = "",
-                            LastName = "",
-                            PasswordHash = new byte[0],
+                            Description = "mentor description...",
+                            FirstName = "Mentor1",
+                            Gender = "Male",
+                            LastName = "ment1",
+                            PasswordHash = new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 77, 117, 82, 49, 110, 55, 103, 87, 80, 79, 50, 97, 87, 118, 111, 103, 118, 121, 47, 56, 53, 116, 68, 75, 49, 49, 101, 56, 121, 98, 112, 65, 102, 98, 50, 48, 120, 81, 57, 113, 67, 103, 100, 57, 65, 76, 102, 86, 116, 66, 102, 115, 84, 54, 70, 88, 55, 49, 75, 77, 100, 113, 120, 80, 103, 61, 61 },
                             PasswordSalt = new byte[0],
-                            PhotoUrl = "",
-                            UserName = "test2@gmail.com"
+                            PhotoUrl = "https://picsum.photos/200",
+                            PublicId = "",
+                            UserName = "mentor1@gmail.com"
                         },
                         new
                         {
                             UserId = 3,
-                            Description = "",
-                            FirstName = "",
-                            Gender = "",
-                            LastName = "",
-                            PasswordHash = new byte[0],
+                            Description = "stud description,",
+                            FirstName = "Student1",
+                            Gender = "Male",
+                            LastName = "stud1VGS",
+                            PasswordHash = new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 65, 103, 57, 71, 43, 109, 110, 121, 66, 69, 73, 55, 72, 78, 85, 56, 80, 111, 88, 49, 52, 82, 54, 103, 104, 80, 55, 114, 109, 118, 115, 72, 117, 86, 53, 71, 83, 110, 104, 80, 104, 117, 102, 53, 108, 73, 72, 47, 73, 120, 54, 87, 57, 108, 81, 51, 48, 51, 68, 73, 77, 109, 103, 50, 65, 61, 61 },
                             PasswordSalt = new byte[0],
-                            PhotoUrl = "",
-                            UserName = "test3@gmail.com"
+                            PhotoUrl = "https://picsum.photos/200",
+                            PublicId = "",
+                            UserName = "student1@gmail.com"
                         },
                         new
                         {
                             UserId = 4,
-                            Description = "",
-                            FirstName = "",
-                            Gender = "",
-                            LastName = "",
-                            PasswordHash = new byte[0],
+                            Description = "mentor description...",
+                            FirstName = "Mentor2",
+                            Gender = "Female",
+                            LastName = "ment2",
+                            PasswordHash = new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 75, 112, 83, 74, 102, 47, 85, 116, 65, 65, 69, 101, 57, 65, 70, 109, 47, 116, 90, 66, 112, 67, 74, 121, 98, 90, 75, 103, 78, 76, 102, 65, 117, 82, 80, 87, 71, 90, 90, 101, 67, 117, 49, 79, 54, 51, 72, 67, 82, 77, 107, 52, 75, 115, 87, 82, 72, 50, 103, 77, 50, 109, 112, 112, 81, 61, 61 },
                             PasswordSalt = new byte[0],
-                            PhotoUrl = "",
-                            UserName = "test4@gmail.com"
+                            PhotoUrl = "https://picsum.photos/200",
+                            PublicId = "",
+                            UserName = "mentor2@gmail.com"
                         },
                         new
                         {
                             UserId = 5,
-                            Description = "",
-                            FirstName = "",
-                            Gender = "",
-                            LastName = "",
-                            PasswordHash = new byte[0],
+                            Description = "stud description",
+                            FirstName = "Student2",
+                            Gender = "Male",
+                            LastName = "studVGS2",
+                            PasswordHash = new byte[] { 65, 81, 65, 65, 65, 65, 73, 65, 65, 89, 97, 103, 65, 65, 65, 65, 69, 73, 119, 107, 122, 112, 119, 86, 100, 74, 120, 87, 51, 108, 50, 72, 48, 65, 116, 75, 102, 81, 69, 77, 48, 109, 49, 76, 47, 54, 85, 98, 53, 116, 119, 43, 78, 72, 98, 115, 111, 85, 115, 88, 101, 77, 70, 47, 74, 86, 100, 52, 72, 74, 65, 74, 48, 54, 100, 67, 113, 79, 79, 57, 69, 119, 61, 61 },
                             PasswordSalt = new byte[0],
-                            PhotoUrl = "",
-                            UserName = "test5@gmail.com"
+                            PhotoUrl = "https://picsum.photos/200",
+                            PublicId = "",
+                            UserName = "student2@gmail.com"
                         });
                 });
 
@@ -195,66 +233,121 @@ namespace API.Data.Migrations
                 {
                     b.Property<int>("DegreeId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DegreeId"));
 
                     b.Property<string>("DegreeName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DegreeId");
 
-                    b.ToTable("Degree");
+                    b.ToTable("Degrees");
+
+                    b.HasData(
+                        new
+                        {
+                            DegreeId = 1,
+                            DegreeName = "VGS"
+                        },
+                        new
+                        {
+                            DegreeId = 2,
+                            DegreeName = "Bachelor degree"
+                        },
+                        new
+                        {
+                            DegreeId = 3,
+                            DegreeName = "Masters degree"
+                        },
+                        new
+                        {
+                            DegreeId = 4,
+                            DegreeName = "Phd"
+                        });
                 });
 
             modelBuilder.Entity("API.Models.Education", b =>
                 {
                     b.Property<int>("EducationId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EducationId"));
 
                     b.Property<int>("DegreeId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("EndDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("MentorUserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("SchoolName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("StudyCity")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("EducationId");
 
                     b.HasIndex("DegreeId");
 
-                    b.HasIndex("MentorUserId");
-
-                    b.HasIndex("StudentId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Educations");
+
+                    b.HasData(
+                        new
+                        {
+                            EducationId = 1,
+                            DegreeId = 1,
+                            EndDate = new DateTime(2025, 2, 7, 12, 54, 37, 345, DateTimeKind.Local).AddTicks(511),
+                            SchoolName = "school-name",
+                            StartDate = new DateTime(2025, 2, 7, 12, 54, 37, 339, DateTimeKind.Local).AddTicks(5207),
+                            StudyCity = "Oslo",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            EducationId = 2,
+                            DegreeId = 2,
+                            EndDate = new DateTime(2025, 2, 7, 12, 54, 37, 345, DateTimeKind.Local).AddTicks(2946),
+                            SchoolName = "school-name",
+                            StartDate = new DateTime(2025, 2, 7, 12, 54, 37, 345, DateTimeKind.Local).AddTicks(2927),
+                            StudyCity = "Bergen",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            EducationId = 3,
+                            DegreeId = 3,
+                            EndDate = new DateTime(2025, 2, 7, 12, 54, 37, 345, DateTimeKind.Local).AddTicks(2959),
+                            SchoolName = "school-name",
+                            StartDate = new DateTime(2025, 2, 7, 12, 54, 37, 345, DateTimeKind.Local).AddTicks(2955),
+                            StudyCity = "Stavanger",
+                            UserId = 4
+                        });
                 });
 
             modelBuilder.Entity("API.Models.FieldOfInterest", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -292,29 +385,85 @@ namespace API.Data.Migrations
                 {
                     b.Property<int>("IndustryId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IndustryId"));
 
                     b.Property<string>("IndustryName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IndustryId");
 
-                    b.ToTable("Industry");
+                    b.ToTable("Industries");
+
+                    b.HasData(
+                        new
+                        {
+                            IndustryId = 1,
+                            IndustryName = "Barn, skole og undervisning"
+                        },
+                        new
+                        {
+                            IndustryId = 2,
+                            IndustryName = "Bygg og anlegg"
+                        },
+                        new
+                        {
+                            IndustryId = 4,
+                            IndustryName = "Helse og omsorg"
+                        },
+                        new
+                        {
+                            IndustryId = 5,
+                            IndustryName = "Industri og produksjon"
+                        },
+                        new
+                        {
+                            IndustryId = 6,
+                            IndustryName = "Konsulent og rådgiving"
+                        },
+                        new
+                        {
+                            IndustryId = 7,
+                            IndustryName = "IT"
+                        },
+                        new
+                        {
+                            IndustryId = 8,
+                            IndustryName = "Kraft og energi"
+                        },
+                        new
+                        {
+                            IndustryId = 9,
+                            IndustryName = "Maritim og offshoe"
+                        },
+                        new
+                        {
+                            IndustryId = 10,
+                            IndustryName = "Offentelig administrasjon"
+                        },
+                        new
+                        {
+                            IndustryId = 11,
+                            IndustryName = "Transport og logistikk"
+                        });
                 });
 
             modelBuilder.Entity("API.Models.Interest", b =>
                 {
                     b.Property<int>("InterestId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InterestId"));
 
                     b.Property<int>("FieldOfInterestId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("InterestName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("InterestId");
 
@@ -355,28 +504,90 @@ namespace API.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("API.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateMessageSent")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RecipientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RecipientUserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SenderUserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipientId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("API.Models.Question", b =>
                 {
                     b.Property<int>("QuestionId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuestionId"));
 
                     b.Property<string>("QuestionText")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("QuestionId");
 
-                    b.ToTable("Question");
+                    b.ToTable("Questions");
+
+                    b.HasData(
+                        new
+                        {
+                            QuestionId = 1,
+                            QuestionText = "Hva er den beste med jobben din?"
+                        },
+                        new
+                        {
+                            QuestionId = 2,
+                            QuestionText = "Hva er den verste med jobben din, og Hvorfor?"
+                        },
+                        new
+                        {
+                            QuestionId = 3,
+                            QuestionText = "Hvilket fag er du mest glad i?"
+                        },
+                        new
+                        {
+                            QuestionId = 4,
+                            QuestionText = "Hvilket fag er du mest IKKE glad i, og Hvorfor?"
+                        });
                 });
 
             modelBuilder.Entity("API.Models.UserInterest", b =>
                 {
                     b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("InterestId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("UserId", "InterestId");
 
@@ -410,10 +621,10 @@ namespace API.Data.Migrations
             modelBuilder.Entity("API.Models.UserRole", b =>
                 {
                     b.Property<int>("RoleId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("RoleId", "UserId");
 
@@ -453,60 +664,63 @@ namespace API.Data.Migrations
                 {
                     b.Property<int>("WorkExpId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkExpId"));
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IndudtryIndustryId")
-                        .HasColumnType("INTEGER");
+                    b.Property<int>("IndustryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Jobtitle")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("MentorUserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("WorkExpId");
 
-                    b.HasIndex("IndudtryIndustryId");
+                    b.HasIndex("IndustryId");
 
-                    b.HasIndex("MentorUserId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("WorkExperience");
-                });
+                    b.ToTable("WorkExperiences");
 
-            modelBuilder.Entity("API.Models.Mentor", b =>
-                {
-                    b.HasBaseType("API.Models.AppUser");
-
-                    b.HasDiscriminator().HasValue("Mentor");
-                });
-
-            modelBuilder.Entity("API.Models.Student", b =>
-                {
-                    b.HasBaseType("API.Models.AppUser");
-
-                    b.HasDiscriminator().HasValue("Student");
+                    b.HasData(
+                        new
+                        {
+                            WorkExpId = 1,
+                            CompanyName = "Avonova Norge",
+                            IndustryId = 1,
+                            Jobtitle = "job-title",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            WorkExpId = 2,
+                            CompanyName = "Innovation Norge",
+                            IndustryId = 2,
+                            Jobtitle = "job-title",
+                            UserId = 5
+                        });
                 });
 
             modelBuilder.Entity("API.Models.Answer", b =>
                 {
-                    b.HasOne("API.Models.AppUser", "AppUser")
-                        .WithMany("Answers")
-                        .HasForeignKey("AppUserUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("API.Models.Question", "Question")
                         .WithMany()
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Models.AppUser", "AppUser")
+                        .WithMany("Answers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("AppUser");
@@ -522,19 +736,15 @@ namespace API.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("API.Models.Mentor", null)
+                    b.HasOne("API.Models.AppUser", "AppUser")
                         .WithMany("Educations")
-                        .HasForeignKey("MentorUserId");
-
-                    b.HasOne("API.Models.Student", "Student")
-                        .WithMany("Educations")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Degree");
+                    b.Navigation("AppUser");
 
-                    b.Navigation("Student");
+                    b.Navigation("Degree");
                 });
 
             modelBuilder.Entity("API.Models.Interest", b =>
@@ -542,10 +752,29 @@ namespace API.Data.Migrations
                     b.HasOne("API.Models.FieldOfInterest", "FieldOfInterest")
                         .WithMany("Interests")
                         .HasForeignKey("FieldOfInterestId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("FieldOfInterest");
+                });
+
+            modelBuilder.Entity("API.Models.Message", b =>
+                {
+                    b.HasOne("API.Models.AppUser", "Recipient")
+                        .WithMany("ReciveidMessages")
+                        .HasForeignKey("RecipientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("API.Models.AppUser", "Sender")
+                        .WithMany("SentMessages")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Recipient");
+
+                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("API.Models.UserInterest", b =>
@@ -553,13 +782,13 @@ namespace API.Data.Migrations
                     b.HasOne("API.Models.Interest", "Interest")
                         .WithMany("UserInterests")
                         .HasForeignKey("InterestId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("API.Models.AppUser", "AppUser")
                         .WithMany("UserInterests")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("AppUser");
@@ -572,13 +801,13 @@ namespace API.Data.Migrations
                     b.HasOne("API.Models.AppRole", "AppRole")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("API.Models.AppUser", "AppUser")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("AppRole");
@@ -590,19 +819,19 @@ namespace API.Data.Migrations
                 {
                     b.HasOne("API.Models.Industry", "Indudtry")
                         .WithMany()
-                        .HasForeignKey("IndudtryIndustryId")
+                        .HasForeignKey("IndustryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("API.Models.Mentor", "Mentor")
+                    b.HasOne("API.Models.AppUser", "AppUser")
                         .WithMany("WorkExperiences")
-                        .HasForeignKey("MentorUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("AppUser");
 
                     b.Navigation("Indudtry");
-
-                    b.Navigation("Mentor");
                 });
 
             modelBuilder.Entity("API.Models.AppRole", b =>
@@ -614,9 +843,17 @@ namespace API.Data.Migrations
                 {
                     b.Navigation("Answers");
 
+                    b.Navigation("Educations");
+
+                    b.Navigation("ReciveidMessages");
+
                     b.Navigation("Roles");
 
+                    b.Navigation("SentMessages");
+
                     b.Navigation("UserInterests");
+
+                    b.Navigation("WorkExperiences");
                 });
 
             modelBuilder.Entity("API.Models.FieldOfInterest", b =>
@@ -627,18 +864,6 @@ namespace API.Data.Migrations
             modelBuilder.Entity("API.Models.Interest", b =>
                 {
                     b.Navigation("UserInterests");
-                });
-
-            modelBuilder.Entity("API.Models.Mentor", b =>
-                {
-                    b.Navigation("Educations");
-
-                    b.Navigation("WorkExperiences");
-                });
-
-            modelBuilder.Entity("API.Models.Student", b =>
-                {
-                    b.Navigation("Educations");
                 });
 #pragma warning restore 612, 618
         }
