@@ -33,7 +33,10 @@ export const options = {
 			},
 			async authorize(credentials) {
 				try {
-					const url = 'http://localhost:5000/account/login';
+					const serverUrl = process.env.BACKEND_URL;
+					const loginUrl = process.env.LOGIN_URL;
+					const url = serverUrl + loginUrl;
+					// const url = 'http://localhost:5000/account/login';
 					const response = await fetch(url, {
 						method: 'POST',
 						mode: 'cors',
