@@ -11,12 +11,12 @@ export function Header() {
 	return (
 		<header className='grid grid-cols-12 p-8 overflow-x-clip'>
 			<div className='col-span-5 flex justify-start align-middle'>
-				<button
+				{/* <button
 					className={`menu-btn cursor-pointer ${clicked ? 'clicked' : ''}`}
 					onClick={() => setClicked((prevState) => !prevState)}
 				>
 					<MenuHamburger1 />
-				</button>
+				</button> */}
 			</div>
 			<div className='col-span-2 flex justify-center align-middle'>
 				<Logo />
