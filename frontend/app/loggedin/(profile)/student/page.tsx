@@ -1,4 +1,5 @@
 import ShowUserInterests from '@/app/(components)/profile/userInterests';
+import { ButtonLink } from '@/app/(components)/ui/buttons';
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { getServerSession, NextAuthOptions } from 'next-auth';
 import Link from 'next/link';
@@ -37,8 +38,8 @@ export default async function Student() {
 	console.log('Response: ', res);
 
 	return (
-		<main className='grid grid-cols-2 gap-4 max-w-4xl mx-auto'>
-			<section className='flex flex-col col-span-2 md:col-span-1 gap-4'>
+		<main className='grid grid-cols-2 gap-4 max-w-4xl mx-auto p-4'>
+			<section className='flex flex-col col-span-2 md:col-span-1 gap-4 order-2 md:order-1'>
 				<section className=' p-8 rounded-lg bg-neutral-300 dark:bg-neutral-800'>
 					<h2>
 						{session.user.firstName} {session.user.lastName}
@@ -61,6 +62,16 @@ export default async function Student() {
 						<ShowUserInterests interests={res} />
 					)}
 				</section>
+			</section>
+			<section className='col-span-2 md:col-span-1 order-1 md:order-2 p-8 rounded-lg bg-neutral-300 dark:bg-neutral-800 flex flex-col items-center justify-center'>
+				<div className='z-10 relative flex flex-col gap-6 text-center py-4'>
+					<h4>I doesnt look like you have a mentor yet.</h4>
+					<p>Lets try to find you a mentor.</p>
+					<ButtonLink
+						target='#'
+						text='Find me a mentor'
+					/>
+				</div>
 			</section>
 		</main>
 	);
