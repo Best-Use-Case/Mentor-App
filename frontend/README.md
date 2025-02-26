@@ -84,12 +84,31 @@ GITHUB_ID=Get from github
 
 _Examples for endpoints, replace with your own_
 
-FRONTEND_URL=http://localhost:3000  
-BACKEND_URL=http://localhost:5000  
-GET_INTERESTS_URL=/ClientData/get-interests  
-REGISTER_URL=http://localhost:5000/account/register  
-LOGIN_URL=http://localhost:5000/account/login  
+#### Endpoints
+
+FRONTEND_URL=http://localhost:3000
+BACKEND_URL=http://localhost:5000
+
+#### Registration
+
+REGISTER_URL=/account/register
+REGISTER_USER_DETAILS=/Register/register-user-details
 UPDATE_USER_URL=http://localhost:5000/Register/register-user
+REGISTER_USER_ROLE=/Register/register-user-role
+REGISTER_USER_INTERESTS=/Register/register-user-interest
+
+#### Login
+
+LOGIN_URL=/account/login
+
+#### Profile
+
+PROFILE_GET_USER_ROLES=/Profile/get-user-roles/
+GET_USER_INTERESTS=/Profile/get-user-interests/
+
+#### Client Data
+
+GET_INTERESTS_URL=/ClientData/get-interests
 
 ## Learn More
 
