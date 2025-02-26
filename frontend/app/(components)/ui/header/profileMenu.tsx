@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { AccountCircle, Logout } from './icons';
+import Link from 'next/link';
 
 export function ProfileMenu() {
 	const [open, setOpen] = useState(false);
@@ -56,7 +57,11 @@ export function ProfileMenu() {
 					</div>
 					<hr className='border-t-2 border-4-neutral-500 border-t-solid pb-4 mt-4'></hr>
 					<div>
-						<ul>
+						<ul className='flex flex-col gap-2 my-4'>
+							<li className='cursor-pointer inline-flex gap-2 items-center [&>svg]:stroke-none'>
+								<AccountCircle />
+								<Link href='/loggedin/student'>Profile</Link>
+							</li>
 							<li
 								onClick={() => signOut({ callbackUrl: '/' })}
 								className='cursor-pointer inline-flex gap-2 items-center'

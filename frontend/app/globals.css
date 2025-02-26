@@ -179,11 +179,14 @@ input[type='submit'] {
 .AccountCircleIcons {
 	@apply w-[42px] h-[42px]  fill-neutral-900;
 }
+ul li .AccountCircleIcons {
+	@apply w-[18px] h-[18px];
+}
 .logOutIcon {
-	@apply text-neutral-500 w-[18px] h-[18px] pb-1;
+	@apply text-neutral-900 w-[18px] h-[18px] pb-1;
 }
 .logOutIcon path {
-	@apply stroke-neutral-700;
+	@apply stroke-neutral-900;
 }
 path#hamburgerLineOne,
 path#hamburgerLineTwo,
@@ -341,6 +344,12 @@ form label.headline-label {
 	}
 	.AccountCircleIcons {
 		@apply fill-neutral-100;
+	}
+	.logOutIcon {
+		@apply text-neutral-100;
+	}
+	.logOutIcon path {
+		@apply stroke-neutral-100;
 	}
 	.profileNav {
 		@apply bg-neutral-950 text-neutral-50 rounded-md stroke-2 stroke-neutral-50;

@@ -79,11 +79,11 @@ Hash Confirm Password: ${hashComparePassword}`);
 				// }
 			}),
 		});
-		console.log(`postUser Response:
-Status: ${response.status} 
-Body: ${response.body} 
-Status text: ${response.statusText} 
-URL: ${response.url}`);
+		// 		console.log(`postUser Response:
+		// Status: ${response.status}
+		// Body: ${response.body}
+		// Status text: ${response.statusText}
+		// URL: ${response.url}`);
 		if (!response.ok) {
 			throw response.status;
 		}

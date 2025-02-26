@@ -15,6 +15,7 @@ export default function WelcomeMessage() {
 						height={750}
 						alt='Two people talking to eachother'
 						className='md:col-span-2 md:w-full md:m-auto hidden md:block'
+						priority
 					/>
 					<div className='flex flex-col items-center text-left col-span-1'>
 						<h1>Hi there {session?.user?.firstName}!</h1>
@@ -32,6 +33,7 @@ export default function WelcomeMessage() {
 						height={750}
 						alt='Two people talking to eachother'
 						className='md:col-span-2 md:w-full md:m-auto hidden md:block'
+						priority
 					/>
 					<div className='flex flex-col items-center text-left col-span-1'>
 						<h1 className='m-2 w-full text-left'>
