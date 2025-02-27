@@ -87,7 +87,11 @@ const InterestForm = (props: InterestData) => {
 		if (data.error) {
 			setErrorMessage(data.error);
 		} else {
-			router.push('/loggedin/student');
+			if (session?.user.role == 'Student') {
+				router.push('/loggedin/student');
+			} else if (session?.user.role == 'Mentor') {
+				router.push('/loggedin/mentor'); //Temp, need to udate to push to register work history.
+			}
 		}
 		console.log(data);
 	};
@@ -99,7 +103,7 @@ const InterestForm = (props: InterestData) => {
 				method='POST'
 				className='registerForm flex flex-col gap-4 [&>input]:bg-white [&>input]:text-black p-4 mx-auto w-full'
 			>
-				<h2>What are you interested in?</h2>
+				{/* <h2>What are you interested in?</h2> */}
 				{props.interestData
 					? props.interestData.map((category) => {
 							return (

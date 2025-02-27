@@ -130,7 +130,7 @@ const UserDataForm = () => {
 				router.push('/loggedin/onboarding/student');
 			} else if (newRole == 'Mentor') {
 				console.log(`Role: Mentor`);
-				// need to redirect users registered as mentors.
+				router.push('/loggedin/onboarding/mentor');
 			}
 		} catch (error) {
 			console.error('Error:', error);

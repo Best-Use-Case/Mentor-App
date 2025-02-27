@@ -109,6 +109,7 @@ GET_USER_INTERESTS=/Profile/get-user-interests/
 #### Client Data
 
 GET_INTERESTS_URL=/ClientData/get-interests
+GET_INDUSTRIES_URL=/ClientData/get-industries
 
 ## Learn More
 

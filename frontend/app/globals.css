@@ -309,6 +309,9 @@ form label.headline-label {
 .registerForm section {
 	@apply flex flex-col gap-2;
 }
+.registerForm section.buttonSection {
+	@apply flex flex-row flex-wrap gap-4 items-center justify-center;
+}
 .registerForm section.radioSection div {
 	@apply flex flex-row m-auto gap-8 contain-content justify-items-center p-3;
 }

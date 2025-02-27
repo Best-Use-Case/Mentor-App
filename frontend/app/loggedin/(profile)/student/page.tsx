@@ -45,6 +45,7 @@ export default async function Student() {
 						{session.user.firstName} {session.user.lastName}
 					</h2>
 					<p>{session.user.email}</p>
+					{session?.user?.role ? <p>{session.user.role}</p> : null}
 				</section>
 				<section className='flex flex-col gap-2 p-8 rounded-lg bg-neutral-300 dark:bg-neutral-800'>
 					<h2>Your interests</h2>

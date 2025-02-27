@@ -18,7 +18,7 @@ export function ProfileMenu() {
 	const { data: session } = useSession();
 	if (!session) {
 		return (
-			<div className='relative block flex align-middle justify-end'>
+			<div className='relative flex align-middle justify-end'>
 				<button
 					onClick={() => signIn(undefined, { callbackUrl: '/loggedin' })}
 					className='cursor-pointer relative p-6 pt-2.5 pb-2.5 border-neutral-950 rounded-xl border-2 dark:border-neutral-50 bg-neutral-300 hover:bg-neutral-400 dark:hover:bg-neutral-700 dark:bg-neutral-900 after:content[""] after:absolute after:w-full after:h-full after:left-2 after:top-2 after:border-2 after:rounded-xl after:-z-10 after:border-neutral-950 after:dark:border-neutral-50'
