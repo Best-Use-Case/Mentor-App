@@ -1,5 +1,6 @@
 'use client';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -190,6 +191,14 @@ export default function WorkHistoryForm(props: { industries: WorkHitoryItem }) {
 					</div>
 					{errorMessage.state ? <div>{errorMessage.message}</div> : null}
 				</section>
+				<section className='flex flex-row justify-items-center items-center pt-4'>
+					<Link
+						href='/loggedin/profile'
+						className='underline'
+					>
+						Skip
+					</Link>
+				</section>
 			</form>
 			<div>
 				{workHistory.length > 0 ? (
@@ -224,11 +233,11 @@ export default function WorkHistoryForm(props: { industries: WorkHitoryItem }) {
 											item.companyName.replace(/\s/g, '') +
 											'-delete') as string
 									}
-									className='pl-4 border-l-2 border-neutral-950 dark:border-neutral-50'
+									className='pl-4 border-l-2 border-neutral-950 dark:border-neutral-50 flex flex-col text-2xl/5 font-extralight'
 									onClick={() => deleteWorkHistoryItem(item)}
 									type='button'
 								>
-									X
+									&times;
 								</button>
 								{/* <div
 									key={

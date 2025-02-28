@@ -60,7 +60,7 @@ export function ProfileMenu() {
 						<ul className='flex flex-col gap-2 my-4'>
 							<li className='cursor-pointer inline-flex gap-2 items-center [&>svg]:stroke-none'>
 								<AccountCircle />
-								<Link href='/loggedin/student'>Profile</Link>
+								<Link href='/loggedin/profile'>Profile</Link>
 							</li>
 							<li
 								onClick={() => signOut({ callbackUrl: '/' })}
