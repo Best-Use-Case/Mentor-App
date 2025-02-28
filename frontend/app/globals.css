@@ -319,12 +319,12 @@ form label.headline-label {
 	@apply grid z-10;
 }
 .registerForm section.checkbox-section label {
-	@apply text-base cursor-pointer relative p-8 pt-4.5 pb-4.5 pl-6 bg-neutral-600 dark:bg-neutral-300 dark:text-neutral-950 rounded-full border-2 border-neutral-950 ease-in-out duration-300 
+	@apply text-base cursor-pointer relative p-8 pt-4.5 pb-4.5 pl-6 bg-neutral-300 dark:text-neutral-950 rounded-full border-2 border-neutral-950 ease-in-out duration-300 
   after:content-['\00d7'] after:text-[50px] after:font-[300] after:-top-[17px] after:absolute after:left-3 after:ease-in-out after:duration-300 after:opacity-0
   before:content-[''] before:w-full before:h-full before:block before:rounded-full before:border-2 before:border-neutral-950 before:left-2 before:top-2 before:absolute before:-z-1 before:bg-neutral-700 dark:before:bg-neutral-400;
 }
 .registerForm section.checkbox-section input:checked + label {
-	@apply bg-primary-600 dark:bg-primary-300 pl-12 ease-in-out duration-300  after:opacity-100 before:bg-secondary-700 dark:before:bg-secondary-400;
+	@apply bg-primary-300 pl-12 ease-in-out duration-300  after:opacity-100 before:bg-secondary-400;
 }
 .registerForm section.radioSection div input[type='radio'] + label {
 	@apply block text-base relative pl-6 pr-6 pt-3 pb-3 bg-neutral-50 text-neutral-900 rounded-md border-2 border-neutral-950 after:content-[''] after:absolute after:left-2 after:top-2 after:w-full after:h-full after:block after:rounded-lg after:border-solid after:border-2 after:-z-10 after:border-black after:bg-neutral-600 hover:after:bg-neutral-700;

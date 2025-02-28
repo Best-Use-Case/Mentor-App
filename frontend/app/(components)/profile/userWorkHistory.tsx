@@ -23,7 +23,7 @@ export default async function DisplayWorkHistory(props: { userId: string }) {
 		return null;
 	}
 	return (
-		<section className='flex flex-col gap-2 p-8 rounded-lg bg-neutral-300 dark:bg-neutral-800'>
+		<section className='flex flex-col gap-2 p-8 rounded-lg bg-neutral-200 dark:bg-neutral-800'>
 			<h2>Work History</h2>
 			<div className='flex flex-col gap-2'>
 				{res.map((item: WorkHistoryItem, key: string) => {
