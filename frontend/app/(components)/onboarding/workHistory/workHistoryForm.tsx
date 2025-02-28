@@ -1,5 +1,6 @@
 'use client';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 type WorkHitoryItem = {
@@ -15,6 +16,7 @@ type WorkHistoryEntry = {
 };
 
 export default function WorkHistoryForm(props: { industries: WorkHitoryItem }) {
+	const router = useRouter();
 	const { data: session } = useSession();
 	const [workHistory, setWorkHistory] = useState([] as WorkHistoryEntry[]);
 	const [formfields, setFormFields] = useState({
@@ -102,9 +104,19 @@ export default function WorkHistoryForm(props: { industries: WorkHitoryItem }) {
 		});
 		const data = await response.json();
 		console.log('Response from server: ', data);
+		if (!data.isSuccess) {
+			setErrorMessage((prevState) => ({
+				...prevState,
+				message:
+					'There was a problem storing your work history, please try again later.',
+				state: true,
+			}));
+		} else {
+			router.push('/loggedin/profile');
+		}
 	};
 	return (
-		<section className='w-full px-8 mx-auto'>
+		<section className='w-full mx-auto'>
 			<form
 				id='history-item-form'
 				onSubmit={handleAddWorkHistory}
@@ -177,7 +189,7 @@ export default function WorkHistoryForm(props: { industries: WorkHitoryItem }) {
 			</form>
 			<div>
 				{workHistory.length > 0 ? (
-					<div>
+					<div className='flex flex-row flex-wrap gap-4'>
 						{workHistory.map((item, key) => (
 							<div
 								key={
@@ -195,10 +207,11 @@ export default function WorkHistoryForm(props: { industries: WorkHitoryItem }) {
 											item.companyName.replace(/\s/g, '') +
 											'job') as string
 									}
+									className='block whitespace-nowrap py-2 px-4 border-2 rounded-full border-neutral-950 dark:border-neutral-50'
 								>
-									{item.jobtitle}
+									{item.jobtitle} @ {item.companyName}
 								</div>
-								<div
+								{/* <div
 									key={
 										key +
 										item.companyName.replace(/\s/g, '').toLowerCase() +
@@ -206,10 +219,10 @@ export default function WorkHistoryForm(props: { industries: WorkHitoryItem }) {
 									}
 								>
 									{item.companyName}
-								</div>
-								<div key={(key + item.industryId + 'industry') as string}>
+								</div> */}
+								{/* <div key={(key + item.industryId + 'industry') as string}>
 									{item.industryId}
-								</div>
+								</div> */}
 							</div>
 						))}
 					</div>

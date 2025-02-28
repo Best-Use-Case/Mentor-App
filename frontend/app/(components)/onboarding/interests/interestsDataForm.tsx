@@ -90,7 +90,7 @@ const InterestForm = (props: InterestData) => {
 			if (session?.user.role == 'Student') {
 				router.push('/loggedin/student');
 			} else if (session?.user.role == 'Mentor') {
-				router.push('/loggedin/mentor'); //Temp, need to udate to push to register work history.
+				router.push('/loggedin/onboarding/work-history');
 			}
 		}
 		console.log(data);
