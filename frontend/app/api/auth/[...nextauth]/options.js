@@ -52,10 +52,13 @@ export const options = {
 						throw new Error(`Failed to get user: ${response.status}`);
 					}
 					const data = await response.json();
+					if (!data?.imageUrl) {
+						data.imageUrl = 'https://i.pravatar.cc/300?=' + data.userId;
+					}
 					const user = {
 						email: data?.userName,
 						name: '',
-						image: '',
+						image: data.imageUrl,
 						id: data?.userId,
 						firstName: data?.firstName,
 						lastName: data?.lastName,
