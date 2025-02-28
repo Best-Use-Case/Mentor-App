@@ -19,7 +19,7 @@ export default async function DisplayWorkHistory(props: { userId: string }) {
 	});
 	const res = await response.json();
 	console.log('Work History Response: ', res);
-	if (res.error || res.length() === 0) {
+	if (Array.isArray(res) === false) {
 		return null;
 	} else {
 		return (
