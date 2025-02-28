@@ -1,5 +1,5 @@
 import ShowUserInterests from '@/app/(components)/profile/userInterests';
-import DisplayWorkHistory from '@/app/(components)/profile/userWorkHistory';
+// import DisplayWorkHistory from '@/app/(components)/profile/userWorkHistory';
 import { ButtonLink } from '@/app/(components)/ui/buttons';
 import { options } from '@/app/api/auth/[...nextauth]/options';
 import { getServerSession, NextAuthOptions } from 'next-auth';
@@ -81,7 +81,7 @@ export default async function Student() {
 						<ShowUserInterests interests={res} />
 					)}
 				</section>
-				<DisplayWorkHistory userId={session.user.id} />
+				{/* <DisplayWorkHistory userId={session.user.id} /> */}
 			</section>
 			<section className='col-span-2 md:col-span-1 order-1 md:order-2 p-8 rounded-lg bg-neutral-200 dark:bg-neutral-800 flex flex-col items-center justify-center'>
 				<div className='z-10 relative flex flex-col gap-6 text-center py-4'>
