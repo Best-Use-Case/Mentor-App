@@ -50,6 +50,9 @@ export default async function Student() {
 						</h2>
 						<p>{session.user.email}</p>
 						{session?.user?.role ? <p>{session.user.role}</p> : null}
+						{session?.user?.description ? (
+							<p>{session.user.description}</p>
+						) : null}
 					</div>
 					<div className='relative col-span-1 order-1 md:order-2 h-fit before:block before:absolute before:top-1.5 before:left-2 before:w-full before:h-full before:border-4 before:rounded-full before:border-neutral-950 dark:before:border-neutral-50 before:-z-10'>
 						<Image
