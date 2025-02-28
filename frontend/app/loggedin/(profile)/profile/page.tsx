@@ -43,7 +43,7 @@ export default async function Student() {
 	return (
 		<main className='grid grid-cols-2 gap-4 max-w-6xl mx-auto p-4'>
 			<section className='flex flex-col col-span-2 md:col-span-1 gap-4 order-2 md:order-1'>
-				<section className='grid grid-cols-1 md:grid-cols-3 gap-4 p-8 rounded-lg bg-neutral-200 dark:bg-neutral-800'>
+				<section className='grid grid-cols-1 md:grid-cols-3 gap-4 p-8 rounded-lg bg-neutral-200 dark:bg-neutral-800 z-0'>
 					<div className='col-span-1 md:col-span-2 order-2 md:order-1'>
 						<h2>
 							{session.user.firstName} {session.user.lastName}
@@ -51,7 +51,7 @@ export default async function Student() {
 						<p>{session.user.email}</p>
 						{session?.user?.role ? <p>{session.user.role}</p> : null}
 					</div>
-					<div className='relative col-span-1 order-1 md:order-2 h-fit before:block before:absolute before:top-1.5 before:left-1.5 before:w-full before:h-full before:border-4 before:rounded-full before:border-neutral-950 dark:before:border-neutral-50 before:-z-10'>
+					<div className='relative col-span-1 order-1 md:order-2 h-fit before:block before:absolute before:top-1.5 before:left-2 before:w-full before:h-full before:border-4 before:rounded-full before:border-neutral-950 dark:before:border-neutral-50 before:-z-10'>
 						<Image
 							src={session.user.image as string}
 							width={300}
