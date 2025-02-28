@@ -87,14 +87,21 @@ export default async function Student() {
 				<DisplayWorkHistory userId={session.user.id} />
 			</section>
 			<section className='col-span-2 md:col-span-1 order-1 md:order-2 p-8 rounded-lg bg-neutral-200 dark:bg-neutral-800 flex flex-col items-center justify-center'>
-				<div className='z-10 relative flex flex-col gap-6 text-center py-4'>
-					<h4>{`It doesn't look like you have a mentor yet.`}</h4>
-					<p>{`Lets try to find you a mentor.`}</p>
-					<ButtonLink
-						target='#'
-						text='Find me a mentor'
-					/>
-				</div>
+				{session?.user?.role === 'Mentor' ? (
+					<div className='z-10 relative flex flex-col gap-6 text-center py-4'>
+						<h4>{`No active mentorship yet.`}</h4>
+						<p>{`We will let you know when you match with a student.`}</p>
+					</div>
+				) : (
+					<div className='z-10 relative flex flex-col gap-6 text-center py-4'>
+						<h4>{`It doesn't look like you have a mentor yet.`}</h4>
+						<p>{`Lets try to find you a mentor.`}</p>
+						<ButtonLink
+							target='#'
+							text='Find me a mentor'
+						/>
+					</div>
+				)}
 			</section>
 		</main>
 	);
