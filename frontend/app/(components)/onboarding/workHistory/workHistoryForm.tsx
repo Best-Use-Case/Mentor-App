@@ -115,6 +115,10 @@ export default function WorkHistoryForm(props: { industries: WorkHitoryItem }) {
 			router.push('/loggedin/profile');
 		}
 	};
+	const deleteWorkHistoryItem = (item: WorkHistoryEntry) => {
+		workHistory.splice(workHistory.indexOf(item), 1);
+		setWorkHistory([...workHistory]);
+	};
 	return (
 		<section className='w-full mx-auto'>
 			<form
@@ -198,6 +202,7 @@ export default function WorkHistoryForm(props: { industries: WorkHitoryItem }) {
 										'-' +
 										item.companyName.replace(/\s/g, '')) as string
 								}
+								className='flex flex-row gap-4 py-2 px-4 border-2 rounded-full border-neutral-950 dark:border-neutral-50'
 							>
 								<div
 									key={
@@ -207,10 +212,24 @@ export default function WorkHistoryForm(props: { industries: WorkHitoryItem }) {
 											item.companyName.replace(/\s/g, '') +
 											'job') as string
 									}
-									className='block whitespace-nowrap py-2 px-4 border-2 rounded-full border-neutral-950 dark:border-neutral-50'
+									className='block whitespace-nowrap'
 								>
 									{item.jobtitle} @ {item.companyName}
 								</div>
+								<button
+									key={
+										(key +
+											item.jobtitle.replace(/\s/g, '').toLowerCase() +
+											'-' +
+											item.companyName.replace(/\s/g, '') +
+											'-delete') as string
+									}
+									className='pl-4 border-l-2 border-neutral-950 dark:border-neutral-50'
+									onClick={() => deleteWorkHistoryItem(item)}
+									type='button'
+								>
+									X
+								</button>
 								{/* <div
 									key={
 										key +
