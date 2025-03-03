@@ -97,7 +97,7 @@ export default async function Student() {
 						<h4>{`It doesn't look like you have a mentor yet.`}</h4>
 						<p>{`Lets try to find you a mentor.`}</p>
 						<ButtonLink
-							target='#'
+							target='/loggedin/matchmaking'
 							text='Find me a mentor'
 						/>
 					</div>

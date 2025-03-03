@@ -88,7 +88,7 @@ const InterestForm = (props: InterestData) => {
 			setErrorMessage(data.error);
 		} else {
 			if (session?.user.role == 'Student') {
-				router.push('/loggedin/student');
+				router.push('/loggedin/profile');
 			} else if (session?.user.role == 'Mentor') {
 				router.push('/loggedin/onboarding/work-history');
 			}
