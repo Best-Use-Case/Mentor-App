@@ -53,7 +53,7 @@ export const options = {
 					}
 					const data = await response.json();
 					if (!data?.imageUrl) {
-						data.imageUrl = 'https://i.pravatar.cc/300?=' + data.userId;
+						data.imageUrl = 'https://i.pravatar.cc/300?u=' + data.userId;
 					}
 					const user = {
 						email: data?.userName,

@@ -333,6 +333,13 @@ form label.headline-label {
 	@apply bg-primary-300 after:bg-secondary-300 font-bold;
 }
 
+/* Matchmaking section */
+.match-card {
+	@apply hidden flex-col gap-2 w-fit mx-auto p-8 bg-neutral-200 dark:bg-neutral-800 border-2 border-neutral-950 rounded-xl z-0 relative;
+}
+.match-card[data-visible='true'] {
+	@apply flex;
+}
 /* Dark Mode Settings */
 @media (prefers-color-scheme: dark) {
 	:root {
