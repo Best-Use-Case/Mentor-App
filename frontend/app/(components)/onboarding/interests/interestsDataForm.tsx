@@ -87,7 +87,11 @@ const InterestForm = (props: InterestData) => {
 		if (data.error) {
 			setErrorMessage(data.error);
 		} else {
-			router.push('/loggedin/student');
+			if (session?.user.role == 'Student') {
+				router.push('/loggedin/profile');
+			} else if (session?.user.role == 'Mentor') {
+				router.push('/loggedin/onboarding/work-history');
+			}
 		}
 		console.log(data);
 	};
@@ -99,51 +103,95 @@ const InterestForm = (props: InterestData) => {
 				method='POST'
 				className='registerForm flex flex-col gap-4 [&>input]:bg-white [&>input]:text-black p-4 mx-auto w-full'
 			>
-				<h2>What are you interested in?</h2>
-				{props.interestData.map((category) => {
-					return (
-						<section key={category.category + 'container'}>
-							<h3 key={category.category}>{category.category}</h3>
-							<section
-								key={category.category + 'interests-selection'}
-								className='checkbox-section'
-							>
-								{category.interests.map((interest) => {
-									return (
+				{/* <h2>What are you interested in?</h2> */}
+				{props.interestData
+					? props.interestData.map((category) => {
+							return (
+								<section key={category.category + 'container'}>
+									<input
+										key={
+											category.category.toLowerCase().replace(' ', '-') +
+											'-checkbox'
+										}
+										type='checkbox'
+										name={category.category.toLowerCase().replace(' ', '-')}
+										id={
+											category.category.toLowerCase().replace(' ', '-') +
+											'-checkbox'
+										}
+										className='hidden checked:[&~section]:grid-rows-[1fr] checked:[&~section>div]:py-6 rotate checked:[&~label]:after:rotate-90'
+									/>
+									<label
+										key={
+											category.category.toLowerCase().replace(' ', '-') +
+											'-label'
+										}
+										htmlFor={
+											category.category.toLowerCase().replace(' ', '-') +
+											'-checkbox'
+										}
+										className='headline-label mt-6 after:content-["\276F"] after:transform after:transition-all after:ease-in-out after:duration-300 flex flex-row justify-between align-middle'
+									>
+										{category.category}
+									</label>
+									{/* <h3 key={category.category}>{category.category}</h3> */}
+									<section
+										key={category.category + 'interests-selection'}
+										className='checkbox-section grid-rows-[0fr] transition-all duration-300 ease-in-out'
+									>
 										<div
-											key={
-												interest.interestId +
-												interest.interestName +
-												'container'
-											}
+											key={category.category + 'interests-selection-inner'}
+											className='flex flex-wrap gap-4 gap-y-8 py-0 px-1 transition-all duration-300 ease-in-out overflow-hidden'
 										>
-											<input
-												key={interest.interestId + interest.interestName}
-												className='hidden'
-												type='checkbox'
-												name={interest.interestName}
-												id={interest.interestName}
-												value={interest.interestId}
-												onClick={() => checkHandler(interest.interestName)}
-											/>
-											<label
-												key={
-													interest.interestName + interest.interestId + 'label'
-												}
-												data-label={
-													interest.interestName + interest.interestId + 'label'
-												}
-												htmlFor={interest.interestName}
-											>
-												{interest.interestName}
-											</label>
+											{category.interests.map((interest) => {
+												return (
+													<div
+														key={
+															interest.interestId +
+															interest.interestName +
+															'container'
+														}
+														className='my-2'
+													>
+														<input
+															key={interest.interestId + interest.interestName}
+															className='hidden'
+															type='checkbox'
+															name={interest.interestName}
+															id={interest.interestName
+																.toLowerCase()
+																.replace(' ', '-')}
+															value={interest.interestId}
+															onClick={() =>
+																checkHandler(interest.interestName)
+															}
+														/>
+														<label
+															key={
+																interest.interestName +
+																interest.interestId +
+																'label'
+															}
+															data-label={
+																interest.interestName +
+																interest.interestId +
+																'label'
+															}
+															htmlFor={interest.interestName
+																.toLowerCase()
+																.replace(' ', '-')}
+														>
+															{interest.interestName}
+														</label>
+													</div>
+												);
+											})}
 										</div>
-									);
-								})}
-							</section>
-						</section>
-					);
-				})}
+									</section>
+								</section>
+							);
+					  })
+					: null}
 				<section className='z-10 pt-6'>
 					<div className='buttonWrapper buttonWrapperDefault'>
 						<button

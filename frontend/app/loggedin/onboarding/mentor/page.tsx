@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 
 export default async function Student() {
 	const session = await getServerSession(options as NextAuthOptions);
-	if (session && session?.user.role != 'Student') {
+	if (session && session?.user.role != 'Mentor') {
 		redirect('/loggedin');
 	}
 	const interestData = await getInterestData();
@@ -17,10 +17,11 @@ export default async function Student() {
 		<main className='grid grid-cols-2 gap-4 p-8 max-w-6xl mx-auto'>
 			<section className='col-span-2 lg:col-span-1 p-4 lg:p-8 relative w-full'>
 				<div className='flex flex-col gap-4 items-center sticky top-0 w-auto max-w-md'>
-					<h1>Lets get to know you a bit better.</h1>
+					<h1>Tell us what categories align with your experience.</h1>
 					<p>
-						Please select subjects you are interested in. This helps us find the
-						best mentor for you based on what you are interested in.
+						Please select the subjects you think are relevant for your expertise
+						and experience. This will help us match you witht he students that
+						have interests that align with your knowledge and experience.
 					</p>
 				</div>
 			</section>

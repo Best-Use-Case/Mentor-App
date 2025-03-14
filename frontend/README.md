@@ -84,12 +84,61 @@ GITHUB_ID=Get from github
 
 _Examples for endpoints, replace with your own_
 
-FRONTEND_URL=http://localhost:3000  
-BACKEND_URL=http://localhost:5000  
-GET_INTERESTS_URL=/ClientData/get-interests  
-REGISTER_URL=http://localhost:5000/account/register  
-LOGIN_URL=http://localhost:5000/account/login  
-UPDATE_USER_URL=http://localhost:5000/Register/register-user
+#### Endpoints
+
+FRONTEND_URL=http://localhost:3000
+BACKEND_URL=http://localhost:5000
+
+#### Account
+
+REGISTER_URL=/account/register
+LOGIN_URL=/account/login
+
+#### Admin
+
+ADMIN_ADD_DEGREE=/Admin/add-degree
+ADMIN_UPDATE_DEGREE=/Admin/update-degree
+ADMIN_ADD_ROLE=/Admin/add-role
+ADMIN_ADD_INTEREST=/Admin/add-interest
+
+#### CLient Data
+
+GET_INTERESTS_URL=/ClientData/get-interests
+GET_ROLES_URL=/ClientData/get-roles
+GET_DEGREES_URL=/ClientData/get-degrees
+GET_INDUSTRIES_URL=/ClientData/get-industries
+
+#### Match user
+
+MATCH_USER=/MatchUser/match-user
+
+#### Message
+
+SEND_MESSAGE=/send-message
+GET_USER_MESSAGE=/get-user-message/
+GET_MESSAGE_THREAD=/get-message-thread/
+
+#### Profile
+
+PROFILE_UPDATE_USER=/Profile/update-user
+PROFILE_GET_EDUCATION=/Profile/get-education/
+PROILE_UPDATE_EDUCATION=/Profile/update-education
+PROFILE_DELETE_EDUCATION=/Profile/delete-education/
+PROFILE_GET_WORK_HISTORY=/Profile/get-work-history/
+PROFILE_UPDATE_WORK_HISTORY=/Profile/update-work-history
+PROFILE_DELETE_WORK_HISTORY=/Profile/delete-work/
+GET_USER_INTERESTS=/Profile/get-user-interests/
+PROFILE_UPDATE_USER_INTERESt=Profile/update-user-interests
+PROFILE_DELETE_USER_INTEREST=/Profile/delete-user-interest
+PROFILE_GET_USER_ROLES=/Profile/get-user-roles/
+
+#### Registration
+
+REGISTER_USER_DETAILS=/Register/register-user-details
+REGISTER_USER_ROLE=/Register/register-user-role
+REGISTER_USER_INTERESTS=/Register/register-user-interest
+REGISTER_WORK_HISTORY=/Register/register-user-work-history
+REGISTER_USER_EDUCATION=/Register/register-user-education
 
 ## Learn More
 

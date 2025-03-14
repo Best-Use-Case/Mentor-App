@@ -47,8 +47,11 @@ async function postUser(
 ) {
 	try {
 		// const url = "http://localhost:8000/users"; // Local json.db address
-		const url = 'http://localhost:5000/account/register'; // server address
+		// const url = 'http://localhost:5000/account/register'; // server address
 		// const url = "http://172.22.83.83:5000/register" // Majid machine
+		const serverUrl = process.env.BACKEND_URL as string;
+		const registerUrl = process.env.REGISTER_URL as string;
+		const url = (serverUrl + registerUrl) as string;
 		const hashPassword = await bcrypt.hash(password, 10); // encrypting password
 		const hashComparePassword = await bcrypt.hash(confirmPassword, 10); // encrypting password
 		console.log(`Sending data to server: 
@@ -76,11 +79,11 @@ Hash Confirm Password: ${hashComparePassword}`);
 				// }
 			}),
 		});
-		console.log(`postUser Response:
-Status: ${response.status} 
-Body: ${response.body} 
-Status text: ${response.statusText} 
-URL: ${response.url}`);
+		// 		console.log(`postUser Response:
+		// Status: ${response.status}
+		// Body: ${response.body}
+		// Status text: ${response.statusText}
+		// URL: ${response.url}`);
 		if (!response.ok) {
 			throw response.status;
 		}

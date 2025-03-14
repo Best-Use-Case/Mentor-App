@@ -20,10 +20,8 @@ export default function DirectUser() {
 					redirect('/loggedin/admin');
 					break;
 				case 'Student':
-					redirect('/loggedin/student');
-					break;
 				case 'Mentor':
-					redirect('/loggedin/mentor');
+					redirect('/loggedin/profile');
 					break;
 				default:
 					redirect('/loggedin/onboarding');

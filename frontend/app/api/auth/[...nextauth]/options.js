@@ -33,7 +33,10 @@ export const options = {
 			},
 			async authorize(credentials) {
 				try {
-					const url = 'http://localhost:5000/account/login';
+					const serverUrl = process.env.BACKEND_URL;
+					const loginUrl = process.env.LOGIN_URL;
+					const url = serverUrl + loginUrl;
+					// const url = 'http://localhost:5000/account/login';
 					const response = await fetch(url, {
 						method: 'POST',
 						mode: 'cors',
@@ -49,10 +52,13 @@ export const options = {
 						throw new Error(`Failed to get user: ${response.status}`);
 					}
 					const data = await response.json();
+					if (!data?.imageUrl) {
+						data.imageUrl = 'https://i.pravatar.cc/300?u=' + data.userId;
+					}
 					const user = {
 						email: data?.userName,
 						name: '',
-						image: '',
+						image: data.imageUrl,
 						id: data?.userId,
 						firstName: data?.firstName,
 						lastName: data?.lastName,
