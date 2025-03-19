@@ -10,6 +10,7 @@ public class MatchedUsersDto
   public string LastName { get; set; } = string.Empty;
   public string Description { get; set; } = string.Empty;
   public List<string> Interests { get; set; } = [];
-
+  public int CommonInterestsCount { get; set; }
+  public string Gender { get; set; }
 }
 
