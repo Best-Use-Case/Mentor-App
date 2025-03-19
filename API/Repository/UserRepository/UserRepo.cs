@@ -234,6 +234,8 @@ public class UserRepo : IUserRepo
                               .Where(n => n != null).Cast<string>()
                               );
 
+      var userGender = currentUser.Gender;
+      
       return new MatchResponseManager
       {
         Message = $"You have {finalMatchedUsersId.Count} matches",
@@ -244,8 +246,14 @@ public class UserRepo : IUserRepo
           LastName = user.LastName,
           Description = user.Description,
           Interests = mappedInterestNames.TryGetValue(user.UserId, out IEnumerable<string>? value)
-                        ? value.ToList() : []
-        }).ToList()
+	  ? value.ToList() : [],
+	  CommonInterestsCount = mappedInterestNames.TryGetValue(user.UserId, out var interestsList)
+                ? interestsList.Count()
+                : 0,
+	  Gender = user.Gender
+        }).OrderByDescending(user => user.CommonInterestsCount)
+	.ThenByDescending(user => user.Gender == userGender)
+	.ToList()
       };
     }
     catch (Exception ex)
