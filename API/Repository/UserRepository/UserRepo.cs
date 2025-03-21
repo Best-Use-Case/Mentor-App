@@ -171,6 +171,8 @@ public class UserRepo : IUserRepo
 
   public async Task<MatchResponseManager> MatchUsers(string UserName)
   {
+    const int roleAdmin = 1;
+    
     try
     {
       var currentUser = await _context.Users.FirstOrDefaultAsync(user => user.UserName == UserName);
@@ -205,7 +207,7 @@ public class UserRepo : IUserRepo
                               .ToListAsync();
 
       var finalMatchedUsersId = matchedUserRoles
-                                .Where(m => m.RoleId != currentUsersRoleId)
+                                .Where(m => m.RoleId != currentUsersRoleId && m.RoleId != roleAdmin)
                                 .Select(ur => ur.UserId)
                                 .ToList();
 
