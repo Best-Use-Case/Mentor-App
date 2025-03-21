@@ -249,9 +249,8 @@ public class UserRepo : IUserRepo
           Description = user.Description,
           Interests = mappedInterestNames.TryGetValue(user.UserId, out IEnumerable<string>? value)
 	  ? value.ToList() : [],
-	  CommonInterestsCount = mappedInterestNames.TryGetValue(user.UserId, out var interestsList)
-                ? interestsList.Count()
-                : 0,
+	  CommonInterestsCount = matchedUserInterests.Count(ui => ui.UserId == user.UserId 
+                                                                    && currentUsersInterestIds.Contains(ui.InterestId)), 
 	  Gender = user.Gender
         }).OrderByDescending(user => user.CommonInterestsCount)
 	.ThenByDescending(user => user.Gender == userGender)
