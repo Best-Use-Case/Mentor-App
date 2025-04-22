@@ -33,7 +33,7 @@ export default function MatchedUser(props: { data: Array<MatchedUser> }) {
 								width='300'
 								height='300'
 								alt={`profile picture of ${user.firstName}`}
-								className='rounded-xl mx-auto border-2 border-neutral-950'
+								className='rounded-full mx-auto border-4 border-neutral-950 dark:border-neutral-50'
 							/>
 							<h4
 								key={(i + user.firstName) as string}
