@@ -335,7 +335,7 @@ form label.headline-label {
 
 /* Matchmaking section */
 .match-card {
-	@apply hidden flex-col gap-2 w-fit mx-auto p-8 dark:bh-neutral-800 bg-neutral-200 rounded-xl z-0 relative;
+	@apply hidden flex-col gap-2 w-fit mx-auto p-8 dark:bg-neutral-800 bg-neutral-200 rounded-xl z-0 relative;
 }
 .match-card[data-visible='true'] {
 	@apply flex;
