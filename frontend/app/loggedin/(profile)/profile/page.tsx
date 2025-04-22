@@ -65,7 +65,7 @@ export default async function Student() {
 					</div>
 				</section>
 				<section className='flex flex-col gap-2 p-8 rounded-lg bg-neutral-200 dark:bg-neutral-800'>
-					{session?.user?.role == 'student' ? (
+					{session?.user?.role == 'Student' ? (
 						<h4>Your interests</h4>
 					) : (
 						<h4>Profile keywords</h4>
