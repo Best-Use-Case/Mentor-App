@@ -55,7 +55,10 @@ export default function MatchedUser(props: { data: Array<MatchedUser> }) {
 									</p>
 								))}
 							</div>
-							<div key={i + '-buttons'}>
+							<div
+								key={i + '-buttons'}
+								className='flex flex-row gap-4 justify-center items-center'
+							>
 								<div className='buttonWrapperDefault buttonWrapper'>
 									<button
 										type='button'
