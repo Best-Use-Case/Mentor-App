@@ -45,9 +45,9 @@ export default async function Student() {
 			<section className='flex flex-col col-span-2 md:col-span-1 gap-4 order-2 md:order-2'>
 				<section className='grid grid-cols-3 gap-4 p-8 rounded-lg bg-neutral-200 dark:bg-neutral-800 z-0'>
 					<div className='col-span-2 order-1'>
-						<h2>
+						<h4>
 							{session.user.firstName} {session.user.lastName}
-						</h2>
+						</h4>
 						<p>{session.user.email}</p>
 						{session?.user?.role ? <p>{session.user.role}</p> : null}
 						{session?.user?.description ? (
@@ -66,9 +66,9 @@ export default async function Student() {
 				</section>
 				<section className='flex flex-col gap-2 p-8 rounded-lg bg-neutral-200 dark:bg-neutral-800'>
 					{session?.user?.role == 'student' ? (
-						<h2>Your interests</h2>
+						<h4>Your interests</h4>
 					) : (
-						<h2>Profile keywords</h2>
+						<h4>Profile keywords</h4>
 					)}
 					{res.error ? (
 						<div className='flex flex-col gap-4 py-4'>
