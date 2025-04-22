@@ -42,7 +42,7 @@ export default async function Student() {
 
 	return (
 		<main className='grid grid-cols-2 gap-4 max-w-6xl mx-auto p-4'>
-			<section className='flex flex-col col-span-2 md:col-span-1 gap-4 order-2 md:order-1'>
+			<section className='flex flex-col col-span-2 md:col-span-1 gap-4 order-2 md:order-2'>
 				<section className='grid grid-cols-1 md:grid-cols-3 gap-4 p-8 rounded-lg bg-neutral-200 dark:bg-neutral-800 z-0'>
 					<div className='col-span-1 md:col-span-2 order-2 md:order-1'>
 						<h2>
@@ -86,7 +86,7 @@ export default async function Student() {
 				</section>
 				<DisplayWorkHistory userId={session.user.id} />
 			</section>
-			<section className='col-span-2 md:col-span-1 order-1 md:order-2 p-8 rounded-lg bg-neutral-200 dark:bg-neutral-800 flex flex-col items-center justify-center'>
+			<section className='col-span-2 md:col-span-1 order-2 md:order-2 p-8 rounded-lg bg-neutral-200 dark:bg-neutral-800 flex flex-col items-center justify-center'>
 				{session?.user?.role === 'Mentor' ? (
 					<div className='z-10 relative flex flex-col gap-6 text-center py-4'>
 						<h4>{`No active mentorship yet.`}</h4>
