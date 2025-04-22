@@ -56,6 +56,14 @@ export default function MatchedUser(props: { data: Array<MatchedUser> }) {
 								))}
 							</div>
 							<div key={i + '-buttons'}>
+								<div className='buttonWrapperDefault buttonWrapper'>
+									<button
+										type='button'
+										className='buttonClass'
+									>
+										{`Let's talk!`}
+									</button>
+								</div>
 								<div
 									key={i + '-rejectbutton-container'}
 									className='buttonWrapper buttonWrapperSecondary'
@@ -65,7 +73,7 @@ export default function MatchedUser(props: { data: Array<MatchedUser> }) {
 										onClick={rejectMatch}
 										className='buttonClass'
 									>
-										Reject
+										Not for me
 									</button>
 								</div>
 							</div>
