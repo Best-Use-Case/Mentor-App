@@ -32,7 +32,7 @@ export default function WelcomeMessage() {
 						width={750}
 						height={750}
 						alt='Two people talking to eachother'
-						className='md:col-span-2 md:w-full md:m-auto hidden md:block'
+						className='md:col-span-2 md:w-full md:m-auto block'
 						priority
 					/>
 					<div className='flex flex-col items-center text-left col-span-1'>
