@@ -3,10 +3,12 @@
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { LoaderCircle } from 'lucide-react';
 
 const UserForm = () => {
 	const router = useRouter();
 	const { data: session } = useSession();
+	const [loading, setLoading] = useState(false);
 	if (session && session?.user?.role) {
 		switch (session.user.id) {
 			case '1':
@@ -33,6 +35,7 @@ const UserForm = () => {
 	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setLoading(true);
 		setErrorMessage('');
 		const res = await fetch('/api/auth/register', {
 			method: 'POST',
@@ -43,9 +46,10 @@ const UserForm = () => {
 		});
 		if (!res.ok) {
 			const errorRes = await res.json();
-
+			setLoading(false);
 			setErrorMessage(`${errorRes.message}. Status: ${res.status}`);
 		} else {
+			setLoading(false);
 			router.refresh();
 			router.push('/register/success');
 		}
@@ -92,7 +96,11 @@ const UserForm = () => {
 							value='Register'
 							className='buttonClass'
 						>
-							Register new user
+							{loading ? (
+								<LoaderCircle className='size-4 mx-auto animate-spin' />
+							) : (
+								`Register new user`
+							)}
 						</button>
 					</div>
 				</section>
